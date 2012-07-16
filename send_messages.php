@@ -44,9 +44,9 @@ $mycourseid = required_param('courseid', PARAM_RAW);
 
 $context = get_context_instance(CONTEXT_USER, $USER->id);
 $contextid = $context->id;
-if ($context->contextlevel != CONTEXT_COURSE) {
-	$context->contextlevel = CONTEXT_COURSE;
-}
+//if ($context->contextlevel != CONTEXT_COURSE) {
+//	$context->contextlevel = CONTEXT_COURSE;
+//}
 
 $collaborative_session_id = get_collaborative_session_id($USER->id);
 
