@@ -34,9 +34,9 @@
  */
  
 //block_start_collaborative_session.php:
-$string['pluginname'] = 'Trabajo Colaborativo';
-$string['block_title'] = 'Trabajo Colaborativo';
-$string['start_collaborative_session:view'] = 'Ver Bloque para Trabajo Colaborativo';
+$string['pluginname'] = 'EJSApp colaborativo';
+$string['block_title'] = 'Sesion colaborativa';
+$string['start_collaborative_session:view'] = 'Ver Bloque para Sesiones Colaborativo';
 $string['goToMasSessBut'] = htmlentities('Ir a mi sesión activa');
 $string['goToStudSessBut'] = 'Participar como invitado';
 $string['closeMasSessBut'] = htmlentities('Cerrar la sesión colaborativa'); //Also in generate_applet_embedding_code.php

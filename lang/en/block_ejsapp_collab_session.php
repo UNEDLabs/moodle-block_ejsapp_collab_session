@@ -34,8 +34,8 @@
  */
  
 //block_start_collaborative_session.php:
-$string['pluginname'] = 'EJSApp Collab Session';
-$string['block_title'] = 'EJSApp Collab Session';
+$string['pluginname'] = 'EJSApp collab session';
+$string['block_title'] = 'Collab Session';
 $string['start_collaborative_session:view'] = 'View Block for Collaborative Sessions';
 $string['goToMasSessBut'] = 'Go to my active col. session';
 $string['goToStudSessBut'] = 'Participate as an invited student';

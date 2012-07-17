@@ -77,10 +77,8 @@ class block_ejsapp_collab_session extends block_list {
           return $this->content;
         }
       }
-
-      $icon = '<img src="'.$OUTPUT->pix_url('i/users') . '" class="icon" alt="" />&nbsp;';
-      
-      $image =  '<img src="' . $CFG->wwwroot.'/blocks/ejsapp_collab_session/images/collaborative.jpg' . '" alt="Invite participants to a collaborative session" width="100" height="100" />&nbsp;';
+     
+      $image =  '<img src="' . $CFG->wwwroot.'/blocks/ejsapp_collab_session/pix/icon.gif' . '" alt="Invite participants to a collaborative session"width="170" height="145" />&nbsp;';
 
 		  create_non_existing_tables();
     	$buttons = '<form>';
