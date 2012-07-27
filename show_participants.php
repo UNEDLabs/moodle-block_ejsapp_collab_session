@@ -39,7 +39,6 @@ global $CFG, $PAGE, $DB, $course;
 require_once($CFG->libdir.'/tablelib.php');
 require_once($CFG->libdir.'/filelib.php');
 require_once('manage_collaborative_db.php');
-require_once('../../mod/ejsapp/configuration.php');
 
 define('USER_SMALL_CLASS', 20);   // Below this is considered small
 define('USER_LARGE_CLASS', 200);  // Above this is considered large
@@ -48,13 +47,11 @@ define('SHOW_ALL_PAGE_SIZE', 5000);
 define('MODE_BRIEF', 0);
 define('MODE_USERDETAILS', 1);
 
-global $COLLABORATIVE_PORT;
-
 $lab_id = required_param('lab_id', PARAM_RAW);
 $courseid = required_param('courseid', PARAM_RAW);
 $contextid    = required_param('contextid', PARAM_INT);
 
-insert_collaborative_session($COLLABORATIVE_PORT, $lab_id, $USER->id, $_SERVER['REMOTE_ADDR'], $course);
+insert_collaborative_session($CFG->collaborative_port, $lab_id, $USER->id, $_SERVER['REMOTE_ADDR'], $course);
 
 $page = optional_param('page', 0, PARAM_INT);                     // which page to show
 $perpage = optional_param('perpage', DEFAULT_PAGE_SIZE, PARAM_INT);  // how many per page
