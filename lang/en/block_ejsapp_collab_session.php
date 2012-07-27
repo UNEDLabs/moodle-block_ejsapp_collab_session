@@ -37,10 +37,10 @@
 $string['pluginname'] = 'EJSApp collab session';
 $string['block_title'] = 'Collab Session';
 $string['start_collaborative_session:view'] = 'View Block for Collaborative Sessions';
-$string['goToMasSessBut'] = 'Go to my active col. session';
+$string['goToMasSessBut'] = 'Go to my active session';
 $string['goToStudSessBut'] = 'Participate as an invited student';
-$string['closeMasSessBut'] = 'Close collaborative session'; //Also in generate_applet_embedding_code.php
-$string['closeStudSessBut'] = 'Leave the collaborative session'; //Also in generate_applet_embedding_code.php
+$string['closeMasSessBut'] = 'Close my active session'; //Also in generate_applet_embedding_code.php
+$string['closeStudSessBut'] = 'Leave my active session'; //Also in generate_applet_embedding_code.php
 $string['createBut'] = 'Create collaborative session';
 $string['navBarCollaborativeSession'] = 'Collaborative session';
 

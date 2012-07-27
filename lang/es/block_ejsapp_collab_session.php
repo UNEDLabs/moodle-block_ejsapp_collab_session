@@ -39,8 +39,8 @@ $string['block_title'] = 'Sesion colaborativa';
 $string['start_collaborative_session:view'] = 'Ver Bloque para Sesiones Colaborativo';
 $string['goToMasSessBut'] = htmlentities('Ir a mi sesión activa');
 $string['goToStudSessBut'] = 'Participar como invitado';
-$string['closeMasSessBut'] = htmlentities('Cerrar la sesión colaborativa'); //Also in generate_applet_embedding_code.php
-$string['closeStudSessBut'] = htmlentities('Abandonar la sesión colaborativa'); //Also in generate_applet_embedding_code.php
+$string['closeMasSessBut'] = htmlentities('Cerrar mi sesión activa'); //Also in generate_applet_embedding_code.php
+$string['closeStudSessBut'] = htmlentities('Abandonar mi sesión activa'); //Also in generate_applet_embedding_code.php
 $string['createBut'] = htmlentities('Crear sesión colaborativa');
 $string['navBarCollaborativeSession'] = htmlentities('Sesión colaborativa');
 
