@@ -38,9 +38,9 @@ $string['pluginname'] = 'EJSApp colaborativo';
 $string['block_title'] = 'Sesion colaborativa';
 $string['start_collaborative_session:view'] = 'Ver Bloque para Sesiones Colaborativo';
 $string['goToMasSessBut'] = htmlentities('Ir a mi sesión activa');
-$string['goToStudSessBut'] = 'Participar como invitado';
+$string['goToStudSessBut'] = 'Ver mis sesiones activas';
 $string['closeMasSessBut'] = htmlentities('Cerrar mi sesión activa'); //Also in generate_applet_embedding_code.php
-$string['closeStudSessBut'] = htmlentities('Abandonar mi sesión activa'); //Also in generate_applet_embedding_code.php
+$string['closeStudSessBut'] = htmlentities('Abandonar esta sesión'); //Also in generate_applet_embedding_code.php
 $string['createBut'] = htmlentities('Crear sesión colaborativa');
 $string['navBarCollaborativeSession'] = htmlentities('Sesión colaborativa');
 
@@ -53,7 +53,7 @@ $string['backToCourse'] = 'Volver al curso';
 //master_user.php:
 $string['navBarMasterUser'] = 'Seleccionando laboratorio';
 $string['cantJoinSessionErr1'] = htmlentities('Error: Ya tiene una sesión colaborativa activa. Ciérrela antes para poder iniciar o unirse a una nueva.');
-$string['selectLabBut'] = 'Seleccione laboratorio';
+$string['selectLabBut'] = 'Seleccionar este laboratorio';
 $string['selectColLab'] = htmlentities('Seleccione uno de los laboratorios colaborativos síncronos:');
 
 //non_master_user.php:

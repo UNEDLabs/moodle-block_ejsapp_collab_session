@@ -38,9 +38,9 @@ $string['pluginname'] = 'EJSApp collab session';
 $string['block_title'] = 'Collab Session';
 $string['start_collaborative_session:view'] = 'View Block for Collaborative Sessions';
 $string['goToMasSessBut'] = 'Go to my active session';
-$string['goToStudSessBut'] = 'Participate as an invited student';
+$string['goToStudSessBut'] = 'List all my active invitations';
 $string['closeMasSessBut'] = 'Close my active session'; //Also in generate_applet_embedding_code.php
-$string['closeStudSessBut'] = 'Leave my active session'; //Also in generate_applet_embedding_code.php
+$string['closeStudSessBut'] = 'Leave this session'; //Also in generate_applet_embedding_code.php
 $string['createBut'] = 'Create collaborative session';
 $string['navBarCollaborativeSession'] = 'Collaborative session';
 
@@ -53,7 +53,7 @@ $string['backToCourse'] = 'Go back to the course';
 //master_user.php:
 $string['navBarMasterUser'] = 'Selecting lab';
 $string['cantJoinSessionErr1'] = 'Error: You are already participating in a collaborative session. Close your active collaborative session before creating a new one.';
-$string['selectLabBut'] = 'Select laboratory';
+$string['selectLabBut'] = 'Select this laboratory';
 $string['selectColLab'] = 'Select one of the following synchronous collaborative labs:';
 
 //non_master_user.php:
