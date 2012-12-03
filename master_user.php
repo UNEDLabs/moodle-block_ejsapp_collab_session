@@ -26,7 +26,8 @@
 
 
 /**
- *    
+ * Init file for a master user
+ *
  * @package    block
  * @subpackage ejsapp_collab_session
  * @copyright  2012 Luis de la Torre, Ruben Heradio and Carlos Jara
@@ -43,22 +44,20 @@ require('init_page.php');
 create_non_existing_tables();
 
 if (is_the_user_participating_in_any_session()) {
-  echo "<center>" . get_string(cantJoinSessionErr1, block_ejsapp_collab_session) . "</center>";
+  echo $OUTPUT->heading(get_string(cantJoinSessionErr1, block_ejsapp_collab_session));
 } else {
   $collaborative_lab_names = get_all_collaborative_lab_names($courseid);
-  $show_participants_url = $CFG->wwwroot .
-  '/blocks/ejsapp_collab_session/show_participants.php';
-  echo '<form action="' . $show_participants_url . '" method="get" >
-  <p align="center">' . get_string('selectColLab', 'block_ejsapp_collab_session') . '</p>';
+  $show_participants_url = $CFG->wwwroot . '/blocks/ejsapp_collab_session/show_participants.php';
+  echo $OUTPUT->heading(get_string('selectColLab', 'block_ejsapp_collab_session'));
+  echo '<form action="' . $show_participants_url . '" method="get" >';
   $i = 1;
-  $number_of_collaborative_labs = count($collaborative_lab_names);
   foreach ($collaborative_lab_names as $lab) {
-    if ($i < $number_of_collaborative_labs) {
-      echo '<input type=radio name="lab_id" value="' . $lab->id .
-      '">' . $lab->name . '<br>';
-    } else {
+    if ($i == 1) {
       echo '<input type=radio name="lab_id" value="' . $lab->id .
       '" checked>' . $lab->name . '<br>';
+    } else {
+      echo '<input type=radio name="lab_id" value="' . $lab->id .
+      '">' . $lab->name . '<br>';
     }
     $i++;
   }

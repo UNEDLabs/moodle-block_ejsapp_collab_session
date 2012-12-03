@@ -24,9 +24,11 @@
 //  (2): Physics, Systems Engineering and Signal Theory Department, University
 //       of Alicante, Spain
 
-
 /**
- *    
+ * File where master user selects the invited users. Those users receive an invitation
+ * with "send_messages.php"
+ * to join the collaborative session by (1) email and (2) moodle message
+ *
  * @package    block
  * @subpackage ejsapp_collab_session
  * @copyright  2012 Luis de la Torre, Ruben Heradio and Carlos Jara
@@ -93,11 +95,11 @@ $isfrontpage = ($course->id == SITEID);
 $frontpagectx = get_context_instance(CONTEXT_COURSE, SITEID);
 
 if ($isfrontpage) {
-    $PAGE->set_pagelayout('admin');
+  $PAGE->set_pagelayout('admin');
 	$PAGE->navbar->add(get_string('navBarCollaborativeSession', 'block_ejsapp_collab_session'));
 	$PAGE->navbar->add(get_string('navBarShowParticipants', 'block_ejsapp_collab_session'));
 } else {
-    $PAGE->set_pagelayout('incourse');
+  $PAGE->set_pagelayout('incourse');
 	$PAGE->navbar->add(get_string('navBarCollaborativeSession', 'block_ejsapp_collab_session'));
 	$PAGE->navbar->add(get_string('navBarShowParticipants', 'block_ejsapp_collab_session'));
 }
@@ -236,7 +238,6 @@ $controlstable->data[] = new html_table_row();
 /// Print my course menus
 if ($mycourses = enrol_get_my_courses()) {
   $courselist = array();
-  //$popupurl = new moodle_url('/blocks/ejsapp_collab_session/show_participants.php?roleid='.$roleid.'&sifirst=&silast=');
 	$popupurl = new moodle_url('/blocks/ejsapp_collab_session/show_participants.php?roleid='.$roleid.'&sifirst=&silast=');
   foreach ($mycourses as $mycourse) {
     $courselist[$mycourse->id] = format_string($mycourse->shortname);
@@ -818,7 +819,11 @@ if ($userlist) {
   $userlist->close();
 }
 
-
+/**
+ * returns the course last access
+ *
+ * @param int $accesssince
+ */
 function get_course_lastaccess_sql($accesssince='') {
   if (empty($accesssince)) {
     return '';
@@ -830,6 +835,11 @@ function get_course_lastaccess_sql($accesssince='') {
   }
 }
 
+/**
+ * returns the user last access
+ *
+ * @param int $accesssince
+ */
 function get_user_lastaccess_sql($accesssince='') {
   if (empty($accesssince)) {
     return '';

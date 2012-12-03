@@ -26,7 +26,8 @@
 
 
 /**
- *    
+ * Spanish strings
+ *
  * @package    block
  * @subpackage ejsapp_collab_session
  * @copyright  2012 Luis de la Torre, Ruben Heradio and Carlos Jara
@@ -35,42 +36,42 @@
  
 //block_start_collaborative_session.php:
 $string['pluginname'] = 'EJSApp colaborativo';
-$string['block_title'] = 'Sesion colaborativa';
+$string['block_title'] = 'Sesion Colaborativa EJSApp';
 $string['start_collaborative_session:view'] = 'Ver Bloque para Sesiones Colaborativo';
-$string['goToMasSessBut'] = htmlentities('Ir a mi sesión activa');
+$string['goToMasSessBut'] = htmlentities('Ir a mi sesiï¿½n activa');
 $string['goToStudSessBut'] = 'Ver mis sesiones activas';
-$string['closeMasSessBut'] = htmlentities('Cerrar mi sesión activa'); //Also in generate_applet_embedding_code.php
-$string['closeStudSessBut'] = htmlentities('Abandonar esta sesión'); //Also in generate_applet_embedding_code.php
-$string['createBut'] = htmlentities('Crear sesión colaborativa');
-$string['navBarCollaborativeSession'] = htmlentities('Sesión colaborativa');
+$string['closeMasSessBut'] = htmlentities('Cerrar mi sesiï¿½n activa');
+$string['closeStudSessBut'] = htmlentities('Abandonar esta sesiï¿½n');
+$string['createBut'] = htmlentities('Crear sesiï¿½n colaborativa');
+$string['navBarCollaborativeSession'] = htmlentities('Sesiï¿½n colaborativa');
 
 //close_collaborative_session.php:
-$string['close1'] = htmlentities('La sesión colaborativa del laboratorio ');
+$string['close1'] = htmlentities('La sesiï¿½n colaborativa del laboratorio ');
 $string['close2'] = ' ha sido cerrada.';
-$string['goodbyeStudent'] = htmlentities('Ha abandonado la sesión colaborativa.');
+$string['goodbyeStudent'] = htmlentities('Ha abandonado la sesiï¿½n colaborativa.');
 $string['backToCourse'] = 'Volver al curso';
 
 //master_user.php:
 $string['navBarMasterUser'] = 'Seleccionando laboratorio';
-$string['cantJoinSessionErr1'] = htmlentities('Error: Ya tiene una sesión colaborativa activa. Ciérrela antes para poder iniciar o unirse a una nueva.');
+$string['cantJoinSessionErr1'] = htmlentities('Error: Ya tiene una sesiï¿½n colaborativa activa. Ciï¿½rrela antes para poder iniciar o unirse a una nueva.');
 $string['selectLabBut'] = 'Seleccionar este laboratorio';
-$string['selectColLab'] = htmlentities('Seleccione uno de los laboratorios colaborativos síncronos:');
+$string['selectColLab'] = htmlentities('Seleccione uno de los laboratorios colaborativos sï¿½ncronos:');
 
 //non_master_user.php:
-$string['navBarNonMasterUser'] = htmlentities('Aceptando invitación');
+$string['navBarNonMasterUser'] = htmlentities('Aceptando invitaciï¿½n');
 $string['selectInvitation'] = 'Seleccione una de las invitaciones pendientes:';
 $string['invitationMsg1'] = ' le ha invitado al siguiente laboratorio: ';
-$string['acceptInvitation'] = htmlentities('Aceptar invitación');
-$string['cantJoinSessionErr2'] = htmlentities('Error: Actualmente no tiene invitaciones activas para ninguna sesión colaborativa.');
+$string['acceptInvitation'] = htmlentities('Aceptar invitaciï¿½n');
+$string['cantJoinSessionErr2'] = htmlentities('Error: Actualmente no tiene invitaciones activas para ninguna sesiï¿½n colaborativa.');
 
 //Send_messages.php:
-$string['invitationMsg2'] = htmlentities('Le invito a una sesión colaborativa.');
+$string['invitationMsg2'] = htmlentities('Le invito a una sesiï¿½n colaborativa.');
 
 //Show_participants.php:
 $string['inviteParticipants'] = 'Invitar participantes';
 $string['navBarShowParticipants'] = 'Selecionando invitados';
 
 //generate_applet_embedding_code.php and many others:
-$string['pageTitle']=htmlentities('Sesión Colaborativa de Laboratorio');
+$string['pageTitle']=htmlentities('Sesiï¿½n Colaborativa de Laboratorio');
 
 ?>

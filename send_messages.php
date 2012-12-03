@@ -26,7 +26,8 @@
 
 
 /**
- *    
+ * File that sends an invitation to join the collaborative session by (1) email and (2) moodle message
+ *
  * @package    block
  * @subpackage ejsapp_collab_session
  * @copyright  2012 Luis de la Torre, Ruben Heradio and Carlos Jara
@@ -113,11 +114,17 @@ if (count($SESSION->emailto[$mycourseid])) {
   }
   $good = true;
   if ($good) {
-	$redirection = <<<EOD
+  $session_director = $DB->get_record('collaborative_users',array('id'=>$USER->id));
+  $session_id = $session_director->collaborative_session_where_user_participates;
+  $session_ip = $session_director->ip;
+  $am_i_director= am_i_master_user();
+  $session = $DB->get_record('collaborative_sessions',array('id'=>$session_id));
+$redirection = <<<EOD
 <center>
 <script>
-	location.href='{$CFG->wwwroot}/mod/ejsapp/generate_applet_embedding_code.php?caller=ejsapp_collab_session&session=$collaborative_session_id&courseid=$courseid&contextid=$contextid';
+	location.href = '{$CFG->wwwroot}/mod/ejsapp/view.php?n={$session->ejsapp}&colsession=$session_id&colip=$session_ip&colport={$session->port}&sessiondirector=$am_i_director';
 </script>
+</center>
 EOD;
  	echo $redirection;
   } else {

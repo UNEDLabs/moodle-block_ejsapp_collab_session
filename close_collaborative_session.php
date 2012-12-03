@@ -26,7 +26,8 @@
 
 
 /**
- *    
+ * File that manages the exit from a collaborative session
+ *
  * @package    block
  * @subpackage ejsapp_collab_session
  * @copyright  2012 Luis de la Torre, Ruben Heradio and Carlos Jara
@@ -34,18 +35,31 @@
  */
  
 require_once('../../config.php');
-require_login();
 require_once('manage_collaborative_db.php');
 
 global $CFG;
 
 $session = required_param('session', PARAM_INT);
+$course_id = required_param('courseid', PARAM_INT);
+/*$cm_id = required_param('cmid', PARAM_INT);
+$context = get_context_instance(CONTEXT_MODULE, $cm_id);*/
+$title = get_string('pageTitle', 'block_ejsapp_collab_session');
 
-require('init_page.php');
+$course = $DB->get_record('course', array('id'=>$course_id), '*', MUST_EXIST);
+
+require_login($course);
+
+//$PAGE->set_context($context);
+$PAGE->set_url('/blocks/ejsapp_collab_session/close_collaborative_session.php');
+$PAGE->set_title($title);
+$PAGE->set_heading($title);
+$PAGE->set_pagelayout('incourse');
+
+$PAGE->navbar->add(get_string('navBarCollaborativeSession', 'block_ejsapp_collab_session'));
+
+echo $OUTPUT->header();
 
 $ejsapp = get_ejsapp_object($session);
-$master_user = get_master_user_object($session);
-$course_id = get_course($master_user->collaborative_session_where_user_participates);
 $course_url = $CFG->wwwroot . "/course/view.php?id=$course_id";
 
 if (am_i_master_user()) {

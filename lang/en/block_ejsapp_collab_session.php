@@ -26,7 +26,8 @@
 
 
 /**
- *    
+ * English strings
+ *
  * @package    block
  * @subpackage ejsapp_collab_session
  * @copyright  2012 Luis de la Torre, Ruben Heradio and Carlos Jara
@@ -35,12 +36,12 @@
  
 //block_start_collaborative_session.php:
 $string['pluginname'] = 'EJSApp collab session';
-$string['block_title'] = 'Collab Session';
+$string['block_title'] = 'EJSApp Collab Session';
 $string['start_collaborative_session:view'] = 'View Block for Collaborative Sessions';
 $string['goToMasSessBut'] = 'Go to my active session';
 $string['goToStudSessBut'] = 'List all my active invitations';
-$string['closeMasSessBut'] = 'Close my active session'; //Also in generate_applet_embedding_code.php
-$string['closeStudSessBut'] = 'Leave this session'; //Also in generate_applet_embedding_code.php
+$string['closeMasSessBut'] = 'Close my active session';
+$string['closeStudSessBut'] = 'Leave this session';
 $string['createBut'] = 'Create collaborative session';
 $string['navBarCollaborativeSession'] = 'Collaborative session';
 

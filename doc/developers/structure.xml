@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project version="2.0.0a11" title="">
+  <file path="block_ejsapp_collab_session.php" hash="943925c01350e141b16c073f3d159cd5" package="block\ejsapp\collab\session">
+    <docblock line="28">
+      <description>Block to manage collaborative sessions among EJS simulations</description>
+      <long-description/>
+      <tag line="28" name="package" description="block"/>
+      <tag line="28" name="subpackage" description="ejsapp_collab_session"/>
+      <tag line="28" name="copyright" description="2012 Luis de la Torre, Ruben Heradio and Carlos Jara"/>
+      <tag line="28" name="license" description="http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later"/>
+    </docblock>
+    <include line="37" type="Require Once" package="Default">
+      <name>manage_collaborative_db.php</name>
+    </include>
+    <class final="false" abstract="false" namespace="global" line="43" package="Default">
+      <extends>\block_list</extends>
+      <name>block_ejsapp_collab_session</name>
+      <full_name>\block_ejsapp_collab_session</full_name>
+      <docblock line="40">
+        <description>Class that defines the EJSAppCollabSession block</description>
+        <long-description/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="48" package="Default">
+        <name>init</name>
+        <full_name>init</full_name>
+        <docblock line="45">
+          <description>Init function for the EJSAppCollabSession block</description>
+          <long-description/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="57" package="Default">
+        <name>get_content</name>
+        <full_name>get_content</full_name>
+        <docblock line="54">
+          <description>Get function for the EJSAppCollabSession block</description>
+          <long-description/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="137" package="Default">
+        <name>applicable_formats</name>
+        <full_name>applicable_formats</full_name>
+        <docblock line="134">
+          <description>applicable_formats function for the EJSAppCollabSession block</description>
+          <long-description/>
+        </docblock>
+      </method>
+    </class>
+  </file>
+  <file path="close_collaborative_session.php" hash="8524ca37820c3493ffdd30566207774a" package="block\ejsapp\collab\session">
+    <docblock line="28">
+      <description>File that manages the exit from a collaborative session</description>
+      <long-description/>
+      <tag line="28" name="package" description="block"/>
+      <tag line="28" name="subpackage" description="ejsapp_collab_session"/>
+      <tag line="28" name="copyright" description="2012 Luis de la Torre, Ruben Heradio and Carlos Jara"/>
+      <tag line="28" name="license" description="http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later"/>
+    </docblock>
+    <include line="37" type="Require Once" package="Default">
+      <name>../../config.php</name>
+    </include>
+    <include line="38" type="Require Once" package="Default">
+      <name>manage_collaborative_db.php</name>
+    </include>
+  </file>
+  <file path="init_page.php" hash="bfb757460aaa050f16cc7bf7ddedfb3b" package="block\ejsapp\collab\session">
+    <docblock line="28">
+      <description>Initialization of collaborative web pages</description>
+      <long-description/>
+      <tag line="28" name="package" description="block"/>
+      <tag line="28" name="subpackage" description="ejsapp_collab_session"/>
+      <tag line="28" name="copyright" description="2012 Luis de la Torre, Ruben Heradio and Carlos Jara"/>
+      <tag line="28" name="license" description="http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later"/>
+    </docblock>
+  </file>
+  <file path="lang\en\block_ejsapp_collab_session.php" hash="99a0f74b612694706d049c297298e5e4" package="block\ejsapp\collab\session">
+    <docblock line="28">
+      <description>English strings</description>
+      <long-description></long-description>
+      <tag line="28" name="package" description="block"/>
+      <tag line="28" name="subpackage" description="ejsapp_collab_session"/>
+      <tag line="28" name="copyright" description="2012 Luis de la Torre, Ruben Heradio and Carlos Jara"/>
+      <tag line="28" name="license" description="http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later"/>
+    </docblock>
+  </file>
+  <file path="lang\es\block_ejsapp_collab_session.php" hash="9318be1d8a59a20e6f59dc156b463f11" package="block\ejsapp\collab\session">
+    <docblock line="28">
+      <description>Spanish strings</description>
+      <long-description></long-description>
+      <tag line="28" name="package" description="block"/>
+      <tag line="28" name="subpackage" description="ejsapp_collab_session"/>
+      <tag line="28" name="copyright" description="2012 Luis de la Torre, Ruben Heradio and Carlos Jara"/>
+      <tag line="28" name="license" description="http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later"/>
+    </docblock>
+  </file>
+  <file path="manage_collaborative_db.php" hash="6815376ff8d37febd2716b5897e5de5e" package="block\ejsapp\collab\session">
+    <docblock line="28">
+      <description>File that centralizes all DB management</description>
+      <long-description/>
+      <tag line="28" name="package" description="block"/>
+      <tag line="28" name="subpackage" description="ejsapp_collab_session"/>
+      <tag line="28" name="copyright" description="2012 Luis de la Torre, Ruben Heradio and Carlos Jara"/>
+      <tag line="28" name="license" description="http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later"/>
+    </docblock>
+    <function namespace="global" line="40" package="block\ejsapp\collab\session">
+      <name>is_the_user_participating_in_any_session</name>
+      <full_name>\is_the_user_participating_in_any_session</full_name>
+      <docblock line="37">
+        <description>returns true if the user is participating in some collaborative session</description>
+        <long-description/>
+      </docblock>
+    </function>
+    <function namespace="global" line="64" package="block\ejsapp\collab\session">
+      <name>has_the_user_been_invited_to_any_session</name>
+      <full_name>\has_the_user_been_invited_to_any_session</full_name>
+      <docblock line="61">
+        <description>returns true if the user has been invited in some collaborative session</description>
+        <long-description/>
+      </docblock>
+    </function>
+    <function namespace="global" line="83" package="block\ejsapp\collab\session">
+      <name>does_the_table_exists</name>
+      <full_name>\does_the_table_exists</full_name>
+      <docblock line="78">
+        <description>returns true if the input table exists in the moodle database</description>
+        <long-description/>
+        <tag line="78" name="param" description="" type="string" variable="$table_name">
+          <type by_reference="false">string</type>
+        </tag>
+      </docblock>
+      <argument line="83">
+        <name>$table_name</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <function namespace="global" line="94" package="block\ejsapp\collab\session">
+      <name>create_non_existing_tables</name>
+      <full_name>\create_non_existing_tables</full_name>
+      <docblock line="91">
+        <description>initialization function that creates all tables required by the ejsapp_collab_session block</description>
+        <long-description/>
+      </docblock>
+    </function>
+    <function namespace="global" line="149" package="block\ejsapp\collab\session">
+      <name>insert_collaborative_session</name>
+      <full_name>\insert_collaborative_session</full_name>
+      <docblock line="140">
+        <description>creates a new collaborative session</description>
+        <long-description/>
+        <tag line="140" name="param" description="connection port of the master user" type="int" variable="$port">
+          <type by_reference="false">int</type>
+        </tag>
+        <tag line="140" name="param" description="id of the EJS simulation to be shared" type="int" variable="$ejsapp">
+          <type by_reference="false">int</type>
+        </tag>
+        <tag line="140" name="param" description="id of the master user" type="int" variable="$master_user">
+          <type by_reference="false">int</type>
+        </tag>
+        <tag line="140" name="param" description="connection ip of the session director" type="int" variable="$ip">
+          <type by_reference="false">int</type>
+        </tag>
+        <tag line="140" name="param" description="id of the course that includes the collaborative EJS simulation" type="int" variable="$course">
+          <type by_reference="false">int</type>
+        </tag>
+      </docblock>
+      <argument line="149">
+        <name>$port</name>
+        <default/>
+        <type/>
+      </argument>
+      <argument line="149">
+        <name>$ejsapp</name>
+        <default/>
+        <type/>
+      </argument>
+      <argument line="149">
+        <name>$master_user</name>
+        <default/>
+        <type/>
+      </argument>
+      <argument line="149">
+        <name>$ip</name>
+        <default/>
+        <type/>
+      </argument>
+      <argument line="149">
+        <name>$course</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <function namespace="global" line="182" package="block\ejsapp\collab\session">
+      <name>insert_collaborative_user</name>
+      <full_name>\insert_collaborative_user</full_name>
+      <docblock line="175">
+        <description>includes a user into a new collaborative session</description>
+        <long-description/>
+        <tag line="175" name="param" description="user id" type="int" variable="$id">
+          <type by_reference="false">int</type>
+        </tag>
+        <tag line="175" name="param" description="connection ip of the session director" type="int" variable="$ip">
+          <type by_reference="false">int</type>
+        </tag>
+        <tag line="175" name="param" description="id of the collaborative session" type="int" variable="$collaborative_session">
+          <type by_reference="false">int</type>
+        </tag>
+      </docblock>
+      <argument line="182">
+        <name>$id</name>
+        <default/>
+        <type/>
+      </argument>
+      <argument line="182">
+        <name>$ip</name>
+        <default>null</default>
+        <type/>
+      </argument>
+      <argument line="182">
+        <name>$collaborative_session</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <function namespace="global" line="212" package="block\ejsapp\collab\session">
+      <name>get_collaborative_session_id</name>
+      <full_name>\get_collaborative_session_id</full_name>
+      <docblock line="207">
+        <description>returns the id of the collaborative session directed by a given master user</description>
+        <long-description/>
+        <tag line="207" name="param" description="id of the master user" type="int" variable="$master_user">
+          <type by_reference="false">int</type>
+        </tag>
+      </docblock>
+      <argument line="212">
+        <name>$master_user</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <function namespace="global" line="230" package="block\ejsapp\collab\session">
+      <name>insert_collaborative_invitation</name>
+      <full_name>\insert_collaborative_invitation</full_name>
+      <docblock line="224">
+        <description>creates a collaborative invitation</description>
+        <long-description/>
+        <tag line="224" name="param" description="id of the invited user" type="int" variable="$invited_user">
+          <type by_reference="false">int</type>
+        </tag>
+        <tag line="224" name="param" description="id of the collaborative session" type="int" variable="$collaborative_session">
+          <type by_reference="false">int</type>
+        </tag>
+      </docblock>
+      <argument line="230">
+        <name>$invited_user</name>
+        <default/>
+        <type/>
+      </argument>
+      <argument line="230">
+        <name>$collaborative_session</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <function namespace="global" line="255" package="block\ejsapp\collab\session">
+      <name>delete_me_as_collaborative_user</name>
+      <full_name>\delete_me_as_collaborative_user</full_name>
+      <docblock line="252">
+        <description>drops out a user from the collaborative session</description>
+        <long-description/>
+      </docblock>
+    </function>
+    <function namespace="global" line="269" package="block\ejsapp\collab\session">
+      <name>delete_collaborative_session</name>
+      <full_name>\delete_collaborative_session</full_name>
+      <docblock line="264">
+        <description>finishes a collaborative session</description>
+        <long-description/>
+        <tag line="264" name="param" description="id of the master user" type="int" variable="$master_user">
+          <type by_reference="false">int</type>
+        </tag>
+      </docblock>
+      <argument line="269">
+        <name>$master_user</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <function namespace="global" line="288" package="block\ejsapp\collab\session">
+      <name>get_ejsapp</name>
+      <full_name>\get_ejsapp</full_name>
+      <docblock line="283">
+        <description>returns the id of the EJS simulation shared in a collaborative session</description>
+        <long-description/>
+        <tag line="283" name="param" description="id of the master user" type="int" variable="$master_user">
+          <type by_reference="false">int</type>
+        </tag>
+      </docblock>
+      <argument line="288">
+        <name>$master_user</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <function namespace="global" line="304" package="block\ejsapp\collab\session">
+      <name>get_ejsapp_name</name>
+      <full_name>\get_ejsapp_name</full_name>
+      <docblock line="299">
+        <description>returns the name of the EJS simulation shared in a collaborative session</description>
+        <long-description/>
+        <tag line="299" name="param" description="id of the master user" type="int" variable="$master_user">
+          <type by_reference="false">int</type>
+        </tag>
+      </docblock>
+      <argument line="304">
+        <name>$master_user</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <function namespace="global" line="326" package="block\ejsapp\collab\session">
+      <name>get_ejsapp_object</name>
+      <full_name>\get_ejsapp_object</full_name>
+      <docblock line="321">
+        <description>returns an object that fully describes the simulation shared in a collaborative session</description>
+        <long-description/>
+        <tag line="321" name="param" description="id of the collaborative session" type="int" variable="$session">
+          <type by_reference="false">int</type>
+        </tag>
+      </docblock>
+      <argument line="326">
+        <name>$session</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <function namespace="global" line="349" package="block\ejsapp\collab\session">
+      <name>get_master_user_object</name>
+      <full_name>\get_master_user_object</full_name>
+      <docblock line="344">
+        <description>returns an object that fully describes the master user that leads a collaborative session</description>
+        <long-description/>
+        <tag line="344" name="param" description="id of the collaborative session" type="int" variable="$session">
+          <type by_reference="false">int</type>
+        </tag>
+      </docblock>
+      <argument line="349">
+        <name>$session</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <function namespace="global" line="369" package="block\ejsapp\collab\session">
+      <name>get_sessions_where_i_am_invited</name>
+      <full_name>\get_sessions_where_i_am_invited</full_name>
+      <docblock line="366">
+        <description>returns an list of all collaborative sessions where I have been invited</description>
+        <long-description/>
+      </docblock>
+    </function>
+    <function namespace="global" line="391" package="block\ejsapp\collab\session">
+      <name>get_user_name</name>
+      <full_name>\get_user_name</full_name>
+      <docblock line="386">
+        <description>returns the name of a user</description>
+        <long-description/>
+        <tag line="386" name="param" description="id of user" type="int" variable="$user">
+          <type by_reference="false">int</type>
+        </tag>
+      </docblock>
+      <argument line="391">
+        <name>$user</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <function namespace="global" line="402" package="block\ejsapp\collab\session">
+      <name>delete_non_master_user_from_collaborative_users</name>
+      <full_name>\delete_non_master_user_from_collaborative_users</full_name>
+      <docblock line="399">
+        <description>drops out a non master user from the collaborative session</description>
+        <long-description/>
+      </docblock>
+    </function>
+    <function namespace="global" line="416" package="block\ejsapp\collab\session">
+      <name>get_all_collaborative_lab_names</name>
+      <full_name>\get_all_collaborative_lab_names</full_name>
+      <docblock line="411">
+        <description>returns the names of all collaborative EJS simulations in a given course</description>
+        <long-description/>
+        <tag line="411" name="param" description="id of the course" type="int" variable="$course">
+          <type by_reference="false">int</type>
+        </tag>
+      </docblock>
+      <argument line="416">
+        <name>$course</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <function namespace="global" line="431" package="block\ejsapp\collab\session">
+      <name>get_port</name>
+      <full_name>\get_port</full_name>
+      <docblock line="426">
+        <description>returns the connection port that the session director is using in the collaborative session</description>
+        <long-description/>
+        <tag line="426" name="param" description="id of the collaborative session" type="int" variable="$session_id">
+          <type by_reference="false">int</type>
+        </tag>
+      </docblock>
+      <argument line="431">
+        <name>$session_id</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <function namespace="global" line="448" package="block\ejsapp\collab\session">
+      <name>get_course</name>
+      <full_name>\get_course</full_name>
+      <docblock line="443">
+        <description>returns the course id that where the collaborative session is being executed</description>
+        <long-description/>
+        <tag line="443" name="param" description="id of the collaborative session" type="int" variable="$session_id">
+          <type by_reference="false">int</type>
+        </tag>
+      </docblock>
+      <argument line="448">
+        <name>$session_id</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <function namespace="global" line="464" package="block\ejsapp\collab\session">
+      <name>get_course_name</name>
+      <full_name>\get_course_name</full_name>
+      <docblock line="459">
+        <description>returns the name of a course</description>
+        <long-description/>
+        <tag line="459" name="param" description="id of the course" type="int" variable="$course_id">
+          <type by_reference="false">int</type>
+        </tag>
+      </docblock>
+      <argument line="464">
+        <name>$course_id</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <function namespace="global" line="474" package="block\ejsapp\collab\session">
+      <name>am_i_master_user</name>
+      <full_name>\am_i_master_user</full_name>
+      <docblock line="471">
+        <description>returns true if the caller is a the master user of a collaborative session</description>
+        <long-description/>
+      </docblock>
+    </function>
+  </file>
+  <file path="master_user.php" hash="d4a8c8e22d15c76bb3fa8b9b477f8cd8" package="block\ejsapp\collab\session">
+    <docblock line="28">
+      <description>Init file for a master user</description>
+      <long-description/>
+      <tag line="28" name="package" description="block"/>
+      <tag line="28" name="subpackage" description="ejsapp_collab_session"/>
+      <tag line="28" name="copyright" description="2012 Luis de la Torre, Ruben Heradio and Carlos Jara"/>
+      <tag line="28" name="license" description="http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later"/>
+    </docblock>
+    <include line="37" type="Require Once" package="Default">
+      <name>../../config.php</name>
+    </include>
+    <include line="39" type="Require Once" package="Default">
+      <name>manage_collaborative_db.php</name>
+    </include>
+    <include line="42" type="Require" package="Default">
+      <name>init_page.php</name>
+    </include>
+  </file>
+  <file path="non_master_user.php" hash="959b7fc0b7cafd82af2ddcc3f495a778" package="block\ejsapp\collab\session">
+    <docblock line="28">
+      <description>Init file for an invited user</description>
+      <long-description/>
+      <tag line="28" name="package" description="block"/>
+      <tag line="28" name="subpackage" description="ejsapp_collab_session"/>
+      <tag line="28" name="copyright" description="2012 Luis de la Torre, Ruben Heradio and Carlos Jara"/>
+      <tag line="28" name="license" description="http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later"/>
+    </docblock>
+    <include line="37" type="Require Once" package="Default">
+      <name>../../config.php</name>
+    </include>
+    <include line="40" type="Require Once" package="Default">
+      <name>manage_collaborative_db.php</name>
+    </include>
+    <include line="41" type="Require Once" package="Default">
+      <name/>
+    </include>
+    <include line="44" type="Require" package="Default">
+      <name>init_page.php</name>
+    </include>
+  </file>
+  <file path="send_messages.php" hash="283f472bf1f6dd75f835d2f9e6e44736" package="block\ejsapp\collab\session">
+    <docblock line="28">
+      <description>File that sends an invitation to join the collaborative session by (1) email and (2) moodle message</description>
+      <long-description/>
+      <tag line="28" name="package" description="block"/>
+      <tag line="28" name="subpackage" description="ejsapp_collab_session"/>
+      <tag line="28" name="copyright" description="2012 Luis de la Torre, Ruben Heradio and Carlos Jara"/>
+      <tag line="28" name="license" description="http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later"/>
+    </docblock>
+    <include line="37" type="Require Once" package="Default">
+      <name>../../config.php</name>
+    </include>
+    <include line="40" type="Require Once" package="Default">
+      <name/>
+    </include>
+    <include line="42" type="Require Once" package="Default">
+      <name>manage_collaborative_db.php</name>
+    </include>
+    <include line="97" type="Require" package="Default">
+      <name>init_page.php</name>
+    </include>
+  </file>
+  <file path="show_participants.php" hash="9cbc01388795f11e549a9fec69a57685" package="block\ejsapp\collab\session">
+    <docblock line="27">
+      <description>File where master user selects the invited users.</description>
+      <long-description>&lt;p&gt;Those users receive an invitation
+with "send_messages.php"
+to join the collaborative session by (1) email and (2) moodle message&lt;/p&gt;</long-description>
+      <tag line="27" name="package" description="block"/>
+      <tag line="27" name="subpackage" description="ejsapp_collab_session"/>
+      <tag line="27" name="copyright" description="2012 Luis de la Torre, Ruben Heradio and Carlos Jara"/>
+      <tag line="27" name="license" description="http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later"/>
+    </docblock>
+    <include line="38" type="Require Once" package="Default">
+      <name>../../config.php</name>
+    </include>
+    <include line="41" type="Require Once" package="Default">
+      <name/>
+    </include>
+    <include line="42" type="Require Once" package="Default">
+      <name/>
+    </include>
+    <include line="43" type="Require Once" package="Default">
+      <name>manage_collaborative_db.php</name>
+    </include>
+    <constant namespace="global" line="45" package="block\ejsapp\collab\session">
+      <name>USER_SMALL_CLASS</name>
+      <full_name>\USER_SMALL_CLASS</full_name>
+      <value>20</value>
+    </constant>
+    <constant namespace="global" line="46" package="block\ejsapp\collab\session">
+      <name>USER_LARGE_CLASS</name>
+      <full_name>\USER_LARGE_CLASS</full_name>
+      <value>200</value>
+    </constant>
+    <constant namespace="global" line="47" package="block\ejsapp\collab\session">
+      <name>DEFAULT_PAGE_SIZE</name>
+      <full_name>\DEFAULT_PAGE_SIZE</full_name>
+      <value>20</value>
+    </constant>
+    <constant namespace="global" line="48" package="block\ejsapp\collab\session">
+      <name>SHOW_ALL_PAGE_SIZE</name>
+      <full_name>\SHOW_ALL_PAGE_SIZE</full_name>
+      <value>5000</value>
+    </constant>
+    <constant namespace="global" line="49" package="block\ejsapp\collab\session">
+      <name>MODE_BRIEF</name>
+      <full_name>\MODE_BRIEF</full_name>
+      <value>0</value>
+    </constant>
+    <constant namespace="global" line="50" package="block\ejsapp\collab\session">
+      <name>MODE_USERDETAILS</name>
+      <full_name>\MODE_USERDETAILS</full_name>
+      <value>1</value>
+    </constant>
+    <function namespace="global" line="827" package="block\ejsapp\collab\session">
+      <name>get_course_lastaccess_sql</name>
+      <full_name>\get_course_lastaccess_sql</full_name>
+      <docblock line="822">
+        <description>returns the course last access</description>
+        <long-description></long-description>
+        <tag line="822" name="param" description="" type="int" variable="$accesssince">
+          <type by_reference="false">int</type>
+        </tag>
+      </docblock>
+      <argument line="827">
+        <name>$accesssince</name>
+        <default>''</default>
+        <type/>
+      </argument>
+    </function>
+    <function namespace="global" line="843" package="block\ejsapp\collab\session">
+      <name>get_user_lastaccess_sql</name>
+      <full_name>\get_user_lastaccess_sql</full_name>
+      <docblock line="838">
+        <description>returns the user last access</description>
+        <long-description></long-description>
+        <tag line="838" name="param" description="" type="int" variable="$accesssince">
+          <type by_reference="false">int</type>
+        </tag>
+      </docblock>
+      <argument line="843">
+        <name>$accesssince</name>
+        <default>''</default>
+        <type/>
+      </argument>
+    </function>
+  </file>
+  <file path="version.php" hash="7c76c6d398365d93bd393b7510154d56" package="block\ejsapp\collab\session">
+    <docblock line="26">
+      <description>Defines the version of ejsapp_collab_session</description>
+      <long-description/>
+      <tag line="26" name="package" description="block"/>
+      <tag line="26" name="subpackage" description="ejsapp_collab_session"/>
+      <tag line="26" name="copyright" description="2012 Luis de la Torre, Ruben Heradio and Carlos Jara"/>
+      <tag line="26" name="license" description="http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later"/>
+    </docblock>
+  </file>
+  <package name="Default" full_name="Default"/>
+  <package name="block" full_name="block">
+    <package name="ejsapp" full_name="block\ejsapp">
+      <package name="collab" full_name="block\ejsapp\collab">
+        <package name="session" full_name="block\ejsapp\collab\session"/>
+      </package>
+    </package>
+  </package>
+  <namespace name="global" full_name="global"/>
+  <marker count="0">todo</marker>
+  <marker count="0">fixme</marker>
+  <deprecated count="0"/>
+</project>

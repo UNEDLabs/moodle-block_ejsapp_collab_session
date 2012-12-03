@@ -26,7 +26,8 @@
 
 
 /**
- *    
+ * Block to manage collaborative sessions among EJS simulations
+ *
  * @package    block
  * @subpackage ejsapp_collab_session
  * @copyright  2012 Luis de la Torre, Ruben Heradio and Carlos Jara
@@ -35,15 +36,27 @@
 
 require_once('manage_collaborative_db.php');
 
+
+/**
+ * Class that defines the EJSAppCollabSession block
+ */
 class block_ejsapp_collab_session extends block_list {
+
+    /**
+     * Init function for the EJSAppCollabSession block
+     */
     function init() {
       $this->title = get_string('block_title', 'block_ejsapp_collab_session');
-    	$this->version = 2011092603; // YYYYMMDDVV
+      $this->version = 2011092603; // YYYYMMDDVV
     }
 
+
+    /**
+     * Get content function for the EJSAppCollabSession block
+     */
     function get_content() {
 
-      global $CFG, $OUTPUT, $USER;
+      global $CFG, $OUTPUT, $USER, $DB;
 
       $course = optional_param('id', '1', PARAM_RAW);
 
@@ -84,19 +97,22 @@ class block_ejsapp_collab_session extends block_list {
     	$buttons = '<form>';
     	
     	if (is_the_user_participating_in_any_session()) {
-    		$session = get_my_collaborative_session();
-    		$generate_applet_embedding_code_url = $CFG->wwwroot .
-    		"/mod/ejsapp/generate_applet_embedding_code.php?caller=ejsapp_collab_session&session=$session&courseid=$course&contextid={$currentcontext->id}";
+    	  $session_director = $DB->get_record('collaborative_users',array('id'=>$USER->id));
+    		$session_id = $session_director->collaborative_session_where_user_participates;
+    		$session_ip = $session_director->ip;
+    		$am_i_director= am_i_master_user();
+    		$session = $DB->get_record('collaborative_sessions',array('id'=>$session_id));
+    		$view_ejsapp_url = $CFG->wwwroot . "/mod/ejsapp/view.php?n=" . $session->ejsapp . "&colsession=" . $session_id . "&colip=" . $session_ip . "&colport=" . $session->port ."&sessiondirector=" . $am_i_director;
 
-    		$buttons .= "<input type=\"button\" value=".'"'.get_string('goToMasSessBut', 'block_ejsapp_collab_session').'"'."onClick=\"window.location.href='$generate_applet_embedding_code_url'\">";
+    		$buttons .= "<input type=\"button\" value=".'"'.get_string('goToMasSessBut', 'block_ejsapp_collab_session').'"'."onClick=\"window.location.href='$view_ejsapp_url'\">";
 
-    		if (am_i_master_user()) {
+    		if ($am_i_director) {
     			$close_button = get_string('closeMasSessBut', 'block_ejsapp_collab_session');
     		} else {
     			$close_button = get_string('closeStudSessBut', 'block_ejsapp_collab_session');
     		}
 
-			 $close_collaborative_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/close_collaborative_session.php?session=$session&courseid=$course&contextid={$currentcontext->id}";
+			 $close_collaborative_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/close_collaborative_session.php?session=$session_id&courseid=$course&contextid={$currentcontext->id}";
 			 $buttons .= "<input type=\"button\" value=\"$close_button\" onClick=\"window.location.href='$close_collaborative_url'\">";
     	} else {
     		if (has_the_user_been_invited_to_any_session()) {
@@ -115,6 +131,9 @@ class block_ejsapp_collab_session extends block_list {
       return $this->content;
     }
 
+    /**
+     * applicable_formats function for the EJSAppCollabSession block
+     */
     function applicable_formats() {
       return array('all' => true, 'my' => false, 'tag' => false);
     }

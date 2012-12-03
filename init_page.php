@@ -26,33 +26,22 @@
 
 
 /**
- *    
+ * Initialization of collaborative web pages
+ *
  * @package    block
  * @subpackage ejsapp_collab_session
  * @copyright  2012 Luis de la Torre, Ruben Heradio and Carlos Jara
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- 
-function print_me_into_navbar($page_caller = null){
-	global $PAGE;
-	$PAGE->navbar->add(get_string('navBarCollaborativeSession', 'block_ejsapp_collab_session'));
-	if ($page_caller) {
-		$PAGE->navbar->add($page_caller);
-	}
-}
-
-global $page_caller;
 
 $courseid = required_param('courseid', PARAM_RAW);
 $contextid = required_param('contextid', PARAM_INT);
 $context = get_context_instance_by_id($contextid, MUST_EXIST);
 $title = get_string('pageTitle', 'block_ejsapp_collab_session');
 
-if ($context->contextlevel != CONTEXT_COURSE) {
-	$context->contextlevel = CONTEXT_COURSE;
-}
+global $page_caller;
 
-$course = $DB->get_record('course', array('id'=>$context->instanceid), '*', MUST_EXIST);
+$course = $DB->get_record('course', array('id'=>$courseid), '*', MUST_EXIST);
 
 require_login($course);
 
@@ -61,8 +50,12 @@ $PAGE->set_url('/blocks/ejsapp_collab_session/init_page.php');
 $PAGE->set_title($title);
 $PAGE->set_heading($title);
 $PAGE->set_pagelayout('incourse');
-print_me_into_navbar($page_caller);
 
+$PAGE->navbar->add(get_string('navBarCollaborativeSession', 'block_ejsapp_collab_session'));
+if ($page_caller) {
+	$PAGE->navbar->add($page_caller);
+}
+  
 echo $OUTPUT->header();
 
 ?>
