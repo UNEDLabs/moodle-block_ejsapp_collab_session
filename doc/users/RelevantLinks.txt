@@ -1,4 +1,4 @@
-EJSApp Moodle plugin webpage: https://moodle.org/plugins/...
+EJSApp Collab Session Moodle plugin webpage: https://moodle.org/plugins/view.php?plugin=block_ejsapp_collab_session
 
 EJSApp UNEDLabs github repository: https://github.com/organizations/UNEDLabs
 

@@ -55,7 +55,7 @@ EJSApp Collab Session has been developed by:
   - Ruben Heradio (1): rheradio@issi.uned.es
   - Carlos Jara (2): carlos.jara@ua.es
 
- (1): Computer Science and Automatic Control, Spanish Open University (UNED),
+ (1): Computer Science and Automatic Control Department, Spanish Open University (UNED),
       Madrid, Spain
  (2): Physics, Systems Engineering and Signal Theory Department, University
        of Alicante, Spain
