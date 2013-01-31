@@ -84,8 +84,7 @@ $PAGE->set_url('/blocks/ejsapp_collab_session/show_participants.php', array(
 	'roleid' => $roleid,
 	'contextid' => $contextid,
 	'courseid' => $course->id,
-	'lab_id' => $lab_id,
-	'course' => $course->id,));
+	'lab_id' => $lab_id));
 
 require_login($course);
 
@@ -104,7 +103,7 @@ if ($isfrontpage) {
 	$PAGE->navbar->add(get_string('navBarShowParticipants', 'block_ejsapp_collab_session'));
 }
 
-$rolenamesurl = new moodle_url("$CFG->wwwroot/blocks/ejsapp_collab_session/show_participants.php?contextid=$context->id&sifirst=&silast=");
+$rolenamesurl = new moodle_url("$CFG->wwwroot/blocks/ejsapp_collab_session/show_participants.php?contextid=$context->id&courseid=$courseid&lab_id=$lab_id&sifirst=&silast=");
 
 $allroles = get_all_roles();
 $roles = get_profile_roles($context);
@@ -202,7 +201,9 @@ $baseurl = new moodle_url('/blocks/ejsapp_collab_session/show_participants.php',
       'id' => $course->id,
       'perpage' => $perpage,
       'accesssince' => $accesssince,
-      'search' => s($search)));
+      'search' => s($search),
+      'courseid' => $courseid,
+      'lab_id' => $lab_id));
 
 /// setting up tags
 if ($course->id == SITEID) {
@@ -238,7 +239,7 @@ $controlstable->data[] = new html_table_row();
 /// Print my course menus
 if ($mycourses = enrol_get_my_courses()) {
   $courselist = array();
-	$popupurl = new moodle_url('/blocks/ejsapp_collab_session/show_participants.php?roleid='.$roleid.'&sifirst=&silast=');
+	$popupurl = new moodle_url('/blocks/ejsapp_collab_session/show_participants.php?lab_id='.$lab_id.'&roleid='.$roleid.'&sifirst=&silast=');
   foreach ($mycourses as $mycourse) {
     $courselist[$mycourse->id] = format_string($mycourse->shortname);
   }
@@ -505,6 +506,7 @@ if (count($rolenames) > 1) {
 }
 
 if ($roleid > 0) {
+  $a = new stdClass();
   $a->number = $totalcount;
   $a->role = $rolenames[$roleid];
   $heading = format_string(get_string('xuserswiththerole', 'role', $a));
@@ -545,7 +547,7 @@ if ($roleid > 0) {
 
 
 if ($bulkoperations) {
-  echo "<form action=\"send_messages.php?courseid=$courseid&contextid=$contextid\" method=\"post\" id=\"participantsform\">" . '<div>';
+  echo "<form action=\"send_messages.php?courseid=$courseid&contextid=$contextid&lab_id=$lab_id\" method=\"post\" id=\"participantsform\">" . '<div>';
   echo '<input type="hidden" name="sesskey" value="'.sesskey().'" />
   <input type="hidden" name="returnto" value="'.s(me()).'" />';
 }
