@@ -99,10 +99,8 @@ class block_ejsapp_collab_session extends block_list {
     	if (is_the_user_participating_in_any_session()) {
     	  $session_director = $DB->get_record('collaborative_users',array('id'=>$USER->id));
     		$session_id = $session_director->collaborative_session_where_user_participates;
-    		$session_ip = $session_director->ip;
     		$am_i_director= am_i_master_user();
-    		$session = $DB->get_record('collaborative_sessions',array('id'=>$session_id));
-    		$view_ejsapp_url = $CFG->wwwroot . "/mod/ejsapp/view.php?n=" . $session->ejsapp . "&colsession=" . $session_id . "&colip=" . $session_ip . "&colport=" . $session->port ."&sessiondirector=" . $am_i_director;
+    		$view_ejsapp_url = $CFG->wwwroot . "/mod/ejsapp/view.php?colsession=" . $session_id;
 
     		$buttons .= "<input type=\"button\" value=".'"'.get_string('goToMasSessBut', 'block_ejsapp_collab_session').'"'."onClick=\"window.location.href='$view_ejsapp_url'\">";
 

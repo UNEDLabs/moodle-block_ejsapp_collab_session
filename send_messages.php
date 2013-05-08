@@ -45,9 +45,6 @@ $mycourseid = required_param('courseid', PARAM_RAW);
 
 $context = get_context_instance(CONTEXT_USER, $USER->id);
 $contextid = $context->id;
-//if ($context->contextlevel != CONTEXT_COURSE) {
-//	$context->contextlevel = CONTEXT_COURSE;
-//}
 
 $collaborative_session_id = get_collaborative_session_id($USER->id);
 
@@ -116,13 +113,10 @@ if (count($SESSION->emailto[$mycourseid])) {
   if ($good) {
   $session_director = $DB->get_record('collaborative_users',array('id'=>$USER->id));
   $session_id = $session_director->collaborative_session_where_user_participates;
-  $session_ip = $session_director->ip;
-  $am_i_director= am_i_master_user();
-  $session = $DB->get_record('collaborative_sessions',array('id'=>$session_id));
 $redirection = <<<EOD
 <center>
 <script>
-	location.href = '{$CFG->wwwroot}/mod/ejsapp/view.php?n={$session->ejsapp}&colsession=$session_id&colip=$session_ip&colport={$session->port}&sessiondirector=$am_i_director';
+	location.href = '{$CFG->wwwroot}/mod/ejsapp/view.php?colsession=$session_id';
 </script>
 </center>
 EOD;

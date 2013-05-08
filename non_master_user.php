@@ -58,27 +58,17 @@ if (is_the_user_participating_in_any_session()) {
 		$ejsapp_name = get_ejsapp_name($master_user);
 		$session = get_collaborative_session_id($master_user);
 		if ($i == 1) {
-			echo '<input type=radio name="session" value="' . $session .
+			echo '<input type=radio name="colsession" value="' . $session .
 			'" checked>' . get_user_name($master_user) . get_string('invitationMsg1', 'block_ejsapp_collab_session') . "$ejsapp_name" .
 			'<br>';
 		} else {
-			echo '<input type=radio name="session" value="' . $session .
+			echo '<input type=radio name="colsession" value="' . $session .
 				'">' . get_user_name($master_user) . get_string('invitationMsg1', 'block_ejsapp_collab_session') . "$ejsapp_name" . '<br>';
 		}
 		$i++;
 	}
-  $collab_invitation = $DB->get_record('collaborative_invitations',array('invited_user'=>$USER->id));
-  $collab_session = $DB->get_record('collaborative_sessions',array('id'=>$collab_invitation->collaborative_session));
-  $session_director = $DB->get_record('collaborative_users',array('id'=>$collab_session->master_user)); 
-  $session_id = $session_director->collaborative_session_where_user_participates;
-  $session_ip = $session_director->ip;
-  $am_i_director= am_i_master_user();
-  $session = $DB->get_record('collaborative_sessions',array('id'=>$session_id));
-	echo '<input type="hidden" name="n" value="' . $session->ejsapp . '" />
-	<input type="hidden" name="colsession" value="' . $session_id . '" />
-	<input type="hidden" name="colip" value="' . $session_ip . '" /> 
-  <input type="hidden" name="colport" value="' . $session->port . '" />
-  <br><p align="center"><input type=submit value=' . '"' . get_string('acceptInvitation', 'block_ejsapp_collab_session') . '"' . '></p> </form>';
+
+    echo '<br><p align="center"><input type=submit value=' . '"' . get_string('acceptInvitation', 'block_ejsapp_collab_session') . '"' . '></p> </form>';
 } // if (is_the_user_participating_in_any_session())
 
 echo $OUTPUT->footer();
