@@ -38,40 +38,40 @@
 $string['pluginname'] = 'EJSApp colaborativo';
 $string['block_title'] = 'Sesion Colaborativa EJSApp';
 $string['start_collaborative_session:view'] = 'Ver Bloque para Sesiones Colaborativo';
-$string['goToMasSessBut'] = htmlentities('Ir a mi sesi�n activa');
+$string['goToMasSessBut'] = 'Ir a mi sesi&oacute;n activa';
 $string['goToStudSessBut'] = 'Ver mis sesiones activas';
-$string['closeMasSessBut'] = htmlentities('Cerrar mi sesi�n activa');
-$string['closeStudSessBut'] = htmlentities('Abandonar esta sesi�n');
-$string['createBut'] = htmlentities('Crear sesi�n colaborativa');
-$string['navBarCollaborativeSession'] = htmlentities('Sesi�n colaborativa');
+$string['closeMasSessBut'] = 'Cerrar mi sesi&oacute;n activa';
+$string['closeStudSessBut'] = 'Abandonar esta sesi&oacute;n';
+$string['createBut'] = 'Crear sesi&oacute;n colaborativa';
+$string['navBarCollaborativeSession'] = 'Sesi&oacute;n colaborativa';
 
 //close_collaborative_session.php:
-$string['close1'] = htmlentities('La sesi�n colaborativa del laboratorio ');
+$string['close1'] = 'La sesi&oacute;n colaborativa del laboratorio ';
 $string['close2'] = ' ha sido cerrada.';
-$string['goodbyeStudent'] = htmlentities('Ha abandonado la sesi�n colaborativa.');
+$string['goodbyeStudent'] = 'Ha abandonado la sesi&oacute;n colaborativa.';
 $string['backToCourse'] = 'Volver al curso';
 
 //master_user.php:
 $string['navBarMasterUser'] = 'Seleccionando laboratorio';
-$string['cantJoinSessionErr1'] = htmlentities('Error: Ya tiene una sesi�n colaborativa activa. Ci�rrela antes para poder iniciar o unirse a una nueva.');
+$string['cantJoinSessionErr1'] = 'Error: Ya tiene una sesi&oacute;n colaborativa activa. Ci�rrela antes para poder iniciar o unirse a una nueva.';
 $string['selectLabBut'] = 'Seleccionar este laboratorio';
-$string['selectColLab'] = htmlentities('Seleccione uno de los laboratorios colaborativos s�ncronos:');
+$string['selectColLab'] = 'Seleccione uno de los laboratorios colaborativos s&iacute;ncronos:';
 
 //non_master_user.php:
-$string['navBarNonMasterUser'] = htmlentities('Aceptando invitaci�n');
+$string['navBarNonMasterUser'] = 'Aceptando invitaci&oacute;n';
 $string['selectInvitation'] = 'Seleccione una de las invitaciones pendientes:';
 $string['invitationMsg1'] = ' le ha invitado al siguiente laboratorio: ';
-$string['acceptInvitation'] = htmlentities('Aceptar invitaci�n');
-$string['cantJoinSessionErr2'] = htmlentities('Error: Actualmente no tiene invitaciones activas para ninguna sesi�n colaborativa.');
+$string['acceptInvitation'] = 'Aceptar invitaci&oacute;n';
+$string['cantJoinSessionErr2'] = 'Error: Actualmente no tiene invitaciones activas para ninguna sesi&oacute;n colaborativa.';
 
 //Send_messages.php:
-$string['invitationMsg2'] = htmlentities('Le invito a una sesi�n colaborativa.');
+$string['invitationMsg2'] = 'Le invit&oacute; a una sesi&oacute;n colaborativa.';
 
 //Show_participants.php:
 $string['inviteParticipants'] = 'Invitar participantes';
 $string['navBarShowParticipants'] = 'Selecionando invitados';
 
 //generate_applet_embedding_code.php and many others:
-$string['pageTitle']=htmlentities('Sesi�n Colaborativa de Laboratorio');
+$string['pageTitle']='Sesi&oacute;n Colaborativa de Laboratorio';
 
 ?>
