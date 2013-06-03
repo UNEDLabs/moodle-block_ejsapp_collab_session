@@ -91,7 +91,7 @@ class block_ejsapp_collab_session extends block_list {
         }
       }
      
-      $image =  '<img src="' . $CFG->wwwroot.'/blocks/ejsapp_collab_session/pix/icon.gif' . '" alt="Invite participants to a collaborative session"width="170" height="145" />&nbsp;';
+      $image =  '<img src="' . $CFG->wwwroot.'/blocks/ejsapp_collab_session/pix/icon.gif' . '" alt="Invite participants to a collaborative session" width="170" height="145" />&nbsp;';
 
 		  create_non_existing_tables();
     	$buttons = '<form>';
@@ -102,7 +102,7 @@ class block_ejsapp_collab_session extends block_list {
     		$am_i_director= am_i_master_user();
     		$view_ejsapp_url = $CFG->wwwroot . "/mod/ejsapp/view.php?colsession=" . $session_id;
 
-    		$buttons .= "<input type=\"button\" value=".'"'.get_string('goToMasSessBut', 'block_ejsapp_collab_session').'"'."onClick=\"window.location.href='$view_ejsapp_url'\">";
+    		$buttons .= "<input type=\"button\" value=".'"'.get_string('goToMasSessBut', 'block_ejsapp_collab_session').'"'." onClick=\"window.location.href='$view_ejsapp_url'\">";
 
     		if ($am_i_director) {
     			$close_button = get_string('closeMasSessBut', 'block_ejsapp_collab_session');
@@ -115,10 +115,10 @@ class block_ejsapp_collab_session extends block_list {
     	} else {
     		if (has_the_user_been_invited_to_any_session()) {
     			$participate_in_session_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/non_master_user.php?courseid=$course&contextid={$currentcontext->id}";
-    			$buttons .= "<input type=\"button\" value=".'"'.get_string('goToStudSessBut', 'block_ejsapp_collab_session').'"'."onClick=\"window.location.href='$participate_in_session_url'\">";
+    			$buttons .= "<input type=\"button\" value=".'"'.get_string('goToStudSessBut', 'block_ejsapp_collab_session').'"'." onClick=\"window.location.href='$participate_in_session_url'\">";
     		}
     		$master_user_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/master_user.php?courseid=$course&contextid={$currentcontext->id}";
-    		$buttons .= "<input type=\"button\" value=".'"'.get_string('createBut', 'block_ejsapp_collab_session').'"'."onClick=\"window.location.href = '$master_user_url'\">";
+    		$buttons .= "<input type=\"button\" value=".'"'.get_string('createBut', 'block_ejsapp_collab_session').'"'." onClick=\"window.location.href = '$master_user_url'\">";
       }
 
     	$buttons .= '</form>';
