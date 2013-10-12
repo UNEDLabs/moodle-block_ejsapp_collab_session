@@ -43,8 +43,6 @@ require_once("$CFG->libdir/formslib.php");
 $page_caller = get_string('navBarNonMasterUser', 'block_ejsapp_collab_session');
 require('init_page.php');
 
-create_non_existing_tables();
-
 if (is_the_user_participating_in_any_session()) {
 	echo $OUTPUT->heading(get_string('cantJoinSessionErr1', 'block_ejsapp_collab_session'));
 } elseif ( !has_the_user_been_invited_to_any_session() ) {

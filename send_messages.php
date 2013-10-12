@@ -109,10 +109,8 @@ if (count($SESSION->emailto[$mycourseid])) {
   	$good = $good && @message_post_message($USER,$user,$messagebody,$format);
 		insert_collaborative_invitation($user->id, $collaborative_session_id);
   }
-  $good = true;
-  if ($good) {
-  $session_director = $DB->get_record('collaborative_users',array('id'=>$USER->id));
-  $session_id = $session_director->collaborative_session_where_user_participates;
+  $session_director = $DB->get_record('ejsapp_collab_sessions',array('master_user'=>$USER->id));
+  $session_id = $session_director->id;
 $redirection = <<<EOD
 <center>
 <script>
@@ -120,10 +118,7 @@ $redirection = <<<EOD
 </script>
 </center>
 EOD;
- 	echo $redirection;
-  } else {
-    echo $OUTPUT->heading(get_string('messagedselectedusersfailed'));
-  }
+  echo $redirection;
 
   if (!empty($CFG->noemailever)) {
     $CFG->noemailever = $temp_cfg;

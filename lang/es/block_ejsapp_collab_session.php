@@ -74,4 +74,16 @@ $string['navBarShowParticipants'] = 'Selecionando invitados';
 //generate_applet_embedding_code.php and many others:
 $string['pageTitle']='Sesi&oacute;n Colaborativa de Laboratorio';
 
+//settings.php:
+$string['default_options_config'] = 'Configurar la opciones de comunicaci&oacute;n por defecto (sin usar Sarlab) para las sesiones colaborativas';
+$string['collaborative_port'] = 'Puerto para las sesiones colaborativas';
+$string['collaborative_port_description'] = 'Puerto usado para establecer la comunicacis&oacute;n en las sesiones colaborativas cuando no se usa Sarlab';
+$string['sarlab_header_config'] = 'Configurar las opciones de Sarlab para todas las instancias del bloque';
+$string['using_sarlab'] = 'Permitir usar Sarlab en las sesiones colaborativas?';
+$string['using_sarlab_help'] = 'Esta opci&oacute;n permite usar Sarlab para enrutar las comunicaciones en las sesiones colaborativas.';
+
+//edit_form.php:
+$string['sarlab_header'] = 'Configurar Sarlab para esta instancia del bloque';
+$string['use_sarlab'] = 'Usar Sarlab en sesiones colaborativas?';
+
 ?>

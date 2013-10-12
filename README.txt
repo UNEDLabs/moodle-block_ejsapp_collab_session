@@ -1,11 +1,11 @@
 #############################
-# EJSApp Collab Session 1.1 #
+# EJSApp Collab Session 1.2 #
 #############################
 
 1. Content
 ==========
 
-This is the first release of the ejsapp_collab_session plugin.
+This is the second release of the ejsapp_collab_session plugin.
 This plugin lets you to create sessions for collaborative working with Java applets created 
 with Easy Java Simulations (EJS) and added to your Moodle course by means of the ejsapp 
 module.

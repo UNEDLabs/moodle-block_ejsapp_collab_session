@@ -47,59 +47,70 @@ class block_ejsapp_collab_session extends block_list {
      */
     function init() {
       $this->title = get_string('block_title', 'block_ejsapp_collab_session');
-      $this->version = 2011092603; // YYYYMMDDVV
     }
 
+    public function specialization() {
+        if (empty($this->config->use_sarlab)) $this->use_sarlab = '0';
+        else $this->use_sarlab = $this->config->use_sarlab;
+
+        if (empty($this->config->sarlab_instance)) $this->sarlab_instance = '0';
+        else $this->sarlab_instance = $this->config->sarlab_instance;
+    }
 
     /**
      * Get content function for the EJSAppCollabSession block
      */
     function get_content() {
 
-      global $CFG, $OUTPUT, $USER, $DB;
+        global $CFG, $USER, $DB;
 
-      $course = optional_param('id', '1', PARAM_RAW);
+        $course = optional_param('id', '1', PARAM_RAW);
 
-		  $collaborative_lab_names = get_all_collaborative_lab_names($course);
+        $collaborative_lab_names = get_all_collaborative_lab_names($course);
 
-    	// if there aren't collaborative labs then hide the block
-    	if (count($collaborative_lab_names) == 0) {
-    		return $this->content;
-    	}
+        // if there aren't collaborative labs then hide the block
+        if (count($collaborative_lab_names) == 0) {
+        return $this->content;
+        }
 
-		  if (empty($this->instance)) {
+        if (empty($this->instance)) {
         $this->content = '';
         return $this->content;
-      }
+        }
 
-      $this->content = new stdClass();
-      $this->content->items = array();
-      $this->content->icons = array();
-      $this->content->footer = '';
+        $this->content = new stdClass();
+        $this->content->items = array();
+        $this->content->icons = array();
+        $this->content->footer = '';
 
-      $currentcontext = $this->page->context;
+        $currentcontext = $this->page->context;
 
-		  if ($this->page->course->id == SITEID) {
+        if ($this->page->course->id == SITEID) {
         if (!has_capability('moodle/site:viewparticipants', get_context_instance(CONTEXT_SYSTEM))) {
-				  $this->content = '';
+                  $this->content = '';
           return $this->content;
         }
-      } else {
+        } else {
         if (!has_capability('moodle/course:viewparticipants', $currentcontext)) {
           $this->content = '';
           return $this->content;
         }
-      }
-     
-      $image =  '<img src="' . $CFG->wwwroot.'/blocks/ejsapp_collab_session/pix/icon.gif' . '" alt="Invite participants to a collaborative session" width="170" height="145" />&nbsp;';
+        }
 
-		  create_non_existing_tables();
-    	$buttons = '<form>';
+        $image =  '<img src="' . $CFG->wwwroot.'/blocks/ejsapp_collab_session/pix/icon.gif' . '" alt="Invite participants to a collaborative session" width="170" height="145" />&nbsp;';
+
+        $buttons = '<form>';
     	
     	if (is_the_user_participating_in_any_session()) {
-    	  $session_director = $DB->get_record('collaborative_users',array('id'=>$USER->id));
-    		$session_id = $session_director->collaborative_session_where_user_participates;
-    		$am_i_director= am_i_master_user();
+            $am_i_director= am_i_master_user();
+            if ($am_i_director) {
+                $session_director = $DB->get_record('ejsapp_collab_sessions',array('master_user'=>$USER->id));
+                $session_id = $session_director->id;
+            } else {
+                $session_invited = $DB->get_record('ejsapp_collab_acceptances',array('accepted_user'=>$USER->id));
+                $session_id = $session_invited->collaborative_session;
+            }
+
     		$view_ejsapp_url = $CFG->wwwroot . "/mod/ejsapp/view.php?colsession=" . $session_id;
 
     		$buttons .= "<input type=\"button\" value=".'"'.get_string('goToMasSessBut', 'block_ejsapp_collab_session').'"'." onClick=\"window.location.href='$view_ejsapp_url'\">";
@@ -117,23 +128,45 @@ class block_ejsapp_collab_session extends block_list {
     			$participate_in_session_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/non_master_user.php?courseid=$course&contextid={$currentcontext->id}";
     			$buttons .= "<input type=\"button\" value=".'"'.get_string('goToStudSessBut', 'block_ejsapp_collab_session').'"'." onClick=\"window.location.href='$participate_in_session_url'\">";
     		}
-    		$master_user_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/master_user.php?courseid=$course&contextid={$currentcontext->id}";
-    		$buttons .= "<input type=\"button\" value=".'"'.get_string('createBut', 'block_ejsapp_collab_session').'"'." onClick=\"window.location.href = '$master_user_url'\">";
-      }
+            $sarlab_collab_conf = $this->use_sarlab;
+    		$master_user_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/master_user.php?courseid=$course&contextid={$currentcontext->id}&sarlab_conf=$sarlab_collab_conf";
+            if ($sarlab_collab_conf  == 1) {
+                $sarlab_collab_instance = $this->sarlab_instance;
+                $master_user_url .= "&sarlab_instance=$sarlab_collab_instance";
+            }
 
-    	$buttons .= '</form>';
+            $buttons .= "<input type=\"button\" value=".'"'.get_string('createBut', 'block_ejsapp_collab_session').'"'." onClick=\"window.location.href = '$master_user_url'\">";
+        }
+
+        $buttons .= '</form>';
 
     	$this->content->items[0] = $image;
-      $this->content->items[1] = $buttons;
+        $this->content->items[1] = $buttons;
 
-      return $this->content;
+        return $this->content;
     }
 
     /**
-     * applicable_formats function for the EJSAppCollabSession block
+     * Applicable formats for the EJSAppCollabSession block
      */
     function applicable_formats() {
       return array('all' => true, 'my' => false, 'tag' => false);
     }
+
+    /**
+     * Add custom html attributes to aid with theming and styling
+     *
+     * @return array
+     */
+    function html_attributes() {
+        $attributes = parent::html_attributes();
+        $attributes['class'] .= ' block_'. $this->name(); // Append our class to class attribute
+        return $attributes;
+    }
+
+    /**
+     * Enable global configuration
+     */
+    function has_config() {return true;}
 
 }

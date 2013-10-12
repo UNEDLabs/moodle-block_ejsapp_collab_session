@@ -72,6 +72,18 @@ $string['inviteParticipants'] = 'Invite participants';
 $string['navBarShowParticipants'] = 'Selecting participants';
 
 //generate_applet_embedding_code.php and many others:
-$string['pageTitle']='Lab Collaborative Session';
+$string['pageTitle'] = 'Lab Collaborative Session';
+
+//settings.php:
+$string['default_options_config'] = 'Configure the default (not using Sarlab) communication options for collab sessions';
+$string['collaborative_port'] = 'Port for collaborative sessions';
+$string['collaborative_port_description'] = 'Port used to establish communication for the collaborative sessions when Sarlab is not used';
+$string['sarlab_header_config'] = 'Configure Sarlab settings for all the block instances';
+$string['using_sarlab'] = 'Allow using Sarlab in collaborative sessions?';
+$string['using_sarlab_help'] = 'This option enables to use Sarlab for routing connections in collaborative sessions.';
+
+//edit_form.php:
+$string['sarlab_header'] = 'Configure Sarlab for this block instance';
+$string['use_sarlab'] = 'Use Sarlab in collaborative sessions?';
 
 ?>

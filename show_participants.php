@@ -34,7 +34,7 @@
  * @copyright  2012 Luis de la Torre, Ruben Heradio and Carlos Jara
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- 
+
 require_once('../../config.php');
 require_login();
 global $CFG, $PAGE, $DB, $course;
@@ -51,14 +51,31 @@ define('MODE_USERDETAILS', 1);
 
 $lab_id = required_param('lab_id', PARAM_RAW);
 $courseid = required_param('courseid', PARAM_RAW);
-$contextid    = required_param('contextid', PARAM_INT);
+$contextid = required_param('contextid', PARAM_INT);
+$sarlab_collab_conf = required_param('sarlab_conf', PARAM_INT);
 
-insert_collaborative_session($CFG->collaborative_port, $lab_id, $USER->id, $_SERVER['REMOTE_ADDR'], $course);
+if ($sarlab_collab_conf == 1 && get_config('ejsapp_collab_session', 'Use_Sarlab') == 1) {
+    $sarlab_collab_instance = required_param('sarlab_instance', PARAM_INT);
+    $sarlab_collab_ips = explode(";", get_config('ejsapp_collab_session', 'Collab_Sarlab_IP'));
+    $ip = substr($sarlab_collab_ips[$sarlab_collab_instance],strrpos($sarlab_collab_ips[$sarlab_collab_instance],"'")+1);
+    $sarlab_collab_ports = explode(";", get_config('ejsapp_collab_session', 'Collab_Sarlab_Port'));
+    $sarlabport = $sarlab_collab_ports[$sarlab_collab_instance];
+    $localport = 8079; //49999 //79
+    do {
+        $localport++;
+        $sql = "SELECT * FROM {$CFG->prefix}ejsapp_collab_sessions WHERE ip = '$ip' AND localport = $localport";
+    } while ($DB->get_record_sql($sql));
+} else {
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $localport = get_config('ejsapp_collab_session', 'collaborative_port');
+    $sarlabport = 0;
+}
+insert_collaborative_session($localport, $lab_id, $USER->id, $ip, $sarlabport, $sarlab_collab_conf, $courseid);
 
-$page = optional_param('page', 0, PARAM_INT);                     // which page to show
-$perpage = optional_param('perpage', DEFAULT_PAGE_SIZE, PARAM_INT);  // how many per page
-$mode = optional_param('mode', NULL, PARAM_INT);                  // use the MODE_ constants
-$accesssince = optional_param('accesssince',0,PARAM_INT);                // filter by last access. -1 = never
+$page = optional_param('page', 0, PARAM_INT);                       // which page to show
+$perpage = optional_param('perpage', DEFAULT_PAGE_SIZE, PARAM_INT); // how many per page
+$mode = optional_param('mode', NULL, PARAM_INT);                    // use the MODE_ constants
+$accesssince = optional_param('accesssince',0,PARAM_INT);           // filter by last access. -1 = never
 $search = optional_param('search','',PARAM_RAW);                    // make sure it is processed with p() or s() when sending to output!
 $roleid = optional_param('roleid', 0, PARAM_INT);                   // optional roleid, 0 means all enrolled users (or all on the frontpage)
 
@@ -76,7 +93,7 @@ $PAGE->set_title($title);
 $PAGE->set_heading($title);
 
 $PAGE->set_url('/blocks/ejsapp_collab_session/show_participants.php', array(
-  'page' => $page,
+    'page' => $page,
 	'perpage' => $perpage,
 	'mode' => $mode,
 	'accesssince' => $accesssince,

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="blocks/ejsapp_collab_session/db" VERSION="20120606" COMMENT="XMLDB file for Moodle blocks/ejsapp_collab_session"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+        >
+    <TABLES>
+        <TABLE NAME="ejsapp_collab_sessions" COMMENT="Defines all the active collaborative sessions"
+               NEXT="ejsapp_collab_invitations">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="ip"/>
+                <FIELD NAME="ip" TYPE="text" LENGTH="15" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"
+                       COMMENT="The IP invited users must use to connect to the collab session" PREVIOUS="id"
+                       NEXT="localport"/>
+                <FIELD NAME="localport" TYPE="int" LENGTH="8" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="ip"
+                       NEXT="sarlabport"/>
+                <FIELD NAME="sarlabport" TYPE="int" LENGTH="8" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="localport"
+                       NEXT="course"/>
+                <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"
+                       COMMENT="Course ejsapp activity belongs to" PREVIOUS="port" NEXT="ejsapp"/>
+                <FIELD NAME="ejsapp" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"
+                       COMMENT="id of the ejsapp activity to be used in the collab session" PREVIOUS="course" NEXT="master_user"/>
+                <FIELD NAME="master_user" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"
+                       COMMENT="id of the user in moodle that acts as director of this collab session" PREVIOUS="ejsapp"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="ejsapp_collab_invitations" COMMENT="Gives a relation of active collaborative sessions invitations for each user"
+               PREVIOUS="ejsapp_collab_sessions" NEXT="ejsapp_collab_acceptances">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="invited_user"/>
+                <FIELD NAME="invited_user" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"
+                       COMMENT="The EJSApp (experimental system) id" PREVIOUS="id" NEXT="collaborative_session"/>
+                <FIELD NAME="collaborative_session" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true"
+                       SEQUENCE="false" PREVIOUS="invited_user"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="ejsapp_collab_acceptances" COMMENT="Gives the id of the collaborative session accepted by each user (if there is one)"
+               PREVIOUS="ejsapp_collab_invitations">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="accepted_user"/>
+                <FIELD NAME="accepted_user" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"
+                       COMMENT="The EJSApp (experimental system) id" PREVIOUS="id" NEXT="collaborative_session"/>
+                <FIELD NAME="collaborative_session" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true"
+                       SEQUENCE="false" PREVIOUS="accepted_user"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+    </TABLES>
+</XMLDB> 

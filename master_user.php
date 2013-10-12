@@ -40,14 +40,15 @@ require_once('manage_collaborative_db.php');
 
 $page_caller = get_string('navBarMasterUser', 'block_ejsapp_collab_session');
 require('init_page.php');
-
-create_non_existing_tables();
+$sarlab_collab_conf = required_param('sarlab_conf', PARAM_INT);
+if ($sarlab_collab_conf == 1) $sarlab_collab_instance = required_param('sarlab_instance', PARAM_INT);
+else $sarlab_collab_instance = 0;
 
 if (is_the_user_participating_in_any_session()) {
   echo $OUTPUT->heading(get_string(cantJoinSessionErr1, block_ejsapp_collab_session));
 } else {
   $collaborative_lab_names = get_all_collaborative_lab_names($courseid);
-  $show_participants_url = $CFG->wwwroot . '/blocks/ejsapp_collab_session/show_participants.php';
+  $show_participants_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/show_participants.php";
   echo $OUTPUT->heading(get_string('selectColLab', 'block_ejsapp_collab_session'));
   echo '<form action="' . $show_participants_url . '" method="get" >';
   $i = 1;
@@ -61,9 +62,12 @@ if (is_the_user_participating_in_any_session()) {
     }
     $i++;
   }
-  echo '<input type="hidden" name="courseid" value="' . $courseid . '">
+  $code = '<input type="hidden" name="courseid" value="' . $courseid . '">
   <input type="hidden" name="contextid" value="' . $context->id . '">
-	<br><p align="center"><input type=submit value="' . get_string('selectLabBut', 'block_ejsapp_collab_session') . '"></p></form>';
+  <input type="hidden" name="sarlab_conf" value="' . $sarlab_collab_conf . '">';
+  if ($sarlab_collab_conf == 1) $code .=  '<input type="hidden" name="sarlab_instance" value="' . $sarlab_collab_instance . '">';
+  $code .= '<br><p align="center"><input type=submit value="' . get_string('selectLabBut', 'block_ejsapp_collab_session') . '"></p></form>';
+  echo $code;
   echo $OUTPUT->footer();
 } // if (is_the_user_participating_in_any_session())
 

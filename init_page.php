@@ -36,6 +36,7 @@
 
 $courseid = required_param('courseid', PARAM_RAW);
 $contextid = required_param('contextid', PARAM_INT);
+
 $context = get_context_instance_by_id($contextid, MUST_EXIST);
 $title = get_string('pageTitle', 'block_ejsapp_collab_session');
 

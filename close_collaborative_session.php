@@ -41,8 +41,7 @@ global $CFG;
 
 $session = required_param('session', PARAM_INT);
 $course_id = required_param('courseid', PARAM_INT);
-/*$cm_id = required_param('cmid', PARAM_INT);
-$context = get_context_instance(CONTEXT_MODULE, $cm_id);*/
+
 $title = get_string('pageTitle', 'block_ejsapp_collab_session');
 
 $course = $DB->get_record('course', array('id'=>$course_id), '*', MUST_EXIST);
