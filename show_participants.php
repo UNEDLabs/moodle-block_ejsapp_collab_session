@@ -154,8 +154,6 @@ if (empty($rolenames) && !$isfrontpage) {
   }
 }
 
-add_to_log($course->id, 'user', 'view all', 'collaborative_index.php?id='.$course->id, '');
-
 $bulkoperations = true;
 
 $countries = get_string_manager()->get_list_of_countries();

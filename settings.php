@@ -64,8 +64,8 @@ $settings->add(new admin_setting_configselect(
 
 $settings->add(new admin_setting_configtext(
     'ejsapp_collab_session/Collab_Sarlab_IP',
-    get_string('sarlab_IP', 'mod_ejsapp'),
-    get_string('sarlab_IP_description', 'mod_ejsapp'),
+    get_string('sarlab_IP', 'block_ejsapp_collab_session'),
+    get_string('sarlab_IP_description', 'block_ejsapp_collab_session'),
     '127.0.0.1',
     PARAM_TEXT,
     '13'
@@ -73,8 +73,8 @@ $settings->add(new admin_setting_configtext(
 
 $settings->add(new admin_setting_configtext(
     'ejsapp_collab_session/Collab_Sarlab_Port',
-    get_string('sarlab_port', 'mod_ejsapp'),
-    get_string('sarlab_port_description', 'mod_ejsapp'),
+    get_string('sarlab_port', 'block_ejsapp_collab_session'),
+    get_string('sarlab_port_description', 'block_ejsapp_collab_session'),
     443,
     PARAM_INT,
     '2'

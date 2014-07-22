@@ -81,9 +81,15 @@ $string['collaborative_port_description'] = 'Port used to establish communicatio
 $string['sarlab_header_config'] = 'Configure Sarlab settings for all the block instances';
 $string['using_sarlab'] = 'Allow using Sarlab in collaborative sessions?';
 $string['using_sarlab_help'] = 'This option enables to use Sarlab for routing connections in collaborative sessions.';
+$string['sarlab_IP'] = "Name and IP address of the Sarlab server(s)";
+$string['sarlab_IP_description'] = "If you want to use Sarlab to establish the communication in the collaborative sessions, you need to provide the IP address of the server that runs the Sarlab system you want to use. Otherwise, this value will not be used, so you can leave the default value. If you have more than one Sarlab server (for example, one at 127.0.0.1 and a second one at 127.0.0.2), insert the IP addresses separated by semicolons: 127.0.0.1;127.0.0.2. Additionally, you can provide a name in order to identify each Sarlab server: 'Sarlab Madrid'127.0.0.1;'Sarlab Huelva'127.0.0.2";
+$string['sarlab_port'] = "Sarlab communication port(s)";
+$string['sarlab_port_description'] = "If you want to use Sarlab to establish the communication in the collaborative sessions, you need to provide a valid port for establishing the communications with the Sarlab server. Otherwise, this value will not be used, so you can leave the default value. If you have more than one Sarlab server (for example, one using port 443 and a second one also using port 443), insert the values separated by semicolons: 443;443";
 
 //edit_form.php:
 $string['sarlab_header'] = 'Configure Sarlab for this block instance';
 $string['use_sarlab'] = 'Use Sarlab in collaborative sessions?';
 
-?>
+//Capabilities
+$string['ejsapp_collab_session:addinstance'] = 'Add a new EJSApp block for collaborative sessions';
+$string['ejsapp_collab_session:myaddinstance'] = 'Add a new EJSApp block for collaborative sessions to My home';

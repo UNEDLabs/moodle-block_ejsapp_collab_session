@@ -81,9 +81,15 @@ $string['collaborative_port_description'] = 'Puerto usado para establecer la com
 $string['sarlab_header_config'] = 'Configurar las opciones de Sarlab para todas las instancias del bloque';
 $string['using_sarlab'] = 'Permitir usar Sarlab en las sesiones colaborativas?';
 $string['using_sarlab_help'] = 'Esta opci&oacute;n permite usar Sarlab para enrutar las comunicaciones en las sesiones colaborativas.';
+$string['sarlab_IP'] = "Nombre y direcci&aacute;n IP del servidor Sarlab";
+$string['sarlab_IP_description'] = "Si quiere usar Sarlab para establecer las comunaciones en las sesiones colaborativas, debe proporcionar la direcci&oacute;n IP del servidor que ejecuta el sistema Sarlab que desea utilizar. En caso contrario, esta variable no se usa, de modo que puede dejar el valor por defecto. Si tiene m&aacute;s de un servidor Sarlab (por ejemplo, uno en 127.0.0.1 y otro en 127.0.0.2), inserte las direcciones IP separadas por puntos y comas: 127.0.0.1;127.0.0.2. Adem&aacute;s, puede proporcionar un nombre para identificar cada servidor Sarlab: 'Sarlab Madrid'127.0.0.1;'Sarlab Huelva'127.0.0.2";
+$string['sarlab_port'] = "Puerto(s) de comunicaci&oacute;n con Sarlab";
+$string['sarlab_port_description'] = "Si quiere usar Sarlab para establecer las comunaciones en las sesiones colaborativas, debe proporcionar un puerto v&aacute;lido para establecer las comunicaciones necesarias con el servidor de Sarlab. En caso contrario, esta variable no se usa, de modo que puede dejar el valor por defecto.  Si tiene m&aacute;s de un servidor Sarlab (por ejemplo, uno usando el puerto 443 y un segundo usando tambi&eacute;n el puerto 443), inserte los valores separados por puntos y comas: 443;443";
 
 //edit_form.php:
 $string['sarlab_header'] = 'Configurar Sarlab para esta instancia del bloque';
 $string['use_sarlab'] = 'Usar Sarlab en sesiones colaborativas?';
 
-?>
+//Capabilities
+$string['ejsapp_collab_session:addinstance'] = 'Añadir un nuevo bloque EJSApp para sesiones colaborativas';
+$string['ejsapp_collab_session:myaddinstance'] = 'Añadir un nuevo bloque EJSApp para sesiones colaborativas al &Aacute;rea personal';
