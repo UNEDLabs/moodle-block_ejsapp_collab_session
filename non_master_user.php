@@ -70,5 +70,3 @@ if (is_the_user_participating_in_any_session()) {
 } // if (is_the_user_participating_in_any_session())
 
 echo $OUTPUT->footer();
-
-?>

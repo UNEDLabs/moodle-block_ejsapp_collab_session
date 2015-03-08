@@ -86,7 +86,7 @@ class block_ejsapp_collab_session extends block_list {
         $currentcontext = $this->page->context;
 
         if ($this->page->course->id == SITEID) {
-        if (!has_capability('moodle/site:viewparticipants', get_context_instance(CONTEXT_SYSTEM))) {
+        if (!has_capability('moodle/site:viewparticipants', context_system::instance())) {
                   $this->content = '';
           return $this->content;
         }

@@ -79,7 +79,7 @@ $accesssince = optional_param('accesssince',0,PARAM_INT);           // filter by
 $search = optional_param('search','',PARAM_RAW);                    // make sure it is processed with p() or s() when sending to output!
 $roleid = optional_param('roleid', 0, PARAM_INT);                   // optional roleid, 0 means all enrolled users (or all on the frontpage)
 
-$context = get_context_instance_by_id($contextid, MUST_EXIST);
+$context = context_module::instance($contextid);
 $title = get_string('pageTitle', 'block_ejsapp_collab_session');
 
 if ($context->contextlevel != CONTEXT_COURSE) {
@@ -105,10 +105,10 @@ $PAGE->set_url('/blocks/ejsapp_collab_session/show_participants.php', array(
 
 require_login($course);
 
-$systemcontext = get_context_instance(CONTEXT_SYSTEM);
+$systemcontext = context_system::instance();
 $isfrontpage = ($course->id == SITEID);
 
-$frontpagectx = get_context_instance(CONTEXT_COURSE, SITEID);
+$frontpagectx = context_course::instance($courseid);
 
 if ($isfrontpage) {
   $PAGE->set_pagelayout('admin');
@@ -248,7 +248,6 @@ if (isset($hiddenfields['lastaccess'])) {
 /// Print settings and things in a table across the top
 $controlstable = new html_table();
 $controlstable->attributes['class'] = 'controls';
-$controlstable->cellspacing = 0;
 $controlstable->data[] = new html_table_row();
 
 /// Print my course menus
@@ -419,7 +418,7 @@ $table->set_control_variables(array(
 $table->setup();
 
 // we are looking for all users with this role assigned in this context or higher
-$contextlist = get_related_contexts_string($context);
+$contextlist = $context::get_parent_context_ids();
 
 list($esql, $params) = get_enrolled_sql($context, NULL, $currentgroup, true);
 
@@ -624,10 +623,10 @@ if ($mode === MODE_USERDETAILS) {    // Print simple listing
                 }
         $usersprinted[] = $user->id; /// Add new user to the array of users printed
 
-        context_instance_preload($user);
+        context_helper::preload_from_record($user);
 
-        $context = get_context_instance(CONTEXT_COURSE, $course->id);
-        $usercontext = get_context_instance(CONTEXT_USER, $user->id);
+        $context = context_course::instance($course->id);
+        $usercontext = context_user::instance($user->id);
 
         $countries = get_string_manager()->get_list_of_countries();
 
@@ -727,79 +726,79 @@ if ($mode === MODE_USERDETAILS) {    // Print simple listing
   if ($userlist) {
     $usersprinted = array();
     foreach ($userlist as $user) {
-      if (in_array($user->id, $usersprinted)) { /// Prevent duplicates by r.hidden - MDL-13935
-      continue;
-      }
-      $usersprinted[] = $user->id; /// Add new user to the array of users printed
+        if (in_array($user->id, $usersprinted)) { /// Prevent duplicates by r.hidden - MDL-13935
+            continue;
+        }
+        $usersprinted[] = $user->id; /// Add new user to the array of users printed
 
-      context_instance_preload($user);
-    
-      if ($user->lastaccess) {
-        $lastaccess = format_time(time() - $user->lastaccess, $datestring);
-      } else {
-        $lastaccess = $strnever;
-      }
+        context_helper::preload_from_record($user);
 
-      if (empty($user->country)) {
-        $country = '';    
-      } else {
-        if($countrysort) {
-          $country = '('.$user->country.') '.$countries[$user->country];
+        if ($user->lastaccess) {
+            $lastaccess = format_time(time() - $user->lastaccess, $datestring);
         } else {
-          $country = $countries[$user->country];
+            $lastaccess = $strnever;
         }
-      }
 
-      $usercontext = get_context_instance(CONTEXT_USER, $user->id);
-
-      if ($piclink = ($USER->id == $user->id || has_capability('moodle/user:viewdetails', $context) || has_capability('moodle/user:viewdetails', $usercontext))) {
-        $profilelink = '<strong><a href="'.$CFG->wwwroot.'/user/view.php?id='.$user->id.'&amp;course='.$course->id.'">'.fullname($user).'</a></strong>';
-      } else {
-        $profilelink = '<strong>'.fullname($user).'</strong>';
-      }
-
-      $data = array ($OUTPUT->user_picture($user, array('size' => 35, 'courseid'=>$course->id)), $profilelink);
-
-      if ($mode === MODE_BRIEF && !isset($hiddenfields['city'])) {
-        $data[] = $user->city;
-      }
-      if ($mode === MODE_BRIEF && !isset($hiddenfields['country'])) {
-        $data[] = $country;
-      }
-      if (!isset($hiddenfields['lastaccess'])) {
-        $data[] = $lastaccess;
-      }
-
-      if (isset($userlist_extra) && isset($userlist_extra[$user->id])) {
-        $ras = $userlist_extra[$user->id]['ra'];
-        $rastring = '';
-        foreach ($ras AS $key=>$ra) {
-          $rolename = $allrolenames[$ra['roleid']] ;
-          if ($ra['ctxlevel'] == CONTEXT_COURSECAT) {
-            $rastring .= $rolename. ' @ ' . '<a href="'.$CFG->wwwroot.'/course/category.php?id='.$ra['ctxinstanceid'].'">'.s($ra['ccname']).'</a>';
-          } elseif ($ra['ctxlevel'] == CONTEXT_SYSTEM) {
-            $rastring .= $rolename. ' - ' . get_string('globalrole','role');
-          } else {
-            $rastring .= $rolename;
-          }
+        if (empty($user->country)) {
+            $country = '';
+        } else {
+            if ($countrysort) {
+                $country = '(' . $user->country . ') ' . $countries[$user->country];
+            } else {
+                $country = $countries[$user->country];
+            }
         }
-        $data[] = $rastring;
-        if ($groupmode != 0) {
-          // htmlescape with s() and implode the array
-          $data[] = implode(', ', array_map('s',$userlist_extra[$user->id]['group']));
-          $data[] = implode(', ', array_map('s', $userlist_extra[$user->id]['gping']));
-        }
-      }
 
-      if ($bulkoperations) {
-        $data[] = '<input type="checkbox" class="usercheckbox" name="user'.$user->id.'" />';
-      }
-      $table->add_data($data);
+        $usercontext = $context_user::instance($user->id);
+
+        if ($piclink = ($USER->id == $user->id || has_capability('moodle/user:viewdetails', $context) || has_capability('moodle/user:viewdetails', $usercontext))) {
+            $profilelink = '<strong><a href="' . $CFG->wwwroot . '/user/view.php?id=' . $user->id . '&amp;course=' . $course->id . '">' . fullname($user) . '</a></strong>';
+        } else {
+            $profilelink = '<strong>' . fullname($user) . '</strong>';
+        }
+
+        $data = array($OUTPUT->user_picture($user, array('size' => 35, 'courseid' => $course->id)), $profilelink);
+
+        if ($mode === MODE_BRIEF && !isset($hiddenfields['city'])) {
+            $data[] = $user->city;
+        }
+        if ($mode === MODE_BRIEF && !isset($hiddenfields['country'])) {
+            $data[] = $country;
+        }
+        if (!isset($hiddenfields['lastaccess'])) {
+            $data[] = $lastaccess;
+        }
+
+        if (isset($userlist_extra) && isset($userlist_extra[$user->id])) {
+            $ras = $userlist_extra[$user->id]['ra'];
+            $rastring = '';
+            foreach ($ras AS $key => $ra) {
+                $rolename = $allrolenames[$ra['roleid']];
+                if ($ra['ctxlevel'] == CONTEXT_COURSECAT) {
+                    $rastring .= $rolename . ' @ ' . '<a href="' . $CFG->wwwroot . '/course/category.php?id=' . $ra['ctxinstanceid'] . '">' . s($ra['ccname']) . '</a>';
+                } elseif ($ra['ctxlevel'] == CONTEXT_SYSTEM) {
+                    $rastring .= $rolename . ' - ' . get_string('globalrole', 'role');
+                } else {
+                    $rastring .= $rolename;
+                }
+            }
+            $data[] = $rastring;
+            if ($groupmode != 0) {
+                // htmlescape with s() and implode the array
+                $data[] = implode(', ', array_map('s', $userlist_extra[$user->id]['group']));
+                $data[] = implode(', ', array_map('s', $userlist_extra[$user->id]['gping']));
+            }
+        }
+
+        if ($bulkoperations) {
+            $data[] = '<input type="checkbox" class="usercheckbox" name="user' . $user->id . '" />';
+        }
+        $table->add_data($data);
 
     } // foreach ($userlist as $user)
   } // if ($userlist)
 
-  $table->print_html();
+  $table->finish_html();
 
 } // if ($mode === MODE_USERDETAILS) ... else
 
@@ -840,6 +839,7 @@ if ($userlist) {
  * returns the course last access
  *
  * @param int $accesssince
+ * @return string course last access
  */
 function get_course_lastaccess_sql($accesssince='') {
   if (empty($accesssince)) {
@@ -856,6 +856,7 @@ function get_course_lastaccess_sql($accesssince='') {
  * returns the user last access
  *
  * @param int $accesssince
+ * @return string user last access
  */
 function get_user_lastaccess_sql($accesssince='') {
   if (empty($accesssince)) {

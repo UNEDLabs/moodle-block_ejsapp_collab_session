@@ -41,10 +41,9 @@ require_once($CFG->dirroot.'/message/lib.php');
 
 require_once('manage_collaborative_db.php');
 
-$mycourseid = required_param('courseid', PARAM_RAW);
+global $CFG, $DB, $PAGE, $OUTPUT, $USER, $SESSION;
 
-$context = get_context_instance(CONTEXT_USER, $USER->id);
-$contextid = $context->id;
+$mycourseid = required_param('courseid', PARAM_RAW);
 
 $collaborative_session_id = get_collaborative_session_id($USER->id);
 
@@ -61,8 +60,9 @@ $url = new moodle_url('/blocks/ejsapp_collab_session/send_messages.php', array('
 $url->param('messagebody', $messagebody);
 $url->param('format', $format);
 
+$systemcontext = context_system::instance();   // SYSTEM context
 $PAGE->set_url($url);
-$PAGE->set_context(get_context_instance(CONTEXT_SYSTEM));
+$PAGE->set_context($systemcontext);
 
 if (!$course = $DB->get_record('course', array('id'=>$mycourseid))) {
   print_error('invalidcourseid');
@@ -70,8 +70,7 @@ if (!$course = $DB->get_record('course', array('id'=>$mycourseid))) {
 
 require_login();
 
-$coursecontext = get_context_instance(CONTEXT_COURSE, $mycourseid);   // Course context
-$systemcontext = get_context_instance(CONTEXT_SYSTEM);   // SYSTEM context
+$coursecontext = context_course::instance($mycourseid); // Course context
 
 $SESSION->emailto = array();
 $SESSION->emailto[$mycourseid] = array();
@@ -128,5 +127,3 @@ EOD;
 }
 
 echo $OUTPUT->footer();
-
-?>

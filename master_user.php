@@ -45,7 +45,7 @@ if ($sarlab_collab_conf == 1) $sarlab_collab_instance = required_param('sarlab_i
 else $sarlab_collab_instance = 0;
 
 if (is_the_user_participating_in_any_session()) {
-  echo $OUTPUT->heading(get_string(cantJoinSessionErr1, block_ejsapp_collab_session));
+  echo $OUTPUT->heading(get_string('cantJoinSessionErr1', 'block_ejsapp_collab_session'));
 } else {
   $collaborative_lab_names = get_all_collaborative_lab_names($courseid);
   $show_participants_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/show_participants.php";
@@ -70,5 +70,3 @@ if (is_the_user_participating_in_any_session()) {
   echo $code;
   echo $OUTPUT->footer();
 } // if (is_the_user_participating_in_any_session())
-
-?>

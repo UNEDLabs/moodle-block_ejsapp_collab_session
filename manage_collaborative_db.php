@@ -75,7 +75,15 @@ function insert_collaborative_session($localport, $ejsapp, $master_user, $ip, $s
 		return;
 	}
 
-    $DB->insert_record('ejsapp_collab_sessions', array('ip'=>$ip,'localport'=>$localport,'using_sarlab'=>$using_sarlab,'sarlabport'=>$sarlabport,'ejsapp'=>$ejsapp,'master_user'=>$master_user,'course'=>$course));
+    $collab_session = new stdClass();
+    $collab_session->ip = $ip;
+    $collab_session->localport = $localport;
+    $collab_session->using_sarlab = $using_sarlab;
+    $collab_session->sarlabport = $sarlabport;
+    $collab_session->ejsapp = $ejsapp;
+    $collab_session->master_user = $master_user;
+    $collab_session->course = $course;
+    $DB->insert_record('ejsapp_collab_sessions', $collab_session);
 } //insert_collaborative_session
 
 
@@ -91,7 +99,10 @@ function insert_collaborative_user($collaborative_session){
 	if (is_the_user_participating_in_any_session()) {
 		return;
 	}
-    $DB->insert_record('ejsapp_collab_acceptances', array('accepted_user'=>$USER->id,'collaborative_session'=>$collaborative_session));
+    $collab_acceptances = new stdClass();
+    $collab_acceptances->accepted_user = $USER->id;
+    $collab_acceptances->collaborative_session = $collaborative_session;
+    $DB->insert_record('ejsapp_collab_acceptances', $collab_acceptances);
 } //insert_collaborative_user
 
 
@@ -99,6 +110,7 @@ function insert_collaborative_user($collaborative_session){
  * returns the id of the collaborative session directed by a given master user
  *
  * @param int $master_user id of the master user
+ * @return int record id
  */
 function get_collaborative_session_id($master_user){
 	global $DB;
@@ -126,7 +138,10 @@ function insert_collaborative_invitation($invited_user, $collaborative_session){
 	}
 	// <\if the invitation exists do noting>
 
-    $DB->insert_record('ejsapp_collab_invitations', array('invited_user'=>$invited_user,'collaborative_session'=>$collaborative_session));
+    $collab_invitations = new stdClass();
+    $collab_invitations->invited_user = $invited_user;
+    $collab_invitations->collaborative_session = $collaborative_session;
+    $DB->insert_record('ejsapp_collab_invitations',$collab_invitations);
 } //insert_collaborative_invitation
 
 
@@ -162,6 +177,7 @@ function delete_collaborative_session($master_user){
  * returns the id of the EJS simulation shared in a collaborative session
  *
  * @param int $master_user id of the master user
+ * @return int ejsappid
  */
 function get_ejsapp($master_user){
 	global $DB;
@@ -177,6 +193,7 @@ function get_ejsapp($master_user){
  * returns the name of the EJS simulation shared in a collaborative session
  *
  * @param int $master_user id of the master user
+ * @return string ejsapp name
  */
 function get_ejsapp_name($master_user){
 	global $DB;
@@ -195,6 +212,7 @@ function get_ejsapp_name($master_user){
  * returns an object that fully describes the simulation shared in a collaborative session
  *
  * @param int $session id of the collaborative session
+ * @return stdClass ejsapp
  */
 function get_ejsapp_object($session){
 	global $DB;
@@ -213,11 +231,13 @@ function get_ejsapp_object($session){
  * returns an object that fully describes the master user that leads a collaborative session
  *
  * @param int $session id of the collaborative session
+ * @return stdClass ejsapp_collab_acceptances
  */
 function get_master_user_object($session){
 	global $DB;
 
     $record = $DB->get_record('ejsapp_collab_sessions', array('id'=>$session));
+    $record2 = new stdClass();
 	 if(isset($record->master_user)) {
          $record2 = $DB->get_record('ejsapp_collab_acceptances', array('id'=>$record->master_user));
      }
@@ -247,6 +267,7 @@ function get_sessions_where_i_am_invited(){
  * returns the name of a user
  *
  * @param int $user id of user
+ * @return string user name
  */
 function get_user_name($user){
 	global $DB;
@@ -263,7 +284,7 @@ function get_user_name($user){
 function delete_non_master_user_from_collaborative_users(){
 	global $DB, $USER;
 
-    $DB->delete_record('ejsapp_collab_acceptances', array('id'=>$USER->id));
+    $DB->delete_records('ejsapp_collab_acceptances', array('id'=>$USER->id));
 } //delete_non_master_user_from_collaborative_users
 
 
@@ -271,6 +292,7 @@ function delete_non_master_user_from_collaborative_users(){
  * returns the names of all collaborative EJS simulations in a given course
  *
  * @param int $course id of the course
+ * @return array ejsapp
  */
 function get_all_collaborative_lab_names($course) {
 	global $DB;
@@ -284,7 +306,8 @@ function get_all_collaborative_lab_names($course) {
 /**
  * returns the connection port that the session director is using in the collaborative session
  *
- * @param int $session_id id of the collaborative session
+ * @param int $session id of the collaborative session
+ * @return int port
  */
 function get_port($session){
 	global $DB;
@@ -317,5 +340,3 @@ function am_i_master_user(){
 
 	return (isset($record->master_user));
 } //is_master_user
-
-?>

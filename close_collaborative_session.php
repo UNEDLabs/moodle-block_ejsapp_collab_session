@@ -82,5 +82,3 @@ EOD;
 }
 
 echo $OUTPUT->footer();
-
-?>
