@@ -63,7 +63,7 @@ if ($sarlab_collab_conf == 1 && get_config('ejsapp_collab_session', 'Use_Sarlab'
     $localport = 8079; //49999 //79
     do {
         $localport++;
-        $sql = "SELECT * FROM {$CFG->prefix}ejsapp_collab_sessions WHERE ip = '$ip' AND localport = $localport";
+        $sql = "SELECT * FROM {ejsapp_collab_sessions} WHERE ip = '$ip' AND localport = $localport";
     } while ($DB->get_record_sql($sql));
 } else {
     $ip = $_SERVER['REMOTE_ADDR'];
