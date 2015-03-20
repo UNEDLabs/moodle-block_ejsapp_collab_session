@@ -70,7 +70,7 @@ if (am_i_master_user()) {
 }
 
 if (!empty($course_id)) {
-  $backToCourse = get_string('backToCourse', 'block_ejsapp_collab_session');
+  /*$backToCourse = get_string('backToCourse', 'block_ejsapp_collab_session');
   $button = <<<EOD
 	<center>
 	<form>
@@ -78,7 +78,12 @@ if (!empty($course_id)) {
 	</form>
 	</center>
 EOD;
-	echo $button;
+	echo $button;*/
+
+    $form = new html_form();
+    $form->url = new moodle_url($course_url);
+    $form->button->text = get_string('backToCourse', 'block_ejsapp_collab_session');
+    echo $OUTPUT->button($form);
 }
 
 echo $OUTPUT->footer();

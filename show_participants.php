@@ -80,15 +80,12 @@ $search = optional_param('search','',PARAM_RAW);                    // make sure
 $roleid = optional_param('roleid', 0, PARAM_INT);                   // optional roleid, 0 means all enrolled users (or all on the frontpage)
 
 $context = context_module::instance($contextid);
+$context_course = context_course::instance($courseid);
 $title = get_string('pageTitle', 'block_ejsapp_collab_session');
-
-if ($context->contextlevel != CONTEXT_COURSE) {
-  $context->contextlevel = CONTEXT_COURSE;
-}
 
 $course = $DB->get_record('course', array('id'=>$context->instanceid), '*', MUST_EXIST);
 
-$PAGE->set_context($context);
+$PAGE->set_context($context_course);
 $PAGE->set_title($title);
 $PAGE->set_heading($title);
 

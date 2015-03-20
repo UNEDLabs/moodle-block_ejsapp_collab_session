@@ -37,7 +37,7 @@
 $courseid = required_param('courseid', PARAM_RAW);
 $contextid = required_param('contextid', PARAM_INT);
 
-$context = context_module::instance($contextid);
+$context = context_course::instance($courseid);
 $title = get_string('pageTitle', 'block_ejsapp_collab_session');
 
 global $page_caller;
