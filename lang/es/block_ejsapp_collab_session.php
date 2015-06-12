@@ -51,12 +51,6 @@ $string['close2'] = ' ha sido cerrada.';
 $string['goodbyeStudent'] = 'Ha abandonado la sesi&oacute;n colaborativa.';
 $string['backToCourse'] = 'Volver al curso';
 
-//master_user.php:
-$string['navBarMasterUser'] = 'Seleccionando laboratorio';
-$string['cantJoinSessionErr1'] = 'Error: Ya tiene una sesi&oacute;n colaborativa activa. Ci�rrela antes para poder iniciar o unirse a una nueva.';
-$string['selectLabBut'] = 'Seleccionar este laboratorio';
-$string['selectColLab'] = 'Seleccione uno de los laboratorios colaborativos s&iacute;ncronos:';
-
 //non_master_user.php:
 $string['navBarNonMasterUser'] = 'Aceptando invitaci&oacute;n';
 $string['selectInvitation'] = 'Seleccione una de las invitaciones pendientes:';
@@ -64,14 +58,16 @@ $string['invitationMsg1'] = ' le ha invitado al siguiente laboratorio: ';
 $string['acceptInvitation'] = 'Aceptar invitaci&oacute;n';
 $string['cantJoinSessionErr2'] = 'Error: Actualmente no tiene invitaciones activas para ninguna sesi&oacute;n colaborativa.';
 
-//Send_messages.php:
+//send_messages.php:
 $string['invitationMsg2'] = 'Le invit&oacute; a una sesi&oacute;n colaborativa.';
 
-//Show_participants.php:
+//invite_participants.php:
+$string['cantJoinSessionErr1'] = 'Error: Ya tiene una sesi&oacute;n colaborativa activa. Ci�rrela antes para poder iniciar o unirse a una nueva.';
 $string['inviteParticipants'] = 'Invitar participantes';
 $string['navBarShowParticipants'] = 'Selecionando invitados';
+$string['selectLabBut'] = 'Seleccione un laboratorio';
 
-//generate_applet_embedding_code.php and many others:
+//generate_embedding_code.php and many others:
 $string['pageTitle']='Sesi&oacute;n Colaborativa de Laboratorio';
 
 //settings.php:

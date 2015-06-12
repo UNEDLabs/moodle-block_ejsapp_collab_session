@@ -37,7 +37,7 @@
 require_once('../../config.php');
 require_once('manage_collaborative_db.php');
 
-global $CFG;
+global $CFG, $DB, $OUTPUT, $PAGE, $USER;
 
 $session = required_param('session', PARAM_INT);
 $course_id = required_param('courseid', PARAM_INT);
@@ -63,27 +63,15 @@ $course_url = $CFG->wwwroot . "/course/view.php?id=$course_id";
 
 if (am_i_master_user()) {
 	delete_collaborative_session($USER->id);
-	echo "<center>".get_string('close1', 'block_ejsapp_collab_session')."{$ejsapp->name}".get_string('close2', 'block_ejsapp_collab_session')."</center>";
+	echo html_writer::tag('div', get_string('close1', 'block_ejsapp_collab_session')."{$ejsapp->name}".get_string('close2', 'block_ejsapp_collab_session'));
 } else {
 	delete_me_as_collaborative_user();
-	echo "<center>".get_string('goodbyeStudent', 'block_ejsapp_collab_session')."</center>";
+	echo html_writer::tag('div', get_string('goodbyeStudent', 'block_ejsapp_collab_session'));
 }
 
 if (!empty($course_id)) {
-  /*$backToCourse = get_string('backToCourse', 'block_ejsapp_collab_session');
-  $button = <<<EOD
-	<center>
-	<form>
-	<input type="button" value="$backToCourse" onClick="window.location.href = '$course_url'">
-	</form>
-	</center>
-EOD;
-	echo $button;*/
-
-    $form = new html_form();
-    $form->url = new moodle_url($course_url);
-    $form->button->text = get_string('backToCourse', 'block_ejsapp_collab_session');
-    echo $OUTPUT->button($form);
+    $button = html_writer::empty_tag('input', array('type'=>'button', 'name'=>'go_back', 'value'=>get_string('backToCourse', 'block_ejsapp_collab_session'), 'onClick'=>"window.location.href = '$course_url'"));
+    echo $button;
 }
 
 echo $OUTPUT->footer();

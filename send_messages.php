@@ -26,7 +26,8 @@
 
 
 /**
- * File that sends an invitation to join the collaborative session by (1) email and (2) moodle message
+ * This script creates the collaborative session with the information configured in invite_participants and
+ * sends an invitation to join this collaborative session by (1) email and (2) a moodle message
  *
  * @package    block
  * @subpackage ejsapp_collab_session
@@ -36,14 +37,25 @@
  
 require_once('../../config.php');
 require_login();
-global $CFG, $DB;
-require_once($CFG->dirroot.'/message/lib.php');
-
-require_once('manage_collaborative_db.php');
 
 global $CFG, $DB, $PAGE, $OUTPUT, $USER, $SESSION;
 
+require_once($CFG->dirroot.'/message/lib.php');
+require_once($CFG->dirroot.'/filter/multilang/filter.php');
+require_once('manage_collaborative_db.php');
+
 $mycourseid = required_param('courseid', PARAM_RAW);
+$contextid = required_param('contextid', PARAM_RAW);
+$labid = required_param('labid', PARAM_RAW);
+$localport = required_param('localport', PARAM_RAW);
+$ip = required_param('ip', PARAM_RAW);
+$sarlabport = required_param('sarlabport', PARAM_RAW);
+$sarlab_collab_conf = required_param('sarlab_collab_conf', PARAM_RAW);
+
+$context = context_module::instance($contextid);
+
+// Create the collaborative session
+insert_collaborative_session($localport, $labid, $USER->id, $ip, $sarlabport, $sarlab_collab_conf, $mycourseid);
 
 $collaborative_session_id = get_collaborative_session_id($USER->id);
 
@@ -52,17 +64,17 @@ $preview = false;
 $edit = false;
 $format = FORMAT_PLAIN;
 
-$messagebody = get_string('invitationMsg2', 'block_ejsapp_collab_session');
-
-// <\getting the message body>
+$lab_record = $DB->get_record('ejsapp', array('id'=>$labid));
+$multilang = new filter_multilang($context, array('filter_multilang_force_old'=>0));
+$lab_name = $multilang->filter($lab_record->name);
+$messagebody = get_string('invitationMsg2', 'block_ejsapp_collab_session') . ' ' . $lab_name;
 
 $url = new moodle_url('/blocks/ejsapp_collab_session/send_messages.php', array('id'=>$mycourseid));
 $url->param('messagebody', $messagebody);
 $url->param('format', $format);
 
-$systemcontext = context_system::instance();   // SYSTEM context
 $PAGE->set_url($url);
-$PAGE->set_context($systemcontext);
+$PAGE->set_context(context_course::instance($mycourseid));
 
 if (!$course = $DB->get_record('course', array('id'=>$mycourseid))) {
   print_error('invalidcourseid');
@@ -70,52 +82,50 @@ if (!$course = $DB->get_record('course', array('id'=>$mycourseid))) {
 
 require_login();
 
-$coursecontext = context_course::instance($mycourseid); // Course context
-
 $SESSION->emailto = array();
 $SESSION->emailto[$mycourseid] = array();
 $SESSION->emailselect[$mycourseid] = array('messagebody' => $messagebody);
 $messagebody = $SESSION->emailselect[$mycourseid]['messagebody'];
 
 $count = 0;
+$user_list = array();
 
 foreach ($_POST as $k => $v) {
 	if (preg_match('/^(user|teacher)(\d+)$/',$k,$m)) {
-    if (!array_key_exists($m[2],$SESSION->emailto[$mycourseid])) {
-      if ($user = $DB->get_record_select('user', "id = ?", array($m[2]), 'id,firstname,lastname,idnumber,email,mailformat,lastaccess, lang')) {
-        $SESSION->emailto[$mycourseid][$m[2]] = $user;
-        $count++;
-      }
+        if (!array_key_exists($m[2],$SESSION->emailto[$mycourseid])) {
+            if ($user = $DB->get_record('user', array('id'=>$m[2]))) {
+                $user_list[] = $user;
+                $SESSION->emailto[$mycourseid][$m[2]] = $user;
+                $count++;
+            }
+        }
     }
-  }
 }
 
 require('init_page.php');
 
 // if messaging is disabled on site, we can still allow users with capabilities to send emails instead
 if (empty($CFG->messaging)) {
-  echo $OUTPUT->notification(get_string('messagingdisabled','message'));
+    echo $OUTPUT->notification(get_string('messagingdisabled','message'));
 }
 
 if (count($SESSION->emailto[$mycourseid])) {
   $good = true;
   if (!empty($CFG->noemailever)) {
-    $temp_cfg = $CFG->noemailever;
-    $CFG->noemailever = true;
+        $temp_cfg = $CFG->noemailever;
+        $CFG->noemailever = true;
   }
 
-  foreach ($SESSION->emailto[$mycourseid] as $user) {
-  	$good = $good && @message_post_message($USER,$user,$messagebody,$format);
-		insert_collaborative_invitation($user->id, $collaborative_session_id);
+  for ($i = 0; $i < count($SESSION->emailto[$mycourseid]); $i++) {
+  	    $good = $good && @message_post_message($USER,$user_list[$i],$messagebody,$format);
+		insert_collaborative_invitation($user_list[$i]->id, $collaborative_session_id);
   }
   $session_director = $DB->get_record('ejsapp_collab_sessions',array('master_user'=>$USER->id));
   $session_id = $session_director->id;
 $redirection = <<<EOD
-<center>
 <script>
 	location.href = '{$CFG->wwwroot}/mod/ejsapp/view.php?colsession=$session_id';
 </script>
-</center>
 EOD;
   echo $redirection;
 

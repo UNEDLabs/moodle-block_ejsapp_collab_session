@@ -97,9 +97,9 @@ class block_ejsapp_collab_session extends block_list {
         }
         }
 
-        $image =  '<img src="' . $CFG->wwwroot.'/blocks/ejsapp_collab_session/pix/icon.gif' . '" alt="Invite participants to a collaborative session" width="170" height="145" />&nbsp;';
+        $image = html_writer::img($CFG->wwwroot.'/blocks/ejsapp_collab_session/pix/icon.gif', "Invite participants to a collaborative session", array('style' => 'width:80%'));
 
-        $buttons = '<form>';
+        $buttons = html_writer::start_tag('form');
     	
     	if (is_the_user_participating_in_any_session()) {
             $am_i_director= am_i_master_user();
@@ -113,7 +113,7 @@ class block_ejsapp_collab_session extends block_list {
 
     		$view_ejsapp_url = $CFG->wwwroot . "/mod/ejsapp/view.php?colsession=" . $session_id;
 
-    		$buttons .= "<input type=\"button\" value=".'"'.get_string('goToMasSessBut', 'block_ejsapp_collab_session').'"'." onClick=\"window.location.href='$view_ejsapp_url'\">";
+            $buttons .= html_writer::empty_tag('input', array('type'=>'button', 'name'=>'master_session', 'value'=>get_string('goToMasSessBut', 'block_ejsapp_collab_session'), 'onClick'=>"window.location.href='$view_ejsapp_url'"));
 
     		if ($am_i_director) {
     			$close_button = get_string('closeMasSessBut', 'block_ejsapp_collab_session');
@@ -121,24 +121,18 @@ class block_ejsapp_collab_session extends block_list {
     			$close_button = get_string('closeStudSessBut', 'block_ejsapp_collab_session');
     		}
 
-			 $close_collaborative_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/close_collaborative_session.php?session=$session_id&courseid=$course&contextid={$currentcontext->id}";
-			 $buttons .= "<input type=\"button\" value=\"$close_button\" onClick=\"window.location.href='$close_collaborative_url'\">";
+			$close_collaborative_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/close_collaborative_session.php?session=$session_id&courseid=$course&contextid={$currentcontext->id}";
+            $buttons .= html_writer::empty_tag('input', array('type'=>'button', 'name'=>'close_session', 'value'=>$close_button, 'onClick'=>"window.location.href='$close_collaborative_url'"));
     	} else {
     		if (has_the_user_been_invited_to_any_session()) {
     			$participate_in_session_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/non_master_user.php?courseid=$course&contextid={$currentcontext->id}";
-    			$buttons .= "<input type=\"button\" value=".'"'.get_string('goToStudSessBut', 'block_ejsapp_collab_session').'"'." onClick=\"window.location.href='$participate_in_session_url'\">";
+                $buttons .= html_writer::empty_tag('input', array('type'=>'button', 'name'=>'join_session', 'value'=>get_string('goToStudSessBut', 'block_ejsapp_collab_session'), 'onClick'=>"window.location.href='$participate_in_session_url'"));
     		}
-            $sarlab_collab_conf = $this->use_sarlab;
-    		$master_user_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/master_user.php?courseid=$course&contextid={$currentcontext->id}&sarlab_conf=$sarlab_collab_conf";
-            if ($sarlab_collab_conf  == 1) {
-                $sarlab_collab_instance = $this->sarlab_instance;
-                $master_user_url .= "&sarlab_instance=$sarlab_collab_instance";
-            }
-
-            $buttons .= "<input type=\"button\" value=".'"'.get_string('createBut', 'block_ejsapp_collab_session').'"'." onClick=\"window.location.href = '$master_user_url'\">";
+    		$master_user_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/invite_participants.php?courseid=$course&contextid={$currentcontext->id}";
+            $buttons .= html_writer::empty_tag('input', array('type'=>'button', 'name'=>'create_session', 'value'=>get_string('createBut', 'block_ejsapp_collab_session'), 'onClick'=>"window.location.href='$master_user_url'"));
         }
 
-        $buttons .= '</form>';
+        $buttons .= html_writer::end_tag('form');
 
     	$this->content->items[0] = $image;
         $this->content->items[1] = $buttons;

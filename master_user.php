@@ -38,35 +38,33 @@ require_once('../../config.php');
 require_login();
 require_once('manage_collaborative_db.php');
 
+global $OUTPUT, $CFG;
+
 $page_caller = get_string('navBarMasterUser', 'block_ejsapp_collab_session');
 require('init_page.php');
-$sarlab_collab_conf = required_param('sarlab_conf', PARAM_INT);
-if ($sarlab_collab_conf == 1) $sarlab_collab_instance = required_param('sarlab_instance', PARAM_INT);
-else $sarlab_collab_instance = 0;
 
 if (is_the_user_participating_in_any_session()) {
-  echo $OUTPUT->heading(get_string('cantJoinSessionErr1', 'block_ejsapp_collab_session'));
+    echo $OUTPUT->heading(get_string('cantJoinSessionErr1', 'block_ejsapp_collab_session'));
 } else {
-  $collaborative_lab_names = get_all_collaborative_lab_names($courseid);
-  $show_participants_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/show_participants.php";
-  echo $OUTPUT->heading(get_string('selectColLab', 'block_ejsapp_collab_session'));
-  echo '<form action="' . $show_participants_url . '" method="get" >';
-  $i = 1;
-  foreach ($collaborative_lab_names as $lab) {
-    if ($i == 1) {
-      echo '<input type=radio name="lab_id" value="' . $lab->id .
-      '" checked>' . $lab->name . '<br>';
-    } else {
-      echo '<input type=radio name="lab_id" value="' . $lab->id .
-      '">' . $lab->name . '<br>';
-    }
-    $i++;
-  }
-  $code = '<input type="hidden" name="courseid" value="' . $courseid . '">
-  <input type="hidden" name="contextid" value="' . $context->id . '">
-  <input type="hidden" name="sarlab_conf" value="' . $sarlab_collab_conf . '">';
-  if ($sarlab_collab_conf == 1) $code .=  '<input type="hidden" name="sarlab_instance" value="' . $sarlab_collab_instance . '">';
-  $code .= '<br><p align="center"><input type=submit value="' . get_string('selectLabBut', 'block_ejsapp_collab_session') . '"></p></form>';
-  echo $code;
-  echo $OUTPUT->footer();
+      $collaborative_lab_names = get_all_collaborative_lab_names($courseid);
+      $show_participants_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/invite_participants.php";
+      echo $OUTPUT->heading(get_string('selectColLab', 'block_ejsapp_collab_session'));
+      echo html_writer::start_tag('form', array('action'=>$show_participants_url, 'method'=>'get'));
+      $i = 1;
+      foreach ($collaborative_lab_names as $lab) {
+            if ($i == 1) {
+                echo html_writer::nonempty_tag('input checked', $lab->name, array('type'=>'radio', 'name'=>'lab_id', 'value'=>$lab->id));
+                echo html_writer::tag('br', '');
+            } else {
+                echo html_writer::nonempty_tag('input', $lab->name, array('type'=>'radio', 'name'=>'lab_id', 'value'=>$lab->id));
+                echo html_writer::tag('br', '');
+            }
+            $i++;
+      }
+      $code = '<input type="hidden" name="courseid" value="' . $courseid . '">
+      <input type="hidden" name="contextid" value="' . $context->id . '">';
+      $code .= '<br><p align="center"><input type=submit value="' . get_string('selectLabBut', 'block_ejsapp_collab_session') . '"></p>';
+      echo $code;
+      echo html_writer::end_tag('form');
+      echo $OUTPUT->footer();
 } // if (is_the_user_participating_in_any_session())

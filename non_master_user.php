@@ -38,7 +38,6 @@ require_once('../../config.php');
 require_login();
 global $CFG, $DB;
 require_once('manage_collaborative_db.php');
-require_once("$CFG->libdir/formslib.php");
 
 $page_caller = get_string('navBarNonMasterUser', 'block_ejsapp_collab_session');
 require('init_page.php');
@@ -50,23 +49,27 @@ if (is_the_user_participating_in_any_session()) {
 } else {
 	echo $OUTPUT->heading(get_string('selectInvitation', 'block_ejsapp_collab_session'));
 	$my_invitations = get_sessions_where_i_am_invited();
-	echo '<form action="' . "{$CFG->wwwroot}/mod/ejsapp/view.php" . '" method="get">';
+    $view_url = $CFG->wwwroot."/mod/ejsapp/view.php";
+    echo html_writer::start_tag('form', array('action'=>$view_url, 'method'=>'get'));
 	$i = 1;
 	foreach ($my_invitations as $master_user=>$ejsapp) {
 		$ejsapp_name = get_ejsapp_name($master_user);
 		$session = get_collaborative_session_id($master_user);
 		if ($i == 1) {
-			echo '<input type=radio name="colsession" value="' . $session .
-			'" checked>' . get_user_name($master_user) . get_string('invitationMsg1', 'block_ejsapp_collab_session') . "$ejsapp_name" .
-			'<br>';
+            echo html_writer::nonempty_tag('input checked', get_user_name($master_user) . get_string('invitationMsg1', 'block_ejsapp_collab_session')
+                . "$ejsapp_name", array('type'=>'radio', 'name'=>'colsession', 'value'=>$session));
+            echo html_writer::tag('br', '');
 		} else {
-			echo '<input type=radio name="colsession" value="' . $session .
-				'">' . get_user_name($master_user) . get_string('invitationMsg1', 'block_ejsapp_collab_session') . "$ejsapp_name" . '<br>';
+            echo html_writer::nonempty_tag('input', get_user_name($master_user) . get_string('invitationMsg1', 'block_ejsapp_collab_session')
+                . "$ejsapp_name", array('type'=>'radio', 'name'=>'colsession', 'value'=>$session));
+            echo html_writer::tag('br', '');
 		}
 		$i++;
 	}
 
-    echo '<br><p align="center"><input type=submit value=' . '"' . get_string('acceptInvitation', 'block_ejsapp_collab_session') . '"' . '></p> </form>';
+    echo html_writer::tag('br', '');
+    echo html_writer::empty_tag('input', array('type'=>'submit', 'value'=> get_string('acceptInvitation', 'block_ejsapp_collab_session')));
+    echo html_writer::end_tag('form');
 } // if (is_the_user_participating_in_any_session())
 
 echo $OUTPUT->footer();

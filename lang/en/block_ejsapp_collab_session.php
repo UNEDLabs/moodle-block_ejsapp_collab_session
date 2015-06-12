@@ -51,12 +51,6 @@ $string['close2'] = ' has been closed.';
 $string['goodbyeStudent'] = 'You have left the collaborative session.';
 $string['backToCourse'] = 'Go back to the course';
 
-//master_user.php:
-$string['navBarMasterUser'] = 'Selecting lab';
-$string['cantJoinSessionErr1'] = 'Error: You are already participating in a collaborative session. Close your active collaborative session before creating a new one.';
-$string['selectLabBut'] = 'Select this laboratory';
-$string['selectColLab'] = 'Select one of the following synchronous collaborative labs:';
-
 //non_master_user.php:
 $string['navBarNonMasterUser'] = 'Accepting invitation';
 $string['selectInvitation'] = 'Select one of the following invitations:';
@@ -64,14 +58,16 @@ $string['invitationMsg1'] = ' has invited you to the following lab: ';
 $string['acceptInvitation'] = 'Accept invitation';
 $string['cantJoinSessionErr2'] = 'Error: Right now you have no active invitations to any collaborative session.';
 
-//Send_messages.php:
+//send_messages.php:
 $string['invitationMsg2'] = 'Invited you to a collaborative session.';
 
-//Show_participants.php:
+//invite_participants.php:
+$string['cantJoinSessionErr1'] = 'Error: You are already participating in a collaborative session. Close your active collaborative session before creating a new one.';
 $string['inviteParticipants'] = 'Invite participants';
 $string['navBarShowParticipants'] = 'Selecting participants';
+$string['selectLabBut'] = 'Select a laboratory';
 
-//generate_applet_embedding_code.php and many others:
+//generate_embedding_code.php and many others:
 $string['pageTitle'] = 'Lab Collaborative Session';
 
 //settings.php:
