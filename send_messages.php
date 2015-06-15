@@ -42,7 +42,7 @@ global $CFG, $DB, $PAGE, $OUTPUT, $USER, $SESSION;
 
 require_once($CFG->dirroot.'/message/lib.php');
 require_once($CFG->dirroot.'/filter/multilang/filter.php');
-require_once('manage_collaborative_db.php');
+require_once('manage_collab_db.php');
 
 $mycourseid = required_param('courseid', PARAM_RAW);
 $contextid = required_param('contextid', PARAM_RAW);
@@ -67,7 +67,7 @@ $format = FORMAT_PLAIN;
 $lab_record = $DB->get_record('ejsapp', array('id'=>$labid));
 $multilang = new filter_multilang($context, array('filter_multilang_force_old'=>0));
 $lab_name = $multilang->filter($lab_record->name);
-$messagebody = get_string('invitationMsg2', 'block_ejsapp_collab_session') . ' ' . $lab_name;
+$messagebody = get_user_name($USER->id) . get_string('invitationMsg1', 'block_ejsapp_collab_session') . $lab_name . '.';
 
 $url = new moodle_url('/blocks/ejsapp_collab_session/send_messages.php', array('id'=>$mycourseid));
 $url->param('messagebody', $messagebody);

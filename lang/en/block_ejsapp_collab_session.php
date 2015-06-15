@@ -34,7 +34,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
  
-//block_start_collaborative_session.php:
+//block_ejsapp_collab_session.php:
 $string['pluginname'] = 'EJSApp collab session';
 $string['block_title'] = 'EJSApp Collab Session';
 $string['start_collaborative_session:view'] = 'View Block for Collaborative Sessions';
@@ -45,21 +45,21 @@ $string['closeStudSessBut'] = 'Leave this session';
 $string['createBut'] = 'Create collaborative session';
 $string['navBarCollaborativeSession'] = 'Collaborative session';
 
-//close_collaborative_session.php:
+//close_collab_session.php:
 $string['close1'] = 'The collaborative session with lab ';
 $string['close2'] = ' has been closed.';
 $string['goodbyeStudent'] = 'You have left the collaborative session.';
 $string['backToCourse'] = 'Go back to the course';
 
-//non_master_user.php:
+//join_collab_session.php:
 $string['navBarNonMasterUser'] = 'Accepting invitation';
 $string['selectInvitation'] = 'Select one of the following invitations:';
-$string['invitationMsg1'] = ' has invited you to the following lab: ';
+$string['invitationMsg1'] = ' has invited you to a collaborative session with this lab: ';
 $string['acceptInvitation'] = 'Accept invitation';
 $string['cantJoinSessionErr2'] = 'Error: Right now you have no active invitations to any collaborative session.';
 
 //send_messages.php:
-$string['invitationMsg2'] = 'Invited you to a collaborative session.';
+$string['invitationMsg2'] = 'Join this session.';
 
 //invite_participants.php:
 $string['cantJoinSessionErr1'] = 'Error: You are already participating in a collaborative session. Close your active collaborative session before creating a new one.';

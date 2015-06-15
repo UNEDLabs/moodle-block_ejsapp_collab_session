@@ -38,4 +38,4 @@ $plugin->cron = 0;
 $plugin->component = 'block_ejsapp_collab_session'; // To check on upgrade, that module sits in correct place
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = '1.3 (Build: 2015061300)';
-$plugin->dependencies = array('mod_ejsapp' => 2013081500);
+$plugin->dependencies = array('mod_ejsapp' => 2015061300);

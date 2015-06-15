@@ -26,7 +26,7 @@
 
 
 /**
- * Init file for an invited user
+ * Page menu for users to accept an invitation to a collaborative session when they have been invited to one at least.
  *
  * @package    block
  * @subpackage ejsapp_collab_session
@@ -37,7 +37,7 @@
 require_once('../../config.php');
 require_login();
 global $CFG, $DB;
-require_once('manage_collaborative_db.php');
+require_once('manage_collab_db.php');
 
 $page_caller = get_string('navBarNonMasterUser', 'block_ejsapp_collab_session');
 require('init_page.php');

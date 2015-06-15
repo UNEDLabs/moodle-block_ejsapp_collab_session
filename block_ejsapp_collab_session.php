@@ -34,7 +34,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once('manage_collaborative_db.php');
+require_once('manage_collab_db.php');
 
 
 /**
@@ -121,8 +121,8 @@ class block_ejsapp_collab_session extends block_list {
     			$close_button = get_string('closeStudSessBut', 'block_ejsapp_collab_session');
     		}
 
-			$close_collaborative_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/close_collaborative_session.php?session=$session_id&courseid=$course&contextid={$currentcontext->id}";
-            $buttons .= html_writer::empty_tag('input', array('type'=>'button', 'name'=>'close_session', 'value'=>$close_button, 'onClick'=>"window.location.href='$close_collaborative_url'"));
+			$close_collab_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/close_collab_session.php?session=$session_id&courseid=$course&contextid={$currentcontext->id}";
+            $buttons .= html_writer::empty_tag('input', array('type'=>'button', 'name'=>'close_session', 'value'=>$close_button, 'onClick'=>"window.location.href='$close_collab_url'"));
     	} else {
     		if (has_the_user_been_invited_to_any_session()) {
     			$participate_in_session_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/non_master_user.php?courseid=$course&contextid={$currentcontext->id}";

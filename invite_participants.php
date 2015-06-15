@@ -41,7 +41,7 @@ global $CFG, $PAGE, $DB, $OUTPUT, $USER;
 
 require_once($CFG->libdir.'/tablelib.php');
 require_once($CFG->libdir.'/filelib.php');
-require_once('manage_collaborative_db.php');
+require_once('manage_collab_db.php');
 require_once($CFG->dirroot . '/filter/multilang/filter.php');
 
 define('USER_SMALL_CLASS', 20);   // Below this is considered small
@@ -80,18 +80,19 @@ if ($isfrontpage) {
 }
 
 if (is_the_user_participating_in_any_session()) {
-    $PAGE->set_url('/blocks/ejsapp_collab_session/invite_participants.php', array('courseid' => $course->id, 'contextid' => $contextid));
+    $PAGE->set_url('/blocks/ejsapp_collab_session/invite_participants.php', array('courseid' => $courseid, 'contextid' => $contextid));
     echo $OUTPUT->header();
     echo $OUTPUT->heading(get_string('cantJoinSessionErr1', 'block_ejsapp_collab_session'));
 } else {
     $collaborative_lab_names = get_all_collaborative_lab_names($courseid);
-    if ($labid == 0) {
-        $lab = reset($collaborative_lab_names);
-        $labid = $lab->id;
-    }
+    $i = 1;
     $multilang = new filter_multilang($context_course, array('filter_multilang_force_old'=>0));
     foreach ($collaborative_lab_names as $collaborative_lab_name) {
         $lab_name[$collaborative_lab_name->id] = $multilang->filter($collaborative_lab_name->name);
+        if ($i == 1 && $labid == 0) {
+            $labid = $collaborative_lab_name->id;
+        }
+        $i++;
     }
 
     $sarlab_collab_conf = $DB->get_field('ejsapp_remlab_conf', 'sarlabcollab', array('ejsappid' => $labid));
@@ -116,7 +117,7 @@ if (is_the_user_participating_in_any_session()) {
 
     $context = context_module::instance($contextid);
 
-    $PAGE->set_url('/blocks/ejsapp_collab_session/invite_participants.php', array('courseid' => $course->id, 'contextid' => $contextid));
+    $PAGE->set_url('/blocks/ejsapp_collab_session/invite_participants.php', array('courseid' => $courseid, 'contextid' => $contextid));
 
     $systemcontext = context_system::instance();
 
@@ -204,7 +205,6 @@ if (is_the_user_participating_in_any_session()) {
     $baseurl = new moodle_url('/blocks/ejsapp_collab_session/invite_participants.php', array(
         'courseid' => $courseid,
         'contextid' => $contextid,
-        'lab_id' => $labid,
         'roleid' => $roleid,
         'perpage' => $perpage,
         'accesssince' => $accesssince,
@@ -241,7 +241,7 @@ if (is_the_user_participating_in_any_session()) {
     /// Print my course menus
     if ($mycourses = enrol_get_my_courses()) {
         $courselist = array();
-        $popupurl = new moodle_url('/blocks/ejsapp_collab_session/invite_participants.php?lab_id=' . $labid . '&roleid=' . $roleid . '&sifirst=&silast=');
+        $popupurl = new moodle_url('/blocks/ejsapp_collab_session/invite_participants.php?courseid='.$courseid.'&contextid='.$contextid. '&lab_id=' . $labid . '&roleid=' . $roleid . '&sifirst=&silast=');
         foreach ($mycourses as $mycourse) {
             $courselist[$mycourse->id] = format_string($mycourse->shortname);
         }
@@ -275,6 +275,8 @@ if (is_the_user_participating_in_any_session()) {
         $now = usergetmidnight(time());
         $timeaccess = array();
         $baseurl->remove_params('accesssince');
+        $baseurl->remove_params('lab_id');
+        $baseurl->param('lab_id', $labid);
 
         // makes sense for this to go first.
         $timeoptions[0] = get_string('selectperiod');
@@ -383,12 +385,12 @@ if (is_the_user_participating_in_any_session()) {
     $table->set_attribute('class', 'generaltable generalbox');
 
     $table->set_control_variables(array(
-                TABLE_VAR_SORT => 'ssort',
-                TABLE_VAR_HIDE => 'shide',
-                TABLE_VAR_SHOW => 'sshow',
-                TABLE_VAR_IFIRST => 'sifirst',
-                TABLE_VAR_ILAST => 'silast',
-                TABLE_VAR_PAGE => 'spage'
+                TABLE_VAR_SORT      => 'ssort',
+                TABLE_VAR_HIDE      => 'shide',
+                TABLE_VAR_SHOW      => 'sshow',
+                TABLE_VAR_IFIRST    => 'sifirst',
+                TABLE_VAR_ILAST     => 'silast',
+                TABLE_VAR_PAGE      => 'spage'
     ));
     $table->setup();
 
@@ -432,7 +434,7 @@ if (is_the_user_participating_in_any_session()) {
 
     // limit list to users with some role only
     if ($roleid) {
-        $wheres[] = "u.id IN (SELECT userid FROM {role_assignments} WHERE roleid = :roleid AND contextid $contextlist)";
+        $wheres[] = "u.id IN (SELECT userid FROM {role_assignments} WHERE roleid = :roleid AND contextid IN (" . implode(',',$contextlist) . "))";
         $params['roleid'] = $roleid;
     }
 
@@ -448,8 +450,8 @@ if (is_the_user_participating_in_any_session()) {
     if (!empty($search)) {
         $fullname = $DB->sql_fullname('u.firstname', 'u.lastname');
         $wheres[] = "(" . $DB->sql_like($fullname, ':search1', false, false) .
-            " OR " . $DB->sql_like('email', ':search2', false, false) .
-            " OR " . $DB->sql_like('idnumber', ':search3', false, false) . ") ";
+                    " OR " . $DB->sql_like('email', ':search2', false, false) .
+                    " OR " . $DB->sql_like('idnumber', ':search3', false, false) . ") ";
         $params['search1'] = "%$search%";
         $params['search2'] = "%$search%";
         $params['search3'] = "%$search%";
@@ -497,8 +499,8 @@ if (is_the_user_participating_in_any_session()) {
     }
 
     // <Select rem lab pulldown menu>
-    $select = new single_select($baseurl, 'labid', $lab_name, $labid, null, 'formatmenu');
-    $select->set_label(get_string('rem_lab_selection', 'ejsappbooking'));
+    $select = new single_select($baseurl, 'lab_id', $lab_name, $labid, null, 'formatmenu');
+    $select->set_label(get_string('selectLabBut', 'block_ejsapp_collab_session'));
     $remlabslistcell = new html_table_cell();
     $remlabslistcell->attributes['class'] = 'right';
     $remlabslistcell->text = $OUTPUT->render($select);
@@ -557,78 +559,79 @@ if (is_the_user_participating_in_any_session()) {
     if ($userlist) {
         $usersprinted = array();
         foreach ($userlist as $user) {
-            if (in_array($user->id, $usersprinted)) { /// Prevent duplicates by r.hidden - MDL-13935
-                continue;
-            }
-            $usersprinted[] = $user->id; /// Add new user to the array of users printed
-
-            context_helper::preload_from_record($user);
-
-            if ($user->lastaccess) {
-                $lastaccess = format_time(time() - $user->lastaccess, $datestring);
-            } else {
-                $lastaccess = $strnever;
-            }
-
-            if (empty($user->country)) {
-                $country = '';
-            } else {
-                if ($countrysort) {
-                    $country = '(' . $user->country . ') ' . $countries[$user->country];
-                } else {
-                    $country = $countries[$user->country];
+            if ($user->id != $USER->id) { //Prevent the director of the session form also appearing in the list
+                if (in_array($user->id, $usersprinted)) { /// Prevent duplicates by r.hidden - MDL-13935
+                    continue;
                 }
-            }
+                $usersprinted[] = $user->id; /// Add new user to the array of users printed
 
-            $usercontext = context_user::instance($user->id);
+                context_helper::preload_from_record($user);
 
-            if (!isset($user->firstnamephonetic)) $user->firstnamephonetic = $user->firstname;
-            if (!isset($user->lastnamephonetic)) $user->lastnamephonetic = $user->lastname;
-            if (!isset($user->middlename)) $user->middlename = '';
-            if (!isset($user->alternatename)) $user->alternatename = '';
+                if ($user->lastaccess) {
+                    $lastaccess = format_time(time() - $user->lastaccess, $datestring);
+                } else {
+                    $lastaccess = $strnever;
+                }
 
-            if ($piclink = ($USER->id == $user->id || has_capability('moodle/user:viewdetails', $context) || has_capability('moodle/user:viewdetails', $usercontext))) {
-                $profilelink = '<strong><a href="' . $CFG->wwwroot . '/user/view.php?id=' . $user->id . '&amp;course=' . $course->id . '">' . fullname($user) . '</a></strong>';
-            } else {
-                $profilelink = '<strong>' . fullname($user) . '</strong>';
-            }
-
-            $data = array($OUTPUT->user_picture($user, array('size' => 35, 'courseid' => $course->id)), $profilelink);
-
-            if (!isset($hiddenfields['city'])) {
-                $data[] = $user->city;
-            }
-            if (!isset($hiddenfields['country'])) {
-                $data[] = $country;
-            }
-            if (!isset($hiddenfields['lastaccess'])) {
-                $data[] = $lastaccess;
-            }
-
-            if (isset($userlist_extra) && isset($userlist_extra[$user->id])) {
-                $ras = $userlist_extra[$user->id]['ra'];
-                $rastring = '';
-                foreach ($ras AS $key => $ra) {
-                    $rolename = $allrolenames[$ra['roleid']];
-                    if ($ra['ctxlevel'] == CONTEXT_COURSECAT) {
-                        $rastring .= $rolename . ' @ ' . '<a href="' . $CFG->wwwroot . '/course/category.php?id=' . $ra['ctxinstanceid'] . '">' . s($ra['ccname']) . '</a>';
-                    } elseif ($ra['ctxlevel'] == CONTEXT_SYSTEM) {
-                        $rastring .= $rolename . ' - ' . get_string('globalrole','role');
+                if (empty($user->country)) {
+                    $country = '';
+                } else {
+                    if ($countrysort) {
+                        $country = '(' . $user->country . ') ' . $countries[$user->country];
                     } else {
-                        $rastring .= $rolename;
+                        $country = $countries[$user->country];
                     }
                 }
-                $data[] = $rastring;
-                if ($groupmode != 0) {
-                    // htmlescape with s() and implode the array
-                    $data[] = implode(', ', array_map('s', $userlist_extra[$user->id]['group']));
-                    $data[] = implode(', ', array_map('s', $userlist_extra[$user->id]['gping']));
+
+                $usercontext = context_user::instance($user->id);
+
+                if (!isset($user->firstnamephonetic)) $user->firstnamephonetic = $user->firstname;
+                if (!isset($user->lastnamephonetic)) $user->lastnamephonetic = $user->lastname;
+                if (!isset($user->middlename)) $user->middlename = '';
+                if (!isset($user->alternatename)) $user->alternatename = '';
+
+                if ($piclink = ($USER->id == $user->id || has_capability('moodle/user:viewdetails', $context) || has_capability('moodle/user:viewdetails', $usercontext))) {
+                    $profilelink = '<strong><a href="' . $CFG->wwwroot . '/user/view.php?id=' . $user->id . '&amp;course=' . $course->id . '">' . fullname($user) . '</a></strong>';
+                } else {
+                    $profilelink = '<strong>' . fullname($user) . '</strong>';
                 }
+
+                $data = array($OUTPUT->user_picture($user, array('size' => 35, 'courseid' => $course->id)), $profilelink);
+
+                if (!isset($hiddenfields['city'])) {
+                    $data[] = $user->city;
+                }
+                if (!isset($hiddenfields['country'])) {
+                    $data[] = $country;
+                }
+                if (!isset($hiddenfields['lastaccess'])) {
+                    $data[] = $lastaccess;
+                }
+
+                if (isset($userlist_extra) && isset($userlist_extra[$user->id])) {
+                    $ras = $userlist_extra[$user->id]['ra'];
+                    $rastring = '';
+                    foreach ($ras AS $key => $ra) {
+                        $rolename = $allrolenames[$ra['roleid']];
+                        if ($ra['ctxlevel'] == CONTEXT_COURSECAT) {
+                            $rastring .= $rolename . ' @ ' . '<a href="' . $CFG->wwwroot . '/course/category.php?id=' . $ra['ctxinstanceid'] . '">' . s($ra['ccname']) . '</a>';
+                        } elseif ($ra['ctxlevel'] == CONTEXT_SYSTEM) {
+                            $rastring .= $rolename . ' - ' . get_string('globalrole', 'role');
+                        } else {
+                            $rastring .= $rolename;
+                        }
+                    }
+                    $data[] = $rastring;
+                    if ($groupmode != 0) {
+                        // htmlescape with s() and implode the array
+                        $data[] = implode(', ', array_map('s', $userlist_extra[$user->id]['group']));
+                        $data[] = implode(', ', array_map('s', $userlist_extra[$user->id]['gping']));
+                    }
+                }
+
+                $data[] = '<input type="checkbox" class="usercheckbox" name="user' . $user->id . '" />';
+                $table->add_data($data);
             }
-
-            $data[] = '<input type="checkbox" class="usercheckbox" name="user' . $user->id . '" />';
-            $table->add_data($data);
-
         } // foreach ($userlist as $user)
     } // if ($userlist)
 
@@ -648,8 +651,8 @@ if (is_the_user_participating_in_any_session()) {
     }
 
     $perpageurl = clone($baseurl);
-    $perpageurl->remove_params('labid');
-    $perpageurl->param('labid', $labid);
+    $perpageurl->remove_params('lab_id');
+    $perpageurl->param('lab_id', $labid);
     $perpageurl->remove_params('perpage');
     if ($perpage == SHOW_ALL_PAGE_SIZE) {
         $perpageurl->param('perpage', DEFAULT_PAGE_SIZE);

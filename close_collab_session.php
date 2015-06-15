@@ -35,7 +35,7 @@
  */
  
 require_once('../../config.php');
-require_once('manage_collaborative_db.php');
+require_once('manage_collab_db.php');
 
 global $CFG, $DB, $OUTPUT, $PAGE, $USER;
 
@@ -49,7 +49,7 @@ $course = $DB->get_record('course', array('id'=>$course_id), '*', MUST_EXIST);
 require_login($course);
 
 //$PAGE->set_context($context);
-$PAGE->set_url('/blocks/ejsapp_collab_session/close_collaborative_session.php');
+$PAGE->set_url('/blocks/ejsapp_collab_session/close_collab_session.php');
 $PAGE->set_title($title);
 $PAGE->set_heading($title);
 $PAGE->set_pagelayout('incourse');
