@@ -125,7 +125,7 @@ class block_ejsapp_collab_session extends block_list {
             $buttons .= html_writer::empty_tag('input', array('type'=>'button', 'name'=>'close_session', 'value'=>$close_button, 'onClick'=>"window.location.href='$close_collab_url'"));
     	} else {
     		if (has_the_user_been_invited_to_any_session()) {
-    			$participate_in_session_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/non_master_user.php?courseid=$course&contextid={$currentcontext->id}";
+    			$participate_in_session_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/join_collab_session.php?courseid=$course&contextid={$currentcontext->id}";
                 $buttons .= html_writer::empty_tag('input', array('type'=>'button', 'name'=>'join_session', 'value'=>get_string('goToStudSessBut', 'block_ejsapp_collab_session'), 'onClick'=>"window.location.href='$participate_in_session_url'"));
     		}
     		$master_user_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/invite_participants.php?courseid=$course&contextid={$currentcontext->id}";
