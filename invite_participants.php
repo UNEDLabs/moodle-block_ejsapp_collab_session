@@ -115,7 +115,7 @@ if (is_the_user_participating_in_any_session()) {
         $sarlabport = 0;
     }
 
-    $context = context_module::instance($contextid);
+    $context = context_course::instance($courseid);
 
     $PAGE->set_url('/blocks/ejsapp_collab_session/invite_participants.php', array('courseid' => $courseid, 'contextid' => $contextid));
 
@@ -646,7 +646,7 @@ if (is_the_user_participating_in_any_session()) {
     $PAGE->requires->js_init_call('M.core_user.init_participation', null, false, $module);
 
     if (has_capability('moodle/site:viewparticipants', $context) && $totalcount > ($perpage * 3)) {
-        echo '<form action="collaborative_index.php" class="searchform"><div><input type="hidden" name="id" value="' . $course->id . '" />' . get_string('search') . ':&nbsp;' . "\n";
+        echo '<form action="invite_participants.php" class="searchform"><div><input type="hidden" name="courseid" value="' . $courseid . '" /><input type="hidden" name="contextid" value="' . $contextid . '" />' . get_string('search') . ':&nbsp;' . "\n";
         echo '<input type="text" name="search" value="' . s($search) . '" />&nbsp;<input type="submit" value="' . get_string('search') . '" /></div></form>' . "\n";
     }
 
