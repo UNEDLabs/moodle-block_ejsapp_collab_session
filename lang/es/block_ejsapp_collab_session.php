@@ -38,11 +38,11 @@
 $string['pluginname'] = 'EJSApp colaborativo';
 $string['block_title'] = 'Sesion Colaborativa EJSApp';
 $string['start_collaborative_session:view'] = 'Ver Bloque para Sesiones Colaborativo';
-$string['goToMasSessBut'] = 'Ir a mi sesi&oacute;n activa';
+$string['goToMasSessBut'] = 'Ir a mi sesión activa';
 $string['goToStudSessBut'] = 'Ver mis sesiones activas';
-$string['closeMasSessBut'] = 'Cerrar mi sesi&oacute;n activa';
-$string['closeStudSessBut'] = 'Abandonar esta sesi&oacute;n';
-$string['createBut'] = 'Crear sesi&oacute;n colaborativa';
+$string['closeMasSessBut'] = 'Cerrar mi sesión activa'; //'Cerrar mi sesi&oacute;n activa';
+$string['closeStudSessBut'] = 'Abandonar esta sesión'; //'Abandonar esta sesi&oacute;n';
+$string['createBut'] = 'Crear sesión colaborativa'; //'Crear sesi&oacute;n colaborativa';
 $string['navBarCollaborativeSession'] = 'Sesi&oacute;n colaborativa';
 
 //close_collab_session.php:
