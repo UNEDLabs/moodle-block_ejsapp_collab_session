@@ -55,7 +55,7 @@ $string['backToCourse'] = 'Volver al curso';
 $string['navBarNonMasterUser'] = 'Aceptando invitaci&oacute;n';
 $string['selectInvitation'] = 'Seleccione una de las invitaciones pendientes:';
 $string['invitationMsg1'] = ' le ha invitado a una sessi&oacute;n colaborativa con este laboratorio: ';
-$string['acceptInvitation'] = 'Aceptar invitaci&oacute;n';
+$string['acceptInvitation'] = 'Aceptar invitación';
 $string['cantJoinSessionErr2'] = 'Error: Actualmente no tiene invitaciones activas para ninguna sesi&oacute;n colaborativa.';
 
 //send_messages.php:
