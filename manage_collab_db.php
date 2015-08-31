@@ -168,7 +168,7 @@ function delete_collaborative_session($master_user){
         $DB->delete_records('ejsapp_collab_sessions', array('id'=>$session));
         $DB->delete_records('ejsapp_collab_invitations', array('collaborative_session'=>$session));
         $DB->delete_records('ejsapp_collab_acceptances', array('collaborative_session'=>$session));
-        $DB->delete_records('ejsapp_sarlab_keys', array('user'=>$USER->username));
+        $DB->delete_records('remlab_manager_sarlab_keys', array('user'=>$USER->username));
     }
 } //delete_collaborative_session
 

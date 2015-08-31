@@ -25,7 +25,7 @@
 //       of Alicante, Spain
 
 /**
- * File for configuring the block instances (selecting the Sarlab server in charge o routing for collaborative sessions)
+ * Minimalistic edit form
  *
  * @package    block
  * @subpackage ejsapp_collab_session
@@ -65,7 +65,7 @@ class block_ejsapp_collab_session_edit_form extends block_edit_form {
                 }
             }
 
-            $mform->addElement('select', 'config_sarlab_instance', get_string('sarlab_instance', 'mod_ejsapp'), $sarlab_instance_options);
+            $mform->addElement('select', 'config_sarlab_instance', get_string('sarlab_instance', 'block_ejsapp_collab_session'), $sarlab_instance_options);
             $mform->disabledIf('config_sarlab_instance', 'config_use_sarlab', 'eq', 0);
             $mform->setDefault('config_sarlab_instance', '0');
         }

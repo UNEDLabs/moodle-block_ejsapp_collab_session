@@ -95,10 +95,10 @@ if (is_the_user_participating_in_any_session()) {
         $i++;
     }
 
-    $sarlab_collab_conf = $DB->get_field('ejsapp_remlab_conf', 'sarlabcollab', array('ejsappid' => $labid));
+    $sarlab_collab_conf = $DB->get_field('remlab_manager_conf', 'sarlabcollab', array('ejsappid' => $labid));
 
     if ($sarlab_collab_conf == 1 && get_config('ejsapp_collab_session', 'Use_Sarlab') == 1) {
-        $sarlab_collab_instance = $DB->get_field('ejsapp_remlab_conf', 'sarlabinstance', array('ejsappid' => $labid));
+        $sarlab_collab_instance = $DB->get_field('remlab_manager_conf', 'sarlabinstance', array('ejsappid' => $labid));
         $sarlab_collab_ips = explode(";", get_config('ejsapp_collab_session', 'Collab_Sarlab_IP'));
         $ip = substr($sarlab_collab_ips[$sarlab_collab_instance], strrpos($sarlab_collab_ips[$sarlab_collab_instance], "'") + 1);
         $sarlab_collab_ports = explode(";", get_config('ejsapp_collab_session', 'Collab_Sarlab_Port'));

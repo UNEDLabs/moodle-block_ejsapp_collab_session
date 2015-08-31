@@ -85,6 +85,8 @@ $string['sarlab_port_description'] = "If you want to use Sarlab to establish the
 //edit_form.php:
 $string['sarlab_header'] = 'Configure Sarlab for this block instance';
 $string['use_sarlab'] = 'Use Sarlab in collaborative sessions?';
+$string['sarlab_instance'] = "Sarlab server for the collab sessions";
+$string['sarlab_instance_help'] = "The order corresponds to the one used for the values in the sarlab_IP and sarlab_port variables configured at the block settings page";
 
 //Capabilities
 $string['ejsapp_collab_session:addinstance'] = 'Add a new EJSApp block for collaborative sessions';

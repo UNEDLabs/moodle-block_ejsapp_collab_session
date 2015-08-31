@@ -70,12 +70,12 @@ class block_ejsapp_collab_session extends block_list {
 
         // if there aren't collaborative labs then hide the block
         if (count($collaborative_lab_names) == 0) {
-        return $this->content;
+            return $this->content;
         }
 
         if (empty($this->instance)) {
-        $this->content = '';
-        return $this->content;
+            $this->content = '';
+            return $this->content;
         }
 
         $this->content = new stdClass();
@@ -86,15 +86,15 @@ class block_ejsapp_collab_session extends block_list {
         $currentcontext = $this->page->context;
 
         if ($courseid == SITEID) {
-        if (!has_capability('moodle/site:viewparticipants', context_system::instance())) {
-                  $this->content = '';
-          return $this->content;
-        }
+            if (!has_capability('moodle/site:viewparticipants', context_system::instance())) {
+                $this->content = '';
+                return $this->content;
+            }
         } else {
-        if (!has_capability('moodle/course:viewparticipants', $currentcontext)) {
-          $this->content = '';
-          return $this->content;
-        }
+            if (!has_capability('moodle/course:viewparticipants', $currentcontext)) {
+                $this->content = '';
+                return $this->content;
+            }
         }
 
         $image = html_writer::img($CFG->wwwroot.'/blocks/ejsapp_collab_session/pix/icon.gif', "Invite participants to a collaborative session", array('style' => 'width:80%'));

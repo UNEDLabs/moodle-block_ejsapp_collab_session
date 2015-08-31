@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Private files block caps.
+ * Collaborative sessions block caps.
  *
  * @package    block
  * @subpackage ejsapp_collab_session
@@ -31,10 +31,10 @@ $capabilities = array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
-            'user' => CAP_ALLOW
+            'student' => CAP_ALLOW,
+            'editingteacher' => CAP_ALLOW,
+            'teacher' => CAP_ALLOW
         ),
-
-        'clonepermissionsfrom' => 'moodle/my:manageblocks'
     ),
 
     'block/ejsapp_collab_session:addinstance' => array(
@@ -46,7 +46,6 @@ $capabilities = array(
             'editingteacher' => CAP_ALLOW,
             'manager' => CAP_ALLOW
         ),
-
-        'clonepermissionsfrom' => 'moodle/site:manageblocks'
     ),
+
 );
