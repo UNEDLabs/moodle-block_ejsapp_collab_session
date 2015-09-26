@@ -294,7 +294,7 @@ function delete_non_master_user_from_collaborative_users(){
  * @param int $course id of the course
  * @return array ejsapp
  */
-function get_all_collaborative_lab_names($course) {
+function get_all_collaborative_lab_records($course) {
 	global $DB;
 
 	if ($course == '*') $records = $DB->get_records('ejsapp', array('is_collaborative'=>'1'));

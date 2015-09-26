@@ -1,5 +1,5 @@
 #############################
-# EJSApp Collab Session 1.3 #
+# EJSApp Collab Session 1.4 #
 #############################
 
 1. Content

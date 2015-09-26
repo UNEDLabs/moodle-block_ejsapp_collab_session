@@ -38,11 +38,11 @@
 $string['pluginname'] = 'EJSApp colaborativo';
 $string['block_title'] = 'Sesion Colaborativa EJSApp';
 $string['start_collaborative_session:view'] = 'Ver Bloque para Sesiones Colaborativo';
-$string['goToMasSessBut'] = 'Ir a mi sesión activa';
+$string['goToMasSessBut'] = 'Ir a mi sesion activa';
 $string['goToStudSessBut'] = 'Ver mis sesiones activas';
 $string['closeMasSessBut'] = 'Cerrar mi sesión activa'; //'Cerrar mi sesi&oacute;n activa';
-$string['closeStudSessBut'] = 'Abandonar esta sesión'; //'Abandonar esta sesi&oacute;n';
-$string['createBut'] = 'Crear sesión colaborativa'; //'Crear sesi&oacute;n colaborativa';
+$string['closeStudSessBut'] = 'Abandonar esta sesi&oacute;n'; //'Abandonar esta sesi&oacute;n';
+$string['createBut'] = 'Crear sesi&oacute;n colaborativa'; //'Crear sesi&oacute;n colaborativa';
 $string['navBarCollaborativeSession'] = 'Sesi&oacute;n colaborativa';
 
 //close_collab_session.php:
@@ -55,14 +55,14 @@ $string['backToCourse'] = 'Volver al curso';
 $string['navBarNonMasterUser'] = 'Aceptando invitaci&oacute;n';
 $string['selectInvitation'] = 'Seleccione una de las invitaciones pendientes:';
 $string['invitationMsg1'] = ' le ha invitado a una sessi&oacute;n colaborativa con este laboratorio: ';
-$string['acceptInvitation'] = 'Aceptar invitación';
+$string['acceptInvitation'] = 'Aceptar invitaci&oacute;n';
 $string['cantJoinSessionErr2'] = 'Error: Actualmente no tiene invitaciones activas para ninguna sesi&oacute;n colaborativa.';
 
 //send_messages.php:
 $string['invitationMsg2'] = 'Unirse a esta sesi&oacute;n.';
 
 //invite_participants.php:
-$string['cantJoinSessionErr1'] = 'Error: Ya tiene una sesi&oacute;n colaborativa activa. Ci�rrela antes para poder iniciar o unirse a una nueva.';
+$string['cantJoinSessionErr1'] = 'Error: Ya tiene una sesi&oacute;n colaborativa activa. Ci&eacute;rrela antes para poder iniciar o unirse a una nueva.';
 $string['inviteParticipants'] = 'Invitar participantes';
 $string['navBarShowParticipants'] = 'Selecionando invitados';
 $string['selectLabBut'] = 'Seleccione un laboratorio';

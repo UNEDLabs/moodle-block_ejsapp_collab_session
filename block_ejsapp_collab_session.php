@@ -66,10 +66,10 @@ class block_ejsapp_collab_session extends block_list {
 
         $courseid = $this->page->course->id;
 
-        $collaborative_lab_names = get_all_collaborative_lab_names($courseid);
+        $collaborative_lab_records = get_all_collaborative_lab_records($courseid);
 
         // if there aren't collaborative labs then hide the block
-        if (count($collaborative_lab_names) == 0) {
+        if (count($collaborative_lab_records) == 0) {
             return $this->content;
         }
 

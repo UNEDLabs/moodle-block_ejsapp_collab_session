@@ -84,18 +84,19 @@ if (is_the_user_participating_in_any_session()) {
     echo $OUTPUT->header();
     echo $OUTPUT->heading(get_string('cantJoinSessionErr1', 'block_ejsapp_collab_session'));
 } else {
-    $collaborative_lab_names = get_all_collaborative_lab_names($courseid);
+    $collaborative_lab_records = get_all_collaborative_lab_records($courseid);
     $i = 1;
     $multilang = new filter_multilang($context_course, array('filter_multilang_force_old'=>0));
-    foreach ($collaborative_lab_names as $collaborative_lab_name) {
-        $lab_name[$collaborative_lab_name->id] = $multilang->filter($collaborative_lab_name->name);
+    foreach ($collaborative_lab_records as $collaborative_lab_record) {
+        $lab_name[$collaborative_lab_record->id] = $multilang->filter($collaborative_lab_record->name);
         if ($i == 1 && $labid == 0) {
-            $labid = $collaborative_lab_name->id;
+            $labid = $collaborative_lab_record->id;
         }
         $i++;
     }
 
-    $sarlab_collab_conf = $DB->get_field('remlab_manager_conf', 'sarlabcollab', array('ejsappid' => $labid));
+    $practiceintro =  $DB->get_field('remlab_manager_expsyst2pract', 'practiceintro', array('ejsappid' => $labid));
+    $sarlab_collab_conf = $DB->get_field('remlab_manager_conf', 'sarlabcollab', array('practiceintro' => $practiceintro));
 
     if ($sarlab_collab_conf == 1 && get_config('ejsapp_collab_session', 'Use_Sarlab') == 1) {
         $sarlab_collab_instance = $DB->get_field('remlab_manager_conf', 'sarlabinstance', array('ejsappid' => $labid));
