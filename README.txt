@@ -2,6 +2,9 @@
 # EJSApp Collab Session 1.4 #
 #############################
 
+http://dx.doi.org/10.5281/zenodo.32773
+DOI: 10.5281/zenodo.32773
+
 1. Content
 ==========
 
