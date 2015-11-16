@@ -2,8 +2,8 @@
 # EJSApp Collab Session 1.4 #
 #############################
 
-http://dx.doi.org/10.5281/zenodo.32773
-DOI: 10.5281/zenodo.32773
+https://zenodo.org/badge/latestdoi/18948/UNEDLabs/moodle-block_ejsapp_collab_session
+DOI: 10.5281/zenodo.33841
 
 1. Content
 ==========
