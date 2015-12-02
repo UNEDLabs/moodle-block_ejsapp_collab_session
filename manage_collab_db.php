@@ -289,19 +289,73 @@ function delete_non_master_user_from_collaborative_users(){
 
 
 /**
- * returns the names of all collaborative EJS simulations in a given course
+ * returns the database table records of all collaborative EJS simulations in a given course
  *
  * @param int $course id of the course
- * @return array ejsapp
+ * @return array records
  */
 function get_all_collaborative_lab_records($course) {
 	global $DB;
 
-	if ($course == '*') $records = $DB->get_records('ejsapp', array('is_collaborative'=>'1'));
-	else $records = $DB->get_records('ejsapp', array('is_collaborative'=>'1','course'=>$course));
+	// Get EJS virtual labs with collaborative features
+	if ($course == '*') $records = $DB->get_records('ejsapp', array('is_collaborative'=>'1', 'is_rem_lab'=>'0'));
+	else $records = $DB->get_records('ejsapp', array('is_collaborative'=>'1', 'is_rem_lab'=>'0', 'course'=>$course));
+
+	// Get remote labs with multiuser access
+	if ($course == '*') {
+		$multiuser_practices = $DB->get_records('remlab_manager_conf', array('sarlabcollab'=>'1'));
+		foreach ($multiuser_practices as $multiuser_practice) {
+			$multiuser_ejsapps =  $DB->get_records('remlab_manager_expsyst2pract', array('practiceintro'=>$multiuser_practice->practiceintro));
+			foreach ($multiuser_ejsapps as $multiuser_ejsapp) {
+				$records2[] = $DB->get_record('ejsapp', array('id'=>$multiuser_ejsapp->id, 'is_rem_lab'=>'1'));
+			}
+		}
+	} else {
+		$all_ejsapp_in_course = $DB->get_records('ejsapp', array('course'=>$course, 'is_rem_lab'=>'1'));
+		foreach ($all_ejsapp_in_course as $ejsapp_in_course) {
+			$practice_intro = $DB->get_field('remlab_manager_expsyst2pract', 'practiceintro', array('ejsappid'=>$ejsapp_in_course->id));
+			$sarlab_collab = $DB->get_field('remlab_manager_conf', 'sarlabcollab', array('practiceintro' => $practice_intro));
+			if ($sarlab_collab == 1) $records2[] = $DB->get_record('ejsapp', array('id'=>$ejsapp_in_course->id));
+		}
+	}
+	if (isset($records2)) $records = array_merge($records, $records2);
 
 	return $records;
-} //get_all_collaborative_lab_names
+} //get_all_collaborative_lab_records
+
+/**
+ * selects records of collaborative labs which are usable (either virtual labs or available remote labs)
+ *
+ * @param array $collaborative_lab_records database records of collaborative labs
+ * @return array collaborative_lab_records
+ */
+function get_available_collab_lab_records($collaborative_lab_records) {
+	global $DB;
+	require_once('../../mod/ejsapp/locallib.php');
+
+	$available_collaborative_lab_records = array();
+	foreach ($collaborative_lab_records as $collaborative_lab_record) {
+		if ($collaborative_lab_record->is_rem_lab == 0) $available_collaborative_lab_records[] =  $collaborative_lab_record;
+		else {
+			$course = $DB->get_record('course', array('id' => $collaborative_lab_record->course), '*', MUST_EXIST);
+			$remote_lab_access = remote_lab_access_info($collaborative_lab_record, $course);
+			$remlab_conf = $remote_lab_access->remlab_conf;
+			$repeated_ejsapp_labs = $remote_lab_access->repeated_ejsapp_labs;
+			if ($remote_lab_access->allow_free_access && $remote_lab_access->operative) {
+				$remote_lab_time = remote_lab_use_time_info($remlab_conf, $repeated_ejsapp_labs);
+				$check_activity = 30;
+				$lab_status = get_lab_status($remote_lab_time->time_information, $remlab_conf->reboottime, $check_activity);
+				if ($lab_status == 'available') $available_collaborative_lab_records[] =  $collaborative_lab_record;
+			} else {
+				if ($remote_lab_access->operative) { // TODO: more checks needed
+					$available_collaborative_lab_records[] =  $collaborative_lab_record;
+				}
+			}
+		}
+	}
+
+	return $available_collaborative_lab_records;
+} //get_available_collab_lab_records
 
 /**
  * returns the connection port that the session director is using in the collaborative session
@@ -328,7 +382,7 @@ function get_course_name($course_id){
 	$record = $DB->get_record('course', array('id'=>$course_id));
 
 	return $record->fullname;
-} //get_user_name
+} //get_course_name
 
 /**
  * returns true if the caller is the master user of a collaborative session
@@ -339,4 +393,4 @@ function am_i_master_user(){
 	$record = $DB->get_record('ejsapp_collab_sessions', array('master_user'=>$USER->id));
 
 	return (isset($record->master_user));
-} //is_master_user
+} //am_i_master_user

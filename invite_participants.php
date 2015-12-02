@@ -84,7 +84,45 @@ if (is_the_user_participating_in_any_session()) {
     echo $OUTPUT->header();
     echo $OUTPUT->heading(get_string('cantJoinSessionErr1', 'block_ejsapp_collab_session'));
 } else {
+
+    /**
+     * returns the course last access
+     *
+     * @param int $accesssince
+     * @return string course last access
+     */
+    function get_course_lastaccess_sql($accesssince = '')
+    {
+        if (empty($accesssince)) {
+            return '';
+        }
+        if ($accesssince == -1) { // never
+            return 'ul.timeaccess = 0';
+        } else {
+            return 'ul.timeaccess != 0 AND ul.timeaccess < ' . $accesssince;
+        }
+    }
+
+    /**
+     * returns the user last access
+     *
+     * @param int $accesssince
+     * @return string user last access
+     */
+    function get_user_lastaccess_sql($accesssince = '')
+    {
+        if (empty($accesssince)) {
+            return '';
+        }
+        if ($accesssince == -1) { // never
+            return 'u.lastaccess = 0';
+        } else {
+            return 'u.lastaccess != 0 AND u.lastaccess < ' . $accesssince;
+        }
+    }
+
     $collaborative_lab_records = get_all_collaborative_lab_records($courseid);
+    $collaborative_lab_records = get_available_collab_lab_records($collaborative_lab_records);
     $i = 1;
     $multilang = new filter_multilang($context_course, array('filter_multilang_force_old'=>0));
     foreach ($collaborative_lab_records as $collaborative_lab_record) {
@@ -99,15 +137,15 @@ if (is_the_user_participating_in_any_session()) {
     $sarlab_collab_conf = $DB->get_field('remlab_manager_conf', 'sarlabcollab', array('practiceintro' => $practiceintro));
 
     if ($sarlab_collab_conf == 1 && get_config('ejsapp_collab_session', 'Use_Sarlab') == 1) {
-        $sarlab_collab_instance = $DB->get_field('remlab_manager_conf', 'sarlabinstance', array('ejsappid' => $labid));
+        $sarlab_collab_instance = $DB->get_field('remlab_manager_conf', 'sarlabinstance', array('practiceintro' => $practiceintro));
         $sarlab_collab_ips = explode(";", get_config('ejsapp_collab_session', 'Collab_Sarlab_IP'));
-        $ip = substr($sarlab_collab_ips[$sarlab_collab_instance], strrpos($sarlab_collab_ips[$sarlab_collab_instance], "'") + 1);
+        $ip = substr($sarlab_collab_ips[$sarlab_collab_instance], strrpos($sarlab_collab_ips[$sarlab_collab_instance], "'"));
         $sarlab_collab_ports = explode(";", get_config('ejsapp_collab_session', 'Collab_Sarlab_Port'));
         $sarlabport = $sarlab_collab_ports[$sarlab_collab_instance];
         $localport = 8079; //49999 //79
         do {
             $localport++;
-            $sql = "SELECT * FROM {ejsapp_collab_sessions} WHERE ip = '$ip' AND localport = $localport";
+            $sql = "SELECT * FROM {ejsapp_collab_sessions} WHERE ip = ' $ip 'AND localport = $localport";
         } while ($DB->get_record_sql($sql));
     } else {
         $sarlab_collab_instance = 0;
@@ -669,41 +707,6 @@ if (is_the_user_participating_in_any_session()) {
         $userlist->close();
     }
 
-    /**
-     * returns the course last access
-     *
-     * @param int $accesssince
-     * @return string course last access
-     */
-    function get_course_lastaccess_sql($accesssince = '')
-    {
-        if (empty($accesssince)) {
-            return '';
-        }
-        if ($accesssince == -1) { // never
-            return 'ul.timeaccess = 0';
-        } else {
-            return 'ul.timeaccess != 0 AND ul.timeaccess < ' . $accesssince;
-        }
-    }
-
-    /**
-     * returns the user last access
-     *
-     * @param int $accesssince
-     * @return string user last access
-     */
-    function get_user_lastaccess_sql($accesssince = '')
-    {
-        if (empty($accesssince)) {
-            return '';
-        }
-        if ($accesssince == -1) { // never
-            return 'u.lastaccess = 0';
-        } else {
-            return 'u.lastaccess != 0 AND u.lastaccess < ' . $accesssince;
-        }
-    }
 }
 
 echo $OUTPUT->footer();
