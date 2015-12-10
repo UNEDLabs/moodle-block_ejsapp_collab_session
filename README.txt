@@ -1,5 +1,5 @@
 #############################
-# EJSApp Collab Session 1.4 #
+# EJSApp Collab Session 2.0 #
 #############################
 
 https://zenodo.org/badge/latestdoi/18948/UNEDLabs/moodle-block_ejsapp_collab_session
@@ -49,9 +49,7 @@ Moodle.org webpage or at https://github.com/UNEDLabs.
 ==========
 
 EJSApp Collab Session has been developed by:
-  - Luis de la Torre (1): ldelatorre@dia.uned.es
-  - Ruben Heradio (1): rheradio@issi.uned.es
-  - Carlos Jara (2): carlos.jara@ua.es
+  - Luis de la Torre: ldelatorre@dia.uned.es
+  - Ruben Heradio: rheradio@issi.uned.es
 
- (1): Computer Science and Automatic Control Department, Spanish Open University (UNED), Madrid, Spain.
- (2): Physics, Systems Engineering and Signal Theory Department, University of Alicante, Spain.
+ Computer Science and Automatic Control Department, Spanish Open University (UNED), Madrid, Spain.
