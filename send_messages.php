@@ -52,7 +52,7 @@ $ip = required_param('ip', PARAM_RAW);
 $sarlabport = required_param('sarlabport', PARAM_RAW);
 $sarlab_collab_conf = required_param('sarlab_collab_conf', PARAM_RAW);
 
-$context = context_module::instance($contextid);
+$context = context::instance_by_id($contextid);
 
 // Create the collaborative session
 insert_collaborative_session($localport, $labid, $USER->id, $ip, $sarlabport, $sarlab_collab_conf, $mycourseid);
