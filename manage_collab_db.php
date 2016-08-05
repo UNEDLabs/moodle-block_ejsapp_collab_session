@@ -168,7 +168,7 @@ function delete_collaborative_session($master_user){
         $DB->delete_records('ejsapp_collab_sessions', array('id'=>$session));
         $DB->delete_records('ejsapp_collab_invitations', array('collaborative_session'=>$session));
         $DB->delete_records('ejsapp_collab_acceptances', array('collaborative_session'=>$session));
-        $DB->delete_records('remlab_manager_sarlab_keys', array('user'=>$USER->username));
+        $DB->delete_records('block_remlab_manager_sb_keys', array('user'=>$USER->username));
     }
 } //delete_collaborative_session
 
@@ -303,9 +303,9 @@ function get_all_collaborative_lab_records($course) {
 
 	// Get remote labs with multiuser access
 	if ($course == '*') {
-		$multiuser_practices = $DB->get_records('remlab_manager_conf', array('sarlabcollab'=>'1'));
+		$multiuser_practices = $DB->get_records('block_remlab_manager_conf', array('sarlabcollab'=>'1'));
 		foreach ($multiuser_practices as $multiuser_practice) {
-			$multiuser_ejsapps =  $DB->get_records('remlab_manager_expsyst2pract', array('practiceintro'=>$multiuser_practice->practiceintro));
+			$multiuser_ejsapps =  $DB->get_records('block_remlab_manager_exp2prc', array('practiceintro'=>$multiuser_practice->practiceintro));
 			foreach ($multiuser_ejsapps as $multiuser_ejsapp) {
 				$records2[] = $DB->get_record('ejsapp', array('id'=>$multiuser_ejsapp->id, 'is_rem_lab'=>'1'));
 			}
@@ -313,8 +313,8 @@ function get_all_collaborative_lab_records($course) {
 	} else {
 		$all_ejsapp_in_course = $DB->get_records('ejsapp', array('course'=>$course, 'is_rem_lab'=>'1'));
 		foreach ($all_ejsapp_in_course as $ejsapp_in_course) {
-			$practice_intro = $DB->get_field('remlab_manager_expsyst2pract', 'practiceintro', array('ejsappid'=>$ejsapp_in_course->id));
-			$sarlab_collab = $DB->get_field('remlab_manager_conf', 'sarlabcollab', array('practiceintro' => $practice_intro));
+			$practice_intro = $DB->get_field('block_remlab_manager_exp2prc', 'practiceintro', array('ejsappid'=>$ejsapp_in_course->id));
+			$sarlab_collab = $DB->get_field('block_remlab_manager_conf', 'sarlabcollab', array('practiceintro' => $practice_intro));
 			if ($sarlab_collab == 1) $records2[] = $DB->get_record('ejsapp', array('id'=>$ejsapp_in_course->id));
 		}
 	}
