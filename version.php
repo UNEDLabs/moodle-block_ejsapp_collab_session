@@ -32,10 +32,10 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version = 2016080400;
+$plugin->version = 2016082100;
 $plugin->requires = 2013111800;
 $plugin->cron = 0;
 $plugin->component = 'block_ejsapp_collab_session'; // To check on upgrade, that module sits in correct place
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '2.0 (Build: 2016080400)';
-$plugin->dependencies = array('mod_ejsapp' => 2016080400);
+$plugin->release = '2.0 (Build: 2016082100)';
+$plugin->dependencies = array('mod_ejsapp' => 2016082100);

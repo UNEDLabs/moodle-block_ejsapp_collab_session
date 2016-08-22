@@ -37,16 +37,16 @@ class block_ejsapp_collab_session_edit_form extends block_edit_form {
 
     protected function specific_definition($mform) {
 
-        if (get_config('ejsapp_collab_session', 'Use_Sarlab') == 1) {
+        if (get_config('block_ejsapp_collab_session', 'Use_Sarlab') == 1) {
             $mform->addElement('header', 'sarlab_header', get_string('sarlab_header', 'block_ejsapp_collab_session'));
 
             $mform->addElement('selectyesno', 'config_use_sarlab', get_string('use_sarlab', 'block_ejsapp_collab_session'));
             $mform->setDefault('config_use_sarlab', '0');
             $mform->setType('config_use_sarlab', PARAM_INT);
 
-            $list_sarlab_IPs = explode(";", get_config('ejsapp_collab_session', 'Collab_Sarlab_IP'));
+            $list_sarlab_IPs = explode(";", get_config('block_ejsapp_collab_session', 'Collab_Sarlab_IP'));
             if(is_array($list_sarlab_IPs)) $sarlab_IP = $list_sarlab_IPs[0];
-            else  $sarlab_IP = get_config('ejsapp_collab_session', 'Collab_Sarlab_IP');
+            else  $sarlab_IP = get_config('block_ejsapp_collab_session', 'Collab_Sarlab_IP');
             $init_pos = strpos($sarlab_IP, "'");
             $end_pos = strrpos($sarlab_IP, "'");
             if(($init_pos === false) || ($init_pos === $end_pos)) {

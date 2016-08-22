@@ -43,7 +43,7 @@ if ($ADMIN->fulltree) {
     ));
 
     $settings->add(new admin_setting_configtext(
-        'ejsapp_collab_session/collaborative_port',
+        'block_ejsapp_collab_session/collaborative_port',
         get_string('collaborative_port', 'block_ejsapp_collab_session'),
         get_string('collaborative_port_description', 'block_ejsapp_collab_session'),
         50000,
@@ -52,13 +52,13 @@ if ($ADMIN->fulltree) {
     ));
 
     $settings->add(new admin_setting_heading(
-        'sarlab_header_config',
+        'block_sarlab_header_config',
         get_string('sarlab_header_config', 'block_ejsapp_collab_session'),
         ''
     ));
 
     $settings->add(new admin_setting_configselect(
-        'ejsapp_collab_session/Use_Sarlab',
+        'block_ejsapp_collab_session/Use_Sarlab',
         get_string('using_sarlab', 'block_ejsapp_collab_session'),
         get_string('using_sarlab_help', 'block_ejsapp_collab_session'),
         0,
@@ -66,7 +66,7 @@ if ($ADMIN->fulltree) {
     ));
 
     $settings->add(new admin_setting_configtext(
-        'ejsapp_collab_session/Collab_Sarlab_IP',
+        'block_ejsapp_collab_session/Collab_Sarlab_IP',
         get_string('sarlab_IP', 'block_ejsapp_collab_session'),
         get_string('sarlab_IP_description', 'block_ejsapp_collab_session'),
         '127.0.0.1',
@@ -75,7 +75,7 @@ if ($ADMIN->fulltree) {
     ));
 
     $settings->add(new admin_setting_configtext(
-        'ejsapp_collab_session/Collab_Sarlab_Port',
+        'block_ejsapp_collab_session/Collab_Sarlab_Port',
         get_string('sarlab_port', 'block_ejsapp_collab_session'),
         get_string('sarlab_port_description', 'block_ejsapp_collab_session'),
         443,

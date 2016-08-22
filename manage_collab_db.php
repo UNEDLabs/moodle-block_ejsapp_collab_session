@@ -343,7 +343,7 @@ function get_available_collab_lab_records($collaborative_lab_records) {
 			$repeated_ejsapp_labs = $remote_lab_access->repeated_ejsapp_labs;
 			if ($remote_lab_access->allow_free_access && $remote_lab_access->operative) {
 				$remote_lab_time = remote_lab_use_time_info($remlab_conf, $repeated_ejsapp_labs);
-				$lab_status = get_lab_status($remote_lab_time->time_information, $remlab_conf->reboottime, get_config('ejsapp', 'check_activity'));
+				$lab_status = get_lab_status($remote_lab_time->time_information, $remlab_conf->reboottime, get_config('mod_ejsapp', 'check_activity'));
 				if ($lab_status == 'available') $available_collaborative_lab_records[] =  $collaborative_lab_record;
 			} else {
 				if ($remote_lab_access->operative) { // TODO: more checks needed
