@@ -80,8 +80,6 @@ if (!$course = $DB->get_record('course', array('id'=>$mycourseid))) {
   print_error('invalidcourseid');
 }
 
-require_login();
-
 $SESSION->emailto = array();
 $SESSION->emailto[$mycourseid] = array();
 $SESSION->emailselect[$mycourseid] = array('messagebody' => $messagebody);

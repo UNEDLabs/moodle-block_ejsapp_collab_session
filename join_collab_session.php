@@ -36,7 +36,9 @@
  
 require_once('../../config.php');
 require_login();
-global $CFG, $DB;
+
+global $CFG, $DB, $OUTPUT;
+
 require_once('manage_collab_db.php');
 
 $page_caller = get_string('navBarNonMasterUser', 'block_ejsapp_collab_session');

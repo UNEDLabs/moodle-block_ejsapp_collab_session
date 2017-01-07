@@ -525,17 +525,14 @@ if (is_the_user_participating_in_any_session()) {
 
     /// If there are multiple Roles in the course, then show a drop down menu for switching
     if (count($rolenames) > 1) {
-        echo '<div class="rolesform">
-        <label for="rolesform_jump">' . get_string('currentrole', 'role') . '&nbsp;</label>';
-        echo $OUTPUT->single_select($rolenamesurl, 'roleid', $rolenames, $roleid, null, 'rolesform');
-        echo '</div>';
+        $contents = html_writer::label(get_string('currentrole', 'role') . '&nbsp;', 'rolesform_jump') .
+            $OUTPUT->single_select($rolenamesurl, 'roleid', $rolenames, $roleid, null, 'rolesform');
     } else if (count($rolenames) == 1) {
         // when all users with the same role - print its name
-        echo '<div class="rolesform">';
-        echo get_string('role') . get_string('labelsep', 'langconfig');
         $rolename = reset($rolenames);
-        echo $rolename . '</div>';
+        $contents =  get_string('role') . get_string('labelsep', 'langconfig') . $rolename;
     }
+    echo html_writer::div($contents, 'rolesform');
 
     // <Select rem lab pulldown menu>
     $select = new single_select($baseurl, 'lab_id', $lab_name, $labid, null, 'formatmenu');
@@ -566,10 +563,11 @@ if (is_the_user_participating_in_any_session()) {
 
         $heading .= ": $a->number";
         if (user_can_assign($context, $roleid)) {
-            $heading .= ' <a href="' . $CFG->wwwroot . '/' . $CFG->admin . '/roles/assign.php?roleid=' . $roleid . '&amp;contextid=' . $contextid . '">';
-            $heading .= '<img src="' . $OUTPUT->pix_url('i/edit') . '" class="icon" alt="" /></a>';
+            $text = html_writer::img($OUTPUT->pix_url('i/edit'), '', array('class'=>'icon'));
+            $heading .= html_writer::link(new moodle_url('roles/assign.php', array('roleid'=>$roleid, 'contextid'=>$contextid)), $text);
         }
         echo $OUTPUT->heading($heading, 3);
+
     } else {
         if ($course->id != SITEID && has_capability('moodle/course:enrolreview', $context)) {
             $editlink = $OUTPUT->action_icon(new moodle_url('/enrol/users.php', array('id' => $course->id)), new pix_icon('i/edit', get_string('edit')));
@@ -588,9 +586,8 @@ if (is_the_user_participating_in_any_session()) {
         }
     }
 
-
-    echo "<form action=\"send_messages.php?courseid=$courseid&contextid=$contextid&labid=$labid&localport=$localport&ip=$ip&sarlabport=$sarlabport&sarlab_collab_conf=$sarlab_collab_conf\" method=\"post\" id=\"participantsform\">" . '<div>';
-    echo '<input type="hidden" name="sesskey" value="' . sesskey() . '" /> <input type="hidden" name="returnto" value="' . s(me()) . '" />';
+    echo html_writer::start_tag('form', array('action'=>"send_messages.php?courseid=$courseid&contextid=$contextid&labid=$labid&localport=$localport&ip=$ip&sarlabport=$sarlabport&sarlab_collab_conf=$sarlab_collab_conf", 'method'=>'post', 'id'=>'participantsform')) .
+         html_writer::empty_tag('input', array('type'=>'hidden', 'name'=>'sesskey', 'value'=>sesskey())) . html_writer::empty_tag('input', array('type'=>'hidden', 'name'=>'returnto', 'value'=>'s(me())'));
 
     $countrysort = (strpos($sort, 'country') !== false);
     $timeformat = get_string('strftimedate');
@@ -676,17 +673,23 @@ if (is_the_user_participating_in_any_session()) {
 
     $table->finish_html();
 
-    echo '<br /><div class="buttons">
-    <input type="button" id="checkall" value="' . get_string('selectall') . '" />
-    <input type="button" id="checknone" value="' . get_string('deselectall') . '" />
-    <input type="submit" id="invite_participants" value="' . get_string('inviteParticipants', 'block_ejsapp_collab_session') . '" /> </div></div> </form>';
+    $contents = html_writer::empty_tag('input', array('type'=>'button', 'id'=>'checkall', 'value'=>get_string('selectall'))) .
+                html_writer::empty_tag('input', array('type'=>'button', 'id'=>'checknone', 'value'=>get_string('deselectall'))) .
+                html_writer::empty_tag('input', array('type'=>'submit', 'id'=>'invite_participants', 'value'=>get_string('inviteParticipants', 'block_ejsapp_collab_session')));
+    echo html_writer::empty_tag('br') . html_writer::div($contents,'buttons');
 
     $module = array('name' => 'core_user', 'fullpath' => '/user/module.js');
     $PAGE->requires->js_init_call('M.core_user.init_participation', null, false, $module);
 
     if (has_capability('moodle/site:viewparticipants', $context) && $totalcount > ($perpage * 3)) {
-        echo '<form action="invite_participants.php" class="searchform"><div><input type="hidden" name="courseid" value="' . $courseid . '" /><input type="hidden" name="contextid" value="' . $contextid . '" />' . get_string('search') . ':&nbsp;' . "\n";
-        echo '<input type="text" name="search" value="' . s($search) . '" />&nbsp;<input type="submit" value="' . get_string('search') . '" /></div></form>' . "\n";
+        echo html_writer::start_tag('form', array('action'=>'invite_participants.php', 'class'=>'searchform'));
+        $contents = html_writer::empty_tag('input', array('type'=>'hidden', 'name'=>'courseid', 'value'=>$courseid)) .
+                    html_writer::empty_tag('input', array('type'=>'hidden', 'name'=>'contextid', 'value'=>$contextid)) .
+                    get_string('search') . ':&nbsp;' . "\n" .
+                    html_writer::empty_tag('input', array('type'=>'text', 'name'=>'search', 'value'=>s($search))) . '&nbsp;' .
+                    html_writer::empty_tag('input', array('value'=>get_string('search')));
+        echo html_writer::div($contents);
+        echo html_writer::end_tag('form') . "\n";
     }
 
     $perpageurl = clone($baseurl);
