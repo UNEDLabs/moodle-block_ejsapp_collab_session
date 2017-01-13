@@ -1,1 +1,8 @@
-.block_ejsapp_collab_session .content {text-align: center;}
+.block_ejsapp_collab_session .content {
+    text-align: center;
+    margin: auto;
+}
+
+.block_ejsapp_collab_session .collab_button {
+    margin-top: 5px;
+}

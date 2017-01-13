@@ -34,10 +34,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2016122000;
+$plugin->version = 2017011300;
 $plugin->requires = 2013111800;
 $plugin->cron = 0;
 $plugin->component = 'block_ejsapp_collab_session'; // To check on upgrade, that module sits in correct place
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '2.0 (Build: 2016122000)';
+$plugin->release = '2.0 (Build: 2017011300)';
 $plugin->dependencies = array('mod_ejsapp' => 2016082100);

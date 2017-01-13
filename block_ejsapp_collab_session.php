@@ -106,7 +106,8 @@ class block_ejsapp_collab_session extends block_list {
                 $session_id = $session_invited->collaborative_session;
             }
 
-            $this->content->items[1] = $OUTPUT->single_button(new moodle_url('/mod/ejsapp/view.php', array('colsession'=>$session_id)), get_string('goToMasSessBut', 'block_ejsapp_collab_session'), 'get');
+            $content = $OUTPUT->single_button(new moodle_url('/mod/ejsapp/view.php', array('colsession'=>$session_id)), get_string('goToMasSessBut', 'block_ejsapp_collab_session'), 'get');
+            $this->content->items[1] = html_writer::div($content, 'collab_button');
 
     		if ($am_i_director) {
                 $close_button = get_string('closeMasSessBut', 'block_ejsapp_collab_session');
@@ -114,13 +115,16 @@ class block_ejsapp_collab_session extends block_list {
                 $close_button = get_string('closeStudSessBut', 'block_ejsapp_collab_session');
     		}
 
-            $this->content->items[2] = $OUTPUT->single_button(new moodle_url('/blocks/ejsapp_collab_session/close_collab_session.php', array('session'=>$session_id,'courseid'=>$courseid,'contextid'=>$currentcontext->id)), $close_button, 'get');
+            $content = $OUTPUT->single_button(new moodle_url('/blocks/ejsapp_collab_session/close_collab_session.php', array('session'=>$session_id,'courseid'=>$courseid,'contextid'=>$currentcontext->id)), $close_button, 'get');
+            $this->content->items[2] = html_writer::div($content, 'collab_button');
     	} else {
     		$master_user_url = new moodle_url('/blocks/ejsapp_collab_session/invite_participants.php', array('courseid'=>$courseid,'contextid'=>$currentcontext->id));
-            $this->content->items[1] = $OUTPUT->single_button($master_user_url, get_string('createBut', 'block_ejsapp_collab_session'), 'get');
+            $content = $OUTPUT->single_button($master_user_url, get_string('createBut', 'block_ejsapp_collab_session'), 'get');
+            $this->content->items[1] = html_writer::div($content, 'collab_button');
             if (has_the_user_been_invited_to_any_session()) {
                 $participate_in_session_url = $CFG->wwwroot . "/blocks/ejsapp_collab_session/join_collab_session.php?courseid=$courseid&contextid={$currentcontext->id}";
-                $this->content->items[2] = $OUTPUT->single_button($participate_in_session_url, get_string('goToStudSessBut', 'block_ejsapp_collab_session'), 'get');
+                $content = $OUTPUT->single_button($participate_in_session_url, get_string('goToStudSessBut', 'block_ejsapp_collab_session'), 'get');
+                $this->content->items[2] = html_writer::div($content, 'collab_button');
             }
         }
 
