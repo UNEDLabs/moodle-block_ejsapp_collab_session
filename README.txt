@@ -8,11 +8,10 @@ DOI: 10.5281/zenodo.33841
 1. Content
 ==========
 
-This plugin lets users creating sessions for doing collaborative work with Java applets o Javascript applications
-created with Easy Java/Javascript Simulations (EJS) and added to your Moodle course by means of the ejsapp module.
+This plugin lets users creating sessions for doing collaborative work with Javascript applications created with Easy
+Java/Javascript Simulations (EjsS) and added to your Moodle course by means of the ejsapp module.
 
-The Java applets or the Javascript applications should have been created with version 5.1 (build 20150613 or later) of
-EJS to work properly.
+The Javascript applications should have been created with version 5.2 (build 20150613 or later) of EjsS to work properly.
 
 2. License
 ==========
@@ -41,9 +40,9 @@ This block has been tested in Moodle 2.7, 2.8 and 2.9.
 4. Dependencies
 ===============
 
-This block needs the ejsapp module to be of any use. It works with version 1.3 (or later) of EJSApp. You can find and
-download it at https://moodle.org/plugins/view.php?plugin=mod_ejsapp, in the plugins section in the
-Moodle.org webpage or at https://github.com/UNEDLabs.
+This block needs the ejsapp module to be of any use. You can find and download it at
+https://moodle.org/plugins/view.php?plugin=mod_ejsapp, in the plugins section in the Moodle.org webpage, or at
+https://github.com/UNEDLabs.
 
 5. Authors
 ==========
