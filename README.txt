@@ -1,6 +1,6 @@
-#############################
-# EJSApp Collab Session 2.0 #
-#############################
+#########################
+# EJSApp Collab Session #
+#########################
 
 https://zenodo.org/badge/latestdoi/18948/UNEDLabs/moodle-block_ejsapp_collab_session
 DOI: 10.5281/zenodo.33841
@@ -34,8 +34,6 @@ downloaded it from Moodle.org, then you are fine.
 
 This is a block plugin for Moodle so you should place the ejsapp_collab_session folder in your /blocks folder, inside
 your Moodle installation directory.
-
-This block has been tested in Moodle 2.7, 2.8 and 2.9.
 
 4. Dependencies
 ===============
