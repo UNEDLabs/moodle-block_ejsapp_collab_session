@@ -313,9 +313,10 @@ function get_all_collaborative_lab_records($course) {
 	} else {
 		$all_ejsapp_in_course = $DB->get_records('ejsapp', array('course'=>$course, 'is_rem_lab'=>'1'));
 		foreach ($all_ejsapp_in_course as $ejsapp_in_course) {
-			$practice_intro = $DB->get_field('block_remlab_manager_exp2prc', 'practiceintro', array('ejsappid'=>$ejsapp_in_course->id));
+			/*$practice_intro = $DB->get_field('block_remlab_manager_exp2prc', 'practiceintro', array('ejsappid'=>$ejsapp_in_course->id));
 			$sarlab_collab = $DB->get_field('block_remlab_manager_conf', 'sarlabcollab', array('practiceintro' => $practice_intro));
-			if ($sarlab_collab == 1) $records2[] = $DB->get_record('ejsapp', array('id'=>$ejsapp_in_course->id));
+			if ($sarlab_collab == 1) $records2[] = $DB->get_record('ejsapp', array('id'=>$ejsapp_in_course->id));*/
+            $records2[] = $DB->get_record('ejsapp', array('id'=>$ejsapp_in_course->id));
 		}
 	}
 	if (isset($records2)) $records = array_merge($records, $records2);
