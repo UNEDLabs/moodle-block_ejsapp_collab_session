@@ -121,7 +121,7 @@ if (is_the_user_participating_in_any_session()) {
         }
     }
 
-    $collaborative_lab_records = get_all_collaborative_lab_records($courseid);
+    $collaborative_lab_records = $DB->get_records('ejsapp', array('is_collaborative'=>'1', 'course'=>$course));
     $collaborative_lab_records = get_available_collab_lab_records($collaborative_lab_records);
     $i = 1;
     $multilang = new filter_multilang($context_course, array('filter_multilang_force_old'=>0));

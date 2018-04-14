@@ -70,7 +70,7 @@ class block_ejsapp_collab_session extends block_list {
 
         // if there aren't collaborative labs then hide the block
         $courseid = $this->page->course->id;
-        $collaborative_lab_records = get_all_collaborative_lab_records($courseid);
+        $collaborative_lab_records = $DB->get_records('ejsapp', array('is_collaborative'=>'1', 'course'=>$courseid));
         if (count($collaborative_lab_records) == 0) {
             return $this->content;
         }
