@@ -268,6 +268,7 @@ function get_sessions_where_i_am_invited(){
  *
  * @param int $user id of user
  * @return string user name
+ * @throws
  */
 function get_user_name($user){
 	global $DB;
@@ -292,6 +293,7 @@ function delete_non_master_user_from_collaborative_users(){
  *
  * @param array $collaborative_lab_records database records of collaborative labs
  * @return array collaborative_lab_records
+ * @throws
  */
 function get_available_collab_lab_records($collaborative_lab_records) {
 	global $DB;
@@ -306,8 +308,8 @@ function get_available_collab_lab_records($collaborative_lab_records) {
 			$remlab_conf = $remote_lab_access->remlab_conf;
 			$repeated_ejsapp_labs = $remote_lab_access->repeated_ejsapp_labs;
 			if ($remote_lab_access->allow_free_access && $remote_lab_access->operative) {
-				$remote_lab_time = remote_lab_use_time_info($remlab_conf, $repeated_ejsapp_labs);
-				$lab_status = get_lab_status($remote_lab_time->time_information, $remlab_conf->reboottime, get_config('mod_ejsapp', 'check_activity'));
+				$remote_lab_time = remote_lab_use_time_info($repeated_ejsapp_labs);
+				$lab_status = get_lab_status($remote_lab_time, $remlab_conf->reboottime, get_config('mod_ejsapp', 'check_activity'));
 				if ($lab_status == 'available') $available_collaborative_lab_records[] =  $collaborative_lab_record;
 			} else {
 				if ($remote_lab_access->operative) { // TODO: more checks needed
