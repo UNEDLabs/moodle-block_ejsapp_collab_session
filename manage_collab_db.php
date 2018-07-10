@@ -306,11 +306,10 @@ function get_available_collab_lab_records($collaborative_lab_records) {
 			$course = $DB->get_record('course', array('id' => $collaborative_lab_record->course), '*', MUST_EXIST);
 			$remote_lab_access = remote_lab_access_info($collaborative_lab_record, $course);
 			$remlab_conf = $remote_lab_access->remlab_conf;
-			$repeated_ejsapp_labs = $remote_lab_access->repeated_ejsapp_labs;
 			if ($remote_lab_access->allow_free_access && $remote_lab_access->operative) {
-				$remote_lab_time = remote_lab_use_time_info($repeated_ejsapp_labs);
-				$lab_status = get_lab_status($remote_lab_time, $remlab_conf->reboottime, get_config('mod_ejsapp', 'check_activity'));
-				if ($lab_status == 'available') $available_collaborative_lab_records[] =  $collaborative_lab_record;
+				if ($remlab_conf->usestate == 'available') {
+				    $available_collaborative_lab_records[] =  $collaborative_lab_record;
+                }
 			} else {
 				if ($remote_lab_access->operative) { // TODO: more checks needed
 					$available_collaborative_lab_records[] =  $collaborative_lab_record;
