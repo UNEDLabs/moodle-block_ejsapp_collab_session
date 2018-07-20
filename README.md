@@ -1,6 +1,6 @@
-(Zenodo)[https://zenodo.org/badge/latestdoi/18948/UNEDLabs/moodle-block_ejsapp_collab_session]
+[Zenodo](https://zenodo.org/badge/latestdoi/18948/UNEDLabs/moodle-block_ejsapp_collab_session)
 
-(DOI)[10.5281/zenodo.33841]
+[DOI](10.5281/zenodo.33841)
 
 ## 1. Content
 
