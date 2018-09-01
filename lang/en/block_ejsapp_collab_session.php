@@ -91,3 +91,6 @@ $string['sarlab_instance_help'] = "The order corresponds to the one used for the
 //Capabilities
 $string['ejsapp_collab_session:addinstance'] = 'Add a new EJSApp block for collaborative sessions';
 $string['ejsapp_collab_session:myaddinstance'] = 'Add a new EJSApp block for collaborative sessions to My home';
+
+//Privacy
+$string['privacy:metadata'] = 'The EJSApp Collab Session block only configures collab sessions between users.';
