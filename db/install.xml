@@ -24,6 +24,8 @@
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+                <KEY NAME="ejsapp" TYPE="foreign" FIELDS="ejsapp" REFTABLE="ejsapp" REFFIELDS="id"/>
+                <KEY NAME="course" TYPE="foreign" FIELDS="course" REFTABLE="course" REFFIELDS="id"/>
             </KEYS>
         </TABLE>
         <TABLE NAME="ejsapp_collab_invitations" COMMENT="Gives a relation of active collaborative sessions invitations for each user"
