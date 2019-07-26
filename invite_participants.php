@@ -121,7 +121,7 @@ if (is_the_user_participating_in_any_session()) {
         }
     }
 
-    $collaborative_lab_records = $DB->get_records('ejsapp', array('is_collaborative'=>'1', 'course'=>$course));
+    $collaborative_lab_records = $DB->get_records('ejsapp', array('is_collaborative'=>'1', 'course'=>$courseid));
     $collaborative_lab_records = get_available_collab_lab_records($collaborative_lab_records);
     $i = 1;
     $multilang = new filter_multilang($context_course, array('filter_multilang_force_old'=>0));
@@ -134,9 +134,8 @@ if (is_the_user_participating_in_any_session()) {
     }
 
     $practiceintro =  $DB->get_field('block_remlab_manager_exp2prc', 'practiceintro', array('ejsappid' => $labid));
-    $sarlab_collab_conf = $DB->get_field('block_remlab_manager_conf', 'sarlabcollab', array('practiceintro' => $practiceintro));
 
-    if ($sarlab_collab_conf == 1 && get_config('block_ejsapp_collab_session', 'Use_Sarlab') == 1) {
+    if (get_config('block_ejsapp_collab_session', 'Use_Sarlab') == 1) {
         $sarlab_collab_instance = $DB->get_field('block_remlab_manager_conf', 'sarlabinstance', array('practiceintro' => $practiceintro));
         $sarlab_collab_ips = explode(";", get_config('block_ejsapp_collab_session', 'Collab_Sarlab_IP'));
         $ip = substr($sarlab_collab_ips[$sarlab_collab_instance], strrpos($sarlab_collab_ips[$sarlab_collab_instance], "'"));
@@ -679,7 +678,6 @@ if (is_the_user_participating_in_any_session()) {
     echo html_writer::empty_tag('br') . html_writer::div($contents,'buttons');
 
     $module = array('name' => 'core_user', 'fullpath' => '/user/module.js');
-    $PAGE->requires->js_init_call('M.core_user.init_participation', null, false, $module);
 
     if (has_capability('moodle/site:viewparticipants', $context) && $totalcount > ($perpage * 3)) {
         echo html_writer::start_tag('form', array('action'=>'invite_participants.php', 'class'=>'searchform'));
