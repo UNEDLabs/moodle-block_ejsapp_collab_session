@@ -121,14 +121,14 @@ if (is_the_user_participating_in_any_session()) {
         }
     }
 
-    $collaborative_lab_records = $DB->get_records('ejsapp', array('is_collaborative'=>'1', 'course'=>$courseid));
-    $collaborative_lab_records = get_available_collab_lab_records($collaborative_lab_records);
+    $lab_records = $DB->get_records('ejsapp', array('course'=>$courseid));
+    $lab_records = get_available_collab_lab_records($lab_records);
     $i = 1;
     $multilang = new filter_multilang($context_course, array('filter_multilang_force_old'=>0));
-    foreach ($collaborative_lab_records as $collaborative_lab_record) {
-        $lab_name[$collaborative_lab_record->id] = $multilang->filter($collaborative_lab_record->name);
+    foreach ($lab_records as $lab_record) {
+        $lab_name[$lab_record->id] = $multilang->filter($lab_record->name);
         if ($i == 1 && $labid == 0) {
-            $labid = $collaborative_lab_record->id;
+            $labid = $lab_record->id;
         }
         $i++;
     }
