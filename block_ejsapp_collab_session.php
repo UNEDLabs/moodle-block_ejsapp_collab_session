@@ -50,11 +50,11 @@ class block_ejsapp_collab_session extends block_list {
     }
 
     public function specialization() {
-        if (empty($this->config->use_sarlab)) $this->use_sarlab = '0';
-        else $this->use_sarlab = $this->config->use_sarlab;
+        if (empty($this->config->use_enlarge)) $this->use_enlarge = '0';
+        else $this->use_enlarge = $this->config->use_enlarge;
 
-        if (empty($this->config->sarlab_instance)) $this->sarlab_instance = '0';
-        else $this->sarlab_instance = $this->config->sarlab_instance;
+        if (empty($this->config->enlarge_instance)) $this->enlarge_instance = '0';
+        else $this->enlarge_instance = $this->config->enlarge_instance;
     }
 
     /**

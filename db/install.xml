@@ -12,8 +12,8 @@
                        COMMENT="The IP invited users must use to connect to the collab session" PREVIOUS="id"
                        NEXT="localport"/>
                 <FIELD NAME="localport" TYPE="int" LENGTH="8" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="ip"
-                       NEXT="sarlabport"/>
-                <FIELD NAME="sarlabport" TYPE="int" LENGTH="8" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="localport"
+                       NEXT="enlargeport"/>
+                <FIELD NAME="enlargeport" TYPE="int" LENGTH="8" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="localport"
                        NEXT="course"/>
                 <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"
                        COMMENT="Course ejsapp activity belongs to" PREVIOUS="port" NEXT="ejsapp"/>

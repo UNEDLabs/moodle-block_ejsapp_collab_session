@@ -37,37 +37,37 @@ class block_ejsapp_collab_session_edit_form extends block_edit_form {
 
     protected function specific_definition($mform) {
 
-        if (get_config('block_ejsapp_collab_session', 'Use_Sarlab') == 1) {
-            $mform->addElement('header', 'sarlab_header', get_string('sarlab_header', 'block_ejsapp_collab_session'));
+        if (get_config('block_ejsapp_collab_session', 'Use_enlarge') == 1) {
+            $mform->addElement('header', 'enlarge_header', get_string('enlarge_header', 'block_ejsapp_collab_session'));
 
-            $mform->addElement('selectyesno', 'config_use_sarlab', get_string('use_sarlab', 'block_ejsapp_collab_session'));
-            $mform->setDefault('config_use_sarlab', '0');
-            $mform->setType('config_use_sarlab', PARAM_INT);
+            $mform->addElement('selectyesno', 'config_use_enlarge', get_string('use_enlarge', 'block_ejsapp_collab_session'));
+            $mform->setDefault('config_use_enlarge', '0');
+            $mform->setType('config_use_enlarge', PARAM_INT);
 
-            $list_sarlab_IPs = explode(";", get_config('block_ejsapp_collab_session', 'Collab_Sarlab_IP'));
-            if(is_array($list_sarlab_IPs)) $sarlab_IP = $list_sarlab_IPs[0];
-            else  $sarlab_IP = get_config('block_ejsapp_collab_session', 'Collab_Sarlab_IP');
-            $init_pos = strpos($sarlab_IP, "'");
-            $end_pos = strrpos($sarlab_IP, "'");
+            $list_enlarge_IPs = explode(";", get_config('block_ejsapp_collab_session', 'Collab_enlarge_IP'));
+            if(is_array($list_enlarge_IPs)) $enlarge_IP = $list_enlarge_IPs[0];
+            else  $enlarge_IP = get_config('block_ejsapp_collab_session', 'Collab_enlarge_IP');
+            $init_pos = strpos($enlarge_IP, "'");
+            $end_pos = strrpos($enlarge_IP, "'");
             if(($init_pos === false) || ($init_pos === $end_pos)) {
-                $sarlab_instance_options = array('ENLARGE server 1');
+                $enlarge_instance_options = array('ENLARGE server 1');
             } else {
-                $sarlab_instance_options = array(substr($sarlab_IP,$init_pos+1,$end_pos-$init_pos-1));
+                $enlarge_instance_options = array(substr($enlarge_IP,$init_pos+1,$end_pos-$init_pos-1));
             }
-            for ($i = 1; $i < count($list_sarlab_IPs); $i++) {
-                $sarlab_instance_options_temp = $list_sarlab_IPs[$i];
-                $init_pos = strpos($sarlab_instance_options_temp, "'");
-                $end_pos = strrpos($sarlab_instance_options_temp, "'");
+            for ($i = 1; $i < count($list_enlarge_IPs); $i++) {
+                $enlarge_instance_options_temp = $list_enlarge_IPs[$i];
+                $init_pos = strpos($enlarge_instance_options_temp, "'");
+                $end_pos = strrpos($enlarge_instance_options_temp, "'");
                 if(($init_pos === false) || ($init_pos === $end_pos)) {
-                    array_push($sarlab_instance_options, 'ENLARGE server ' . ($i+1));
+                    array_push($enlarge_instance_options, 'ENLARGE server ' . ($i+1));
                 } else {
-                    array_push($sarlab_instance_options, substr($sarlab_instance_options_temp,$init_pos+1,$end_pos-$init_pos-1));
+                    array_push($enlarge_instance_options, substr($enlarge_instance_options_temp,$init_pos+1,$end_pos-$init_pos-1));
                 }
             }
 
-            $mform->addElement('select', 'config_sarlab_instance', get_string('sarlab_instance', 'block_ejsapp_collab_session'), $sarlab_instance_options);
-            $mform->disabledIf('config_sarlab_instance', 'config_use_sarlab', 'eq', 0);
-            $mform->setDefault('config_sarlab_instance', '0');
+            $mform->addElement('select', 'config_enlarge_instance', get_string('enlarge_instance', 'block_ejsapp_collab_session'), $enlarge_instance_options);
+            $mform->disabledIf('config_enlarge_instance', 'config_use_enlarge', 'eq', 0);
+            $mform->setDefault('config_enlarge_instance', '0');
         }
 
     }

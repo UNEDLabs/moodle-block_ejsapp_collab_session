@@ -139,18 +139,18 @@ if (is_the_user_participating_in_any_session()) {
         $enlarge_collab_instance = $DB->get_field('block_remlab_manager_conf', 'enlargeinstance', array('practiceintro' => $practiceintro));
         $enlarge_collab_ips = explode(";", get_config('block_ejsapp_collab_session', 'Collab_enlarge_IP'));
         $ip = substr($enlarge_collab_ips[$enlarge_collab_instance], strrpos($enlarge_collab_ips[$enlarge_collab_instance], "'"));
-        $sarlab_collab_ports = explode(";", get_config('block_ejsapp_collab_session', 'Collab_Sarlab_Port'));
-        $sarlabport = $sarlab_collab_ports[$sarlab_collab_instance];
+        $enlarge_collab_ports = explode(";", get_config('block_ejsapp_collab_session', 'Collab_enlarge_Port'));
+        $enlargeport = $enlarge_collab_ports[$enlarge_collab_instance];
         $localport = 8079; //49999 //79
         do {
             $localport++;
             $sql = "SELECT * FROM {ejsapp_collab_sessions} WHERE ip = ' $ip 'AND localport = $localport";
         } while ($DB->get_record_sql($sql));
     } else {
-        $sarlab_collab_instance = 0;
+        $enlarge_collab_instance = 0;
         $ip = $_SERVER['REMOTE_ADDR'];
         $localport = get_config('block_ejsapp_collab_session', 'collaborative_port');
-        $sarlabport = 0;
+        $enlargeport = 0;
     }
 
     $context = context_course::instance($courseid);
@@ -585,7 +585,7 @@ if (is_the_user_participating_in_any_session()) {
         }
     }
 
-    echo html_writer::start_tag('form', array('action'=>"send_messages.php?courseid=$courseid&contextid=$contextid&labid=$labid&localport=$localport&ip=$ip&sarlabport=$sarlabport&sarlab_collab_conf=$sarlab_collab_conf", 'method'=>'post', 'id'=>'participantsform')) .
+    echo html_writer::start_tag('form', array('action'=>"send_messages.php?courseid=$courseid&contextid=$contextid&labid=$labid&localport=$localport&ip=$ip&enlargeport=$enlargeport&enlarge_collab_conf=$enlarge_collab_conf", 'method'=>'post', 'id'=>'participantsform')) .
          html_writer::empty_tag('input', array('type'=>'hidden', 'name'=>'sesskey', 'value'=>sesskey())) . html_writer::empty_tag('input', array('type'=>'hidden', 'name'=>'returnto', 'value'=>'s(me())'));
 
     $countrysort = (strpos($sort, 'country') !== false);
