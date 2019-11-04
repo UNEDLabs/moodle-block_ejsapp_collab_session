@@ -71,22 +71,22 @@ $string['selectLabBut'] = 'Seleccione un laboratorio';
 $string['pageTitle']='Sesi&oacute;n Colaborativa de Laboratorio';
 
 //settings.php:
-$string['default_options_config'] = 'Configurar la opciones de comunicaci&oacute;n por defecto (sin usar Sarlab) para las sesiones colaborativas';
+$string['default_options_config'] = 'Configurar la opciones de comunicaci&oacute;n por defecto (sin usar ENLARGE) para las sesiones colaborativas';
 $string['collaborative_port'] = 'Puerto para las sesiones colaborativas';
-$string['collaborative_port_description'] = 'Puerto usado para establecer la comunicacis&oacute;n en las sesiones colaborativas cuando no se usa Sarlab';
-$string['sarlab_header_config'] = 'Configurar las opciones de Sarlab para todas las instancias del bloque';
-$string['using_sarlab'] = 'Permitir usar Sarlab en las sesiones colaborativas?';
-$string['using_sarlab_help'] = 'Esta opci&oacute;n permite usar Sarlab para enrutar las comunicaciones en las sesiones colaborativas.';
-$string['sarlab_IP'] = "Nombre y direcci&aacute;n IP del servidor Sarlab";
-$string['sarlab_IP_description'] = "Si quiere usar Sarlab para establecer las comunaciones en las sesiones colaborativas, debe proporcionar la direcci&oacute;n IP del servidor que ejecuta el sistema Sarlab que desea utilizar. En caso contrario, esta variable no se usa, de modo que puede dejar el valor por defecto. Si tiene m&aacute;s de un servidor Sarlab (por ejemplo, uno en 127.0.0.1 y otro en 127.0.0.2), inserte las direcciones IP separadas por puntos y comas: 127.0.0.1;127.0.0.2. Adem&aacute;s, puede proporcionar un nombre para identificar cada servidor Sarlab: 'Sarlab Madrid'127.0.0.1;'Sarlab Huelva'127.0.0.2";
-$string['sarlab_port'] = "Puerto(s) de comunicaci&oacute;n con Sarlab";
-$string['sarlab_port_description'] = "Si quiere usar Sarlab para establecer las comunaciones en las sesiones colaborativas, debe proporcionar un puerto v&aacute;lido para establecer las comunicaciones necesarias con el servidor de Sarlab. En caso contrario, esta variable no se usa, de modo que puede dejar el valor por defecto.  Si tiene m&aacute;s de un servidor Sarlab (por ejemplo, uno usando el puerto 443 y un segundo usando tambi&eacute;n el puerto 443), inserte los valores separados por puntos y comas: 443;443";
+$string['collaborative_port_description'] = 'Puerto usado para establecer la comunicacis&oacute;n en las sesiones colaborativas cuando no se usa ENLARGE';
+$string['enlarge_header_config'] = 'Configurar las opciones de ENLARGE para todas las instancias del bloque';
+$string['using_enlarge'] = 'Permitir usar ENLARGE en las sesiones colaborativas?';
+$string['using_enlarge_help'] = 'Esta opci&oacute;n permite usar ENLARGE para enrutar las comunicaciones en las sesiones colaborativas.';
+$string['enlarge_IP'] = "Nombre y direcci&aacute;n IP del servidor ENLARGE";
+$string['enlarge_IP_description'] = "Si quiere usar ENLARGE para establecer las comunaciones en las sesiones colaborativas, debe proporcionar la direcci&oacute;n IP del servidor que ejecuta el sistema ENLARGE que desea utilizar. En caso contrario, esta variable no se usa, de modo que puede dejar el valor por defecto. Si tiene m&aacute;s de un servidor ENLARGE (por ejemplo, uno en 127.0.0.1 y otro en 127.0.0.2), inserte las direcciones IP separadas por puntos y comas: 127.0.0.1;127.0.0.2. Adem&aacute;s, puede proporcionar un nombre para identificar cada servidor ENLARGE: 'ENLARGE Madrid'127.0.0.1;'ENLARGE Huelva'127.0.0.2";
+$string['enlarge_port'] = "Puerto(s) de comunicaci&oacute;n con ENLARGE";
+$string['enlarge_port_description'] = "Si quiere usar ENLARGE para establecer las comunaciones en las sesiones colaborativas, debe proporcionar un puerto v&aacute;lido para establecer las comunicaciones necesarias con el servidor de ENLARGE. En caso contrario, esta variable no se usa, de modo que puede dejar el valor por defecto.  Si tiene m&aacute;s de un servidor ENLARGE (por ejemplo, uno usando el puerto 443 y un segundo usando tambi&eacute;n el puerto 443), inserte los valores separados por puntos y comas: 443;443";
 
 //edit_form.php:
-$string['sarlab_header'] = 'Configurar Sarlab para esta instancia del bloque';
-$string['use_sarlab'] = 'Usar Sarlab en sesiones colaborativas?';
-$string['sarlab_instance'] = "Servidor Sarlab para las sesiones colaborativas";
-$string['sarlab_instance_help'] = "El orden se corresponde con aquel usado para los valores en las variables sarlab_IP y sarlab_port fijados en la p&aacute;gina de configuraci&oacute;n del bloque";
+$string['enlarge_header'] = 'Configurar ENLARGE para esta instancia del bloque';
+$string['use_enlarge'] = 'Usar ENLARGE en sesiones colaborativas?';
+$string['enlarge_instance'] = "Servidor ENLARGE para las sesiones colaborativas";
+$string['enlarge_instance_help'] = "El orden se corresponde con aquel usado para los valores en las variables enlarge_IP y enlarge_port fijados en la p&aacute;gina de configuraci&oacute;n del bloque";
 
 //Capabilities
 $string['ejsapp_collab_session:addinstance'] = 'Añadir un nuevo bloque EJSApp para sesiones colaborativas';

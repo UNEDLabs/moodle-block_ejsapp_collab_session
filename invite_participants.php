@@ -135,10 +135,10 @@ if (is_the_user_participating_in_any_session()) {
 
     $practiceintro =  $DB->get_field('block_remlab_manager_exp2prc', 'practiceintro', array('ejsappid' => $labid));
 
-    if (get_config('block_ejsapp_collab_session', 'Use_Sarlab') == 1) {
-        $sarlab_collab_instance = $DB->get_field('block_remlab_manager_conf', 'sarlabinstance', array('practiceintro' => $practiceintro));
-        $sarlab_collab_ips = explode(";", get_config('block_ejsapp_collab_session', 'Collab_Sarlab_IP'));
-        $ip = substr($sarlab_collab_ips[$sarlab_collab_instance], strrpos($sarlab_collab_ips[$sarlab_collab_instance], "'"));
+    if (get_config('block_ejsapp_collab_session', 'Use_Enlarge') == 1) {
+        $enlarge_collab_instance = $DB->get_field('block_remlab_manager_conf', 'enlargeinstance', array('practiceintro' => $practiceintro));
+        $enlarge_collab_ips = explode(";", get_config('block_ejsapp_collab_session', 'Collab_enlarge_IP'));
+        $ip = substr($enlarge_collab_ips[$enlarge_collab_instance], strrpos($enlarge_collab_ips[$enlarge_collab_instance], "'"));
         $sarlab_collab_ports = explode(";", get_config('block_ejsapp_collab_session', 'Collab_Sarlab_Port'));
         $sarlabport = $sarlab_collab_ports[$sarlab_collab_instance];
         $localport = 8079; //49999 //79

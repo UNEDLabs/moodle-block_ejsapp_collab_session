@@ -50,7 +50,7 @@ class block_ejsapp_collab_session_edit_form extends block_edit_form {
             $init_pos = strpos($sarlab_IP, "'");
             $end_pos = strrpos($sarlab_IP, "'");
             if(($init_pos === false) || ($init_pos === $end_pos)) {
-                $sarlab_instance_options = array('Sarlab server 1');
+                $sarlab_instance_options = array('ENLARGE server 1');
             } else {
                 $sarlab_instance_options = array(substr($sarlab_IP,$init_pos+1,$end_pos-$init_pos-1));
             }
@@ -59,7 +59,7 @@ class block_ejsapp_collab_session_edit_form extends block_edit_form {
                 $init_pos = strpos($sarlab_instance_options_temp, "'");
                 $end_pos = strrpos($sarlab_instance_options_temp, "'");
                 if(($init_pos === false) || ($init_pos === $end_pos)) {
-                    array_push($sarlab_instance_options, 'Sarlab server ' . ($i+1));
+                    array_push($sarlab_instance_options, 'ENLARGE server ' . ($i+1));
                 } else {
                     array_push($sarlab_instance_options, substr($sarlab_instance_options_temp,$init_pos+1,$end_pos-$init_pos-1));
                 }

@@ -63,11 +63,11 @@ function has_the_user_been_invited_to_any_session(){
  * @param int $ejsapp id of the EJS simulation to be shared
  * @param int $master_user id of the master user
  * @param int $ip connection ip of the session director
- * @param int $sarlabport connection port of the sarlab server
- * @param int $using_sarlab whether sarlab is used or not
+ * @param int $enlargeport connection port of the ENLARGE server
+ * @param int $using_enlarge whether ENLARGE is used or not
  * @param int $course id of the course that includes the collaborative EJS simulation
  */
-function insert_collaborative_session($localport, $ejsapp, $master_user, $ip, $sarlabport, $using_sarlab, $course){
+function insert_collaborative_session($localport, $ejsapp, $master_user, $ip, $enlargeport, $using_enlarge, $course){
 	global $DB;
 
 	// if the session exists do nothing
@@ -78,8 +78,8 @@ function insert_collaborative_session($localport, $ejsapp, $master_user, $ip, $s
     $collab_session = new stdClass();
     $collab_session->ip = $ip;
     $collab_session->localport = $localport;
-    $collab_session->using_sarlab = $using_sarlab;
-    $collab_session->sarlabport = $sarlabport;
+    $collab_session->using_enlarge = $using_enlarge;
+    $collab_session->enlargeport = $enlargeport;
     $collab_session->ejsapp = $ejsapp;
     $collab_session->master_user = $master_user;
     $collab_session->course = $course;

@@ -25,7 +25,7 @@
 //       of Alicante, Spain
 
 /**
- * File for configuring the block instances (selecting the Sarlab server in charge o routing for collaborative sessions)
+ * File for configuring the block instances (selecting the ENLARGE server in charge o routing for collaborative sessions)
  *
  * @package    block
  * @subpackage ejsapp_collab_session
@@ -52,32 +52,32 @@ if ($ADMIN->fulltree) {
     ));
 
     $settings->add(new admin_setting_heading(
-        'block_sarlab_header_config',
-        get_string('sarlab_header_config', 'block_ejsapp_collab_session'),
+        'block_enlarge_header_config',
+        get_string('enlarge_header_config', 'block_ejsapp_collab_session'),
         ''
     ));
 
     $settings->add(new admin_setting_configselect(
-        'block_ejsapp_collab_session/Use_Sarlab',
-        get_string('using_sarlab', 'block_ejsapp_collab_session'),
-        get_string('using_sarlab_help', 'block_ejsapp_collab_session'),
+        'block_ejsapp_collab_session/Use_Enlarge',
+        get_string('using_enlarge', 'block_ejsapp_collab_session'),
+        get_string('using_enlarge_help', 'block_ejsapp_collab_session'),
         0,
         array('No', 'Yes')
     ));
 
     $settings->add(new admin_setting_configtext(
-        'block_ejsapp_collab_session/Collab_Sarlab_IP',
-        get_string('sarlab_IP', 'block_ejsapp_collab_session'),
-        get_string('sarlab_IP_description', 'block_ejsapp_collab_session'),
+        'block_ejsapp_collab_session/Collab_Enlarge_IP',
+        get_string('enlarge_IP', 'block_ejsapp_collab_session'),
+        get_string('enlarge_IP_description', 'block_ejsapp_collab_session'),
         '127.0.0.1',
         PARAM_TEXT,
         '13'
     ));
 
     $settings->add(new admin_setting_configtext(
-        'block_ejsapp_collab_session/Collab_Sarlab_Port',
-        get_string('sarlab_port', 'block_ejsapp_collab_session'),
-        get_string('sarlab_port_description', 'block_ejsapp_collab_session'),
+        'block_ejsapp_collab_session/Collab_Enlarge_Port',
+        get_string('enlarge_port', 'block_ejsapp_collab_session'),
+        get_string('enlarge_port_description', 'block_ejsapp_collab_session'),
         443,
         PARAM_INT,
         '2'
