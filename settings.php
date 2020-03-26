@@ -64,22 +64,4 @@ if ($ADMIN->fulltree) {
         0,
         array('No', 'Yes')
     ));
-
-    $settings->add(new admin_setting_configtext(
-        'block_ejsapp_collab_session/Collab_Enlarge_IP',
-        get_string('enlarge_IP', 'block_ejsapp_collab_session'),
-        get_string('enlarge_IP_description', 'block_ejsapp_collab_session'),
-        '127.0.0.1',
-        PARAM_TEXT,
-        '13'
-    ));
-
-    $settings->add(new admin_setting_configtext(
-        'block_ejsapp_collab_session/Collab_Enlarge_Port',
-        get_string('enlarge_port', 'block_ejsapp_collab_session'),
-        get_string('enlarge_port_description', 'block_ejsapp_collab_session'),
-        443,
-        PARAM_INT,
-        '2'
-    ));
 }

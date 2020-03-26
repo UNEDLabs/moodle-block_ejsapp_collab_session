@@ -139,8 +139,7 @@ if (is_the_user_participating_in_any_session()) {
         $enlarge_collab_instance = $DB->get_field('block_remlab_manager_conf', 'enlargeinstance', array('practiceintro' => $practiceintro));
         $enlarge_collab_ips = explode(";", get_config('block_ejsapp_collab_session', 'Collab_enlarge_IP'));
         $ip = substr($enlarge_collab_ips[$enlarge_collab_instance], strrpos($enlarge_collab_ips[$enlarge_collab_instance], "'"));
-        $enlarge_collab_ports = explode(";", get_config('block_ejsapp_collab_session', 'Collab_enlarge_Port'));
-        $enlargeport = $enlarge_collab_ports[$enlarge_collab_instance];
+        $enlargeport = 443;
         $localport = 8079; //49999 //79
         do {
             $localport++;

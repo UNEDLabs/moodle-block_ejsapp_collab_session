@@ -77,16 +77,12 @@ $string['collaborative_port_description'] = 'Port used to establish communicatio
 $string['enlarge_header_config'] = 'Configure ENLARGE settings for all the block instances';
 $string['using_enlarge'] = 'Allow using ENLARGE in collaborative sessions?';
 $string['using_enlarge_help'] = 'This option enables to use ENLARGE for routing connections in collaborative sessions.';
-$string['enlarge_IP'] = "Name and IP address of the ENLARGE server(s)";
-$string['enlarge_IP_description'] = "If you want to use ENLARGE to establish the communication in the collaborative sessions, you need to provide the IP address of the server that runs the ENLARGE system you want to use. Otherwise, this value will not be used, so you can leave the default value. If you have more than one ENLARGE server (for example, one at 127.0.0.1 and a second one at 127.0.0.2), insert the IP addresses separated by semicolons: 127.0.0.1;127.0.0.2. Additionally, you can provide a name in order to identify each ENLARGE server: 'ENLARGE Madrid'127.0.0.1;'ENLARGE Huelva'127.0.0.2";
-$string['enlarge_port'] = "ENLARGE communication port(s)";
-$string['enlarge_port_description'] = "If you want to use ENLARGE to establish the communication in the collaborative sessions, you need to provide a valid port for establishing the communications with the ENLARGE server. Otherwise, this value will not be used, so you can leave the default value. If you have more than one ENLARGE server (for example, one using port 443 and a second one also using port 443), insert the values separated by semicolons: 443;443";
 
 //edit_form.php:
 $string['enlarge_header'] = 'Configure ENLARGE for this block instance';
 $string['use_enlarge'] = 'Use ENLARGE in collaborative sessions?';
 $string['enlarge_instance'] = "ENLARGE server for the collab sessions";
-$string['enlarge_instance_help'] = "The order corresponds to the one used for the values in the enlarge_IP and enlarge_port variables configured at the block settings page";
+$string['enlarge_instance_help'] = "The order corresponds to the one used for the values in the myFrontier_IP variable configured at the Remlab Manager block settings page";
 
 //Capabilities
 $string['ejsapp_collab_session:addinstance'] = 'Add a new EJSApp block for collaborative sessions';
