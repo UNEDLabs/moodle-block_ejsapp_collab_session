@@ -9,6 +9,10 @@ Java/Javascript Simulations (EjsS) and added to your Moodle course by means of t
 
 The Javascript applications should have been created with version 5.2 (build 20150613 or later) of EjsS to work properly.
 
+NOTE: This block plugin does not allow collaborative lab sessions with EJSApp javascript applications on its own. If you
+are interested in this feature, you will need: 1) the ENLARGE system (visit https://www.nebsyst.com and https://irs.nebsyst.com)
+and 2) an updated commercial version of this plugin (contact Nebulous Systems for more information).
+
 ## 2. License
 
 EJSApp Collab Session is free software: you can redistribute it and/or modify it under the terms of the GNU General
