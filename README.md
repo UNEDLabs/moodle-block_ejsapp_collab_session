@@ -11,7 +11,7 @@ The Javascript applications should have been created with version 5.2 (build 201
 
 NOTE: This block plugin does not allow collaborative lab sessions with EJSApp javascript applications on its own. If you
 are interested in this feature, you will need: 1) the ENLARGE system (visit https://www.nebsyst.com and https://irs.nebsyst.com)
-and 2) an updated commercial version of this plugin (contact Nebulous Systems for more information).
+and 2) an updated commercial version of this plugin (contact Nebulous Systems for more information: contact@nebsyst.com).
 
 ## 2. License
 
